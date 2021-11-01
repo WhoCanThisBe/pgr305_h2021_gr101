@@ -1,8 +1,15 @@
-const MaleHome = () =>{
+import ClothesList from "../components/Clothes/ClothesList";
+import { FC } from "react";
 
-    return(
-        <h1>male</h1>
-    )
-}
+type Props = {};
+
+const MaleHome: FC<Props> = () => {
+  return (
+    <>
+      <h1>Male</h1>
+      <ClothesList filter={"male"} />
+    </>
+  );
+};
 
 export default MaleHome;
