@@ -41,30 +41,6 @@ const Routing: FC = () => {
           />
           {/*TODO: Fix a better 404 when you have time*/}
           <Route render={() => <h3>404 :(</h3>} />
-          {/*<Route*/}
-          {/*  path="/female-home"*/}
-          {/*  render={() => (*/}
-          {/*    <ClothesProvider>*/}
-          {/*      <FemaleHome />*/}
-          {/*    </ClothesProvider>*/}
-          {/*  )}*/}
-          {/*/>*/}
-          {/*<Route*/}
-          {/*  path="/male-home"*/}
-          {/*  render={() => (*/}
-          {/*    <ClothesProvider>*/}
-          {/*      <MaleHome />*/}
-          {/*    </ClothesProvider>*/}
-          {/*  )}*/}
-          {/*/>*/}
-          {/*<Route*/}
-          {/*  path="/unisex-home"*/}
-          {/*  render={() => (*/}
-          {/*    <ClothesProvider>*/}
-          {/*      <UnisexHome />*/}
-          {/*    </ClothesProvider>*/}
-          {/*  )}*/}
-          {/*/>*/}
         </Switch>
       </Container>
     </BrowserRouter>
