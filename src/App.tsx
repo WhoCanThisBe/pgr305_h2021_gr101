@@ -1,13 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Routing from "./router/Routing";
 
 function App() {
   return (
     <div className="App">
-      <h1>website</h1>
-        <h2>test push</h2>
-
+        <Routing/>
     </div>
   );
 }
