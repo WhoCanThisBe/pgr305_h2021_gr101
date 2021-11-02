@@ -2,14 +2,15 @@ import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import logo from '../Images/logo.svg'
 import {Link} from "react-router-dom";
 
-const NavigationBar = () =>{
-
+const NavigationBar = () => {
     return(
         <div >
             <Navbar bg="myGrey menuOpt" variant="dark">
                 <Navbar.Brand>
+                  <Nav.Link as={Link} to={"/"}>
                     <img src={logo} width="40px" height="40px"/>
                     Logo
+                  </Nav.Link>
                 </Navbar.Brand>
                 <Nav>
                     <Nav.Link as={Link} to={"/female-home"}> Female
