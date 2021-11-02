@@ -28,9 +28,30 @@ const NavigationBar = () => {
       evt.currentTarget as HTMLAnchorElement
     ).textContent?.toLowerCase();
 
+    // `.textContent` might be undefined, and then we don't want to continue
+    if (!selectedCategoryType) return;
+
+    // URL: /<gender>-<page>/<category> (e.g.: /female-clothing/shoes)
     const selectedClothingUrl = `${genderLinkUrls[genderEventKey]}/${selectedCategoryType}`;
 
-    history.push(selectedClothingUrl);
+    // Extract out the "gender"-part of the URL (see above)
+    const selectedGender = genderLinkUrls[genderEventKey]
+      .split("-")[0]
+      .replace("/", "");
+
+    // Found tip about index-signature typing for TypeScript here: https://basarat.gitbook.io/typescript/type-system/index-signatures
+    // Also added it in "Sources" in README.md
+    // Transforming received categories (clothes, shoes) into expected values (IProduct)
+    const categories: { [index: string]: string[] } = {
+      clothes: ["sko", "jakke", "genser", "bukse"],
+      shoes: ["sko"],
+    };
+
+    // Navigating to "ClothingPage" and passing along some values we can use there
+    history.push(selectedClothingUrl, {
+      gender: selectedGender,
+      categories: categories[selectedCategoryType],
+    });
   };
 
   return (
@@ -55,16 +76,16 @@ const NavigationBar = () => {
             Male
             <NavDropdown title="">
               <NavDropdown.Item eventKey={"2.1"}>Clothes</NavDropdown.Item>
-              <NavDropdown.Item>Shoes</NavDropdown.Item>
-              <NavDropdown.Item>Accesories</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"2.2"}>Shoes</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"2.3"}>Accesories</NavDropdown.Item>
             </NavDropdown>
           </Nav.Link>
           <Nav.Link eventKey={"3"} as={Link} to={"/unisex-home"}>
             Unisex
             <NavDropdown title="">
               <NavDropdown.Item eventKey={"3.1"}>Clothes</NavDropdown.Item>
-              <NavDropdown.Item>Shoes</NavDropdown.Item>
-              <NavDropdown.Item>Accesories</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"3.2"}>Shoes</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"3.3"}>Accesories</NavDropdown.Item>
             </NavDropdown>
           </Nav.Link>
         </Nav>

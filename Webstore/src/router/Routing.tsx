@@ -7,6 +7,7 @@ import MaleHome from "../Pages/MaleHome";
 import UnisexHome from "../Pages/UnisexHome";
 import NavigationBar from "../Navigation/NavigationBar";
 import ClothesProvider from "../Contexts/ClothesContext";
+import Clothing from "../Pages/Clothing";
 
 const Routing: FC = () => {
   return (
@@ -17,7 +18,11 @@ const Routing: FC = () => {
           <Route
             path={["/female-clothing", "/male-clothing", "/unisex-clothing"]}
             render={(props) => {
-              return <h2>{props.location.pathname}</h2>;
+              return (
+                <ClothesProvider>
+                  <Clothing {...props} />
+                </ClothesProvider>
+              );
             }}
           />
           <Route
