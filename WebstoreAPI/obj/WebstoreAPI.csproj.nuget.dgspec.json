@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wenhh\\Desktop\\PGR305_H2021\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj": {}
+    "C:\\Users\\Mathias\\Desktop\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wenhh\\Desktop\\PGR305_H2021\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj": {
+    "C:\\Users\\Mathias\\Desktop\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wenhh\\Desktop\\PGR305_H2021\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Mathias\\Desktop\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj",
         "projectName": "WebstoreAPI",
-        "projectPath": "C:\\Users\\wenhh\\Desktop\\PGR305_H2021\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj",
-        "packagesPath": "C:\\Users\\wenhh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wenhh\\Desktop\\PGR305_H2021\\pgr305_h2021_gr101\\WebstoreAPI\\obj\\",
+        "projectPath": "C:\\Users\\Mathias\\Desktop\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj",
+        "packagesPath": "C:\\Users\\Mathias\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mathias\\Desktop\\pgr305_h2021_gr101\\WebstoreAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\wenhh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Mathias\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,6 +38,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.11.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
