@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Nx9JyH/DHt4XP54+nM2YxlttOKShzUkM+1zz/GvEB/OAH7KKOwhR5O1srJNhTFqlmeXK2GElrrSxNvG/Dq7IXw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\wenhh\\Desktop\\PGR305_H2021\\pgr305_h2021_gr101\\WebstoreAPI\\WebstoreAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\wenhh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\wenhh\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\wenhh\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\wenhh\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\wenhh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\wenhh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
