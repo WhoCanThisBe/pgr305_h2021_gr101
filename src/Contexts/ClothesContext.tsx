@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { ClothesContextType } from "../types/ClothesContextType";
-import { IProduct } from "../interfaces/IProduct";
+import { IProduct } from "../Interfaces/IProduct";
 
 type Props = {
   children: React.ReactNode;

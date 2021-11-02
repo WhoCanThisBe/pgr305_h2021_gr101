@@ -1,4 +1,4 @@
-import ClothesList from "../components/Clothes/ClothesList";
+import ClothesList from "../Components/Clothes/ClothesList";
 import { FC } from "react";
 
 type Props = {};

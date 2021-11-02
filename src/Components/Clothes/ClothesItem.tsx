@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { IProduct } from "../../interfaces/IProduct";
-
+import { IProduct } from "../../Interfaces/IProduct";
 import testLogo from "../../Images/logo512.png";
 
 type Props = {

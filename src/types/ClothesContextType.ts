@@ -1,4 +1,4 @@
-import {IProduct} from "../interfaces/IProduct";
+import {IProduct} from "../Interfaces/IProduct";
 
 export type ClothesContextType = {
     clothes: IProduct[];

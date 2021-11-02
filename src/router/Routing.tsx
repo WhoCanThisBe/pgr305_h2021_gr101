@@ -6,7 +6,7 @@ import FemaleHome from "../Pages/FemaleHome";
 import MaleHome from "../Pages/MaleHome";
 import UnisexHome from "../Pages/UnisexHome";
 import NavigationBar from "../Navigation/NavigationBar";
-import ClothesProvider from "../contexts/ClothesContext";
+import ClothesProvider from "../Contexts/ClothesContext";
 
 const Routing: FC = () => {
   return (

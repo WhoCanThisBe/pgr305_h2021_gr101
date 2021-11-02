@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ClothesList from "../components/Clothes/ClothesList";
+import ClothesList from "../Components/Clothes/ClothesList";
 import { RouteComponentProps } from "react-router-dom";
 
 type Props = {};
