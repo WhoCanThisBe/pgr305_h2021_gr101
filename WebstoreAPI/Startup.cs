@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Options;
+using WebstoreAPI.Models;
+using WebstoreAPI.Services;
 
 namespace WebstoreAPI
 {
@@ -32,6 +35,27 @@ namespace WebstoreAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebstoreAPI", Version = "v1" });
             });
+
+            services.Configure<ClothesDatabaseSettings>(
+                Configuration.GetSection(nameof(ClothesDatabaseSettings))
+            );
+
+            services.AddSingleton<IClothesDatabaseSettings>(
+                sp => sp.GetRequiredService<IOptions<ClothesDatabaseSettings>>().Value
+            );
+
+            services.AddSingleton<ClothesService>();
+
+            services.AddCors(
+                options =>
+                {
+                    options.AddPolicy("AllowAny",
+                        builder => builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                    );
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +68,10 @@ namespace WebstoreAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebstoreAPI v1"));
             }
 
+            app.UseCors("AllowAny");
+            
+            // Todo legg til defaultfilesoption, useDefaultfiles, usestaticfiles
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
