@@ -1,28 +1,26 @@
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, Stack } from "react-bootstrap";
 import logo from "../Images/logo.svg";
 import { Link, useHistory } from "react-router-dom";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 
 const NavigationBar = () => {
   const history = useHistory();
 
+  const [gender, setGender] = useState("unisex");
+
   // NB: Had to use these types because the "Nav"-component from "React-Bootstrap" -
   // use this typing on it's "onSelect"
   const handleSelect = (eventKey: any, evt: SyntheticEvent<unknown, Event>) => {
-    // Don't continue if none of the dropdown-items are selected
-    if (!(eventKey as string).includes(".")) return;
+    const genders = ["female", "male", "unisex"];
 
-    const genderLinkUrls = [
-      "/female-clothing",
-      "/male-clothing",
-      "/unisex-clothing",
-    ];
+    const resourceUrl = eventKey as string;
 
-    // Stop the event from "bubbling up" to it's Nav.Link -
-    // (avoid getting the "Nav.Link" eventKey after getting the "NavDropdown.Item" eventKey)
+    // Don't continue if one of the "gender"-options were selected
+    if (genders.includes(resourceUrl)) return;
+
+    // Stop the event from "bubbling up" to the "gender"-Nav.Link(s)
+    // (avoid getting the "gender Nav.Link"-eventKey after getting the "categoryType"-eventKey)
     evt.stopPropagation();
-
-    const genderEventKey = parseInt(eventKey, 10) - 1;
 
     const selectedCategoryType = (
       evt.currentTarget as HTMLAnchorElement
@@ -31,13 +29,11 @@ const NavigationBar = () => {
     // `.textContent` might be undefined, and then we don't want to continue
     if (!selectedCategoryType) return;
 
-    // URL: /<gender>-<page>/<category> (e.g.: /female-clothing/shoes)
-    const selectedClothingUrl = `${genderLinkUrls[genderEventKey]}/${selectedCategoryType}`;
+    // Don't add the same "selectedCategoryType" multiple times...
+    if (resourceUrl.includes(selectedCategoryType)) return;
 
-    // Extract out the "gender"-part of the URL (see above)
-    const selectedGender = genderLinkUrls[genderEventKey]
-      .split("-")[0]
-      .replace("/", "");
+    // URL: /<gender>-<page>/<category> (e.g.: /female-clothing/shoes)
+    const selectedClothingUrl = `/${resourceUrl}/${selectedCategoryType}`;
 
     // Found tip about index-signature typing for TypeScript here: https://basarat.gitbook.io/typescript/type-system/index-signatures
     // Also added it in "Sources" in README.md
@@ -49,7 +45,7 @@ const NavigationBar = () => {
 
     // Navigating to "ClothingPage" and passing along some values we can use there
     history.push(selectedClothingUrl, {
-      gender: selectedGender,
+      gender,
       categories: categories[selectedCategoryType],
     });
   };
@@ -59,35 +55,71 @@ const NavigationBar = () => {
       <Navbar bg="myGrey menuOpt" variant="dark">
         <Navbar.Brand>
           <Nav.Link as={Link} to={"/"}>
-            <img src={logo} width="40px" height="40px" />
+            <img src={logo} width="40px" height="40px" alt={""} />
             Logo
           </Nav.Link>
         </Navbar.Brand>
-        <Nav onSelect={handleSelect}>
-          <Nav.Link eventKey={"1"} as={Link} to={"/female-home"}>
-            Female
-            <NavDropdown title="">
-              <NavDropdown.Item eventKey={"1.1"}>Clothes</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"1.2"}>Shoes</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"1.3"}>Accesories</NavDropdown.Item>
-            </NavDropdown>
-          </Nav.Link>
-          <Nav.Link eventKey={"2"} as={Link} to={"/male-home"}>
-            Male
-            <NavDropdown title="">
-              <NavDropdown.Item eventKey={"2.1"}>Clothes</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"2.2"}>Shoes</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"2.3"}>Accesories</NavDropdown.Item>
-            </NavDropdown>
-          </Nav.Link>
-          <Nav.Link eventKey={"3"} as={Link} to={"/unisex-home"}>
-            Unisex
-            <NavDropdown title="">
-              <NavDropdown.Item eventKey={"3.1"}>Clothes</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"3.2"}>Shoes</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"3.3"}>Accesories</NavDropdown.Item>
-            </NavDropdown>
-          </Nav.Link>
+        <Nav onSelect={handleSelect} defaultActiveKey={gender}>
+          <Stack direction={"vertical"}>
+            <Stack direction={"horizontal"}>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey={"female"}
+                  as={Link}
+                  to={"/female-home"}
+                  onClick={(e) => {
+                    const selectedGender =
+                      e.currentTarget.textContent?.toLowerCase();
+
+                    setGender(selectedGender ?? "");
+                  }}
+                >
+                  Female
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey={"male"}
+                  as={Link}
+                  to={"/male-home"}
+                  onClick={(e) => {
+                    const selectedGender =
+                      e.currentTarget.textContent?.toLowerCase();
+
+                    setGender(selectedGender ?? "");
+                  }}
+                >
+                  Male
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey={"unisex"}
+                  as={Link}
+                  to={"/unisex-home"}
+                  onClick={(e) => {
+                    const selectedGender =
+                      e.currentTarget.textContent?.toLowerCase();
+
+                    setGender(selectedGender ?? "");
+                  }}
+                >
+                  Unisex
+                </Nav.Link>
+              </Nav.Item>
+            </Stack>
+            <Stack direction={"horizontal"}>
+              <Nav.Item>
+                <Nav.Link eventKey={`${gender}-clothing`}>Clothes</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey={`${gender}-clothing`}>Shoes</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey={`${gender}-clothing`}>Accesories</Nav.Link>
+              </Nav.Item>
+            </Stack>
+          </Stack>
         </Nav>
       </Navbar>
     </div>

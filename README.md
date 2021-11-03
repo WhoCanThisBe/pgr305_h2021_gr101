@@ -124,4 +124,4 @@ the [Create React App documentation](https://facebook.github.io/create-react-app
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 # Sources
-1. Basarat. Last updated 02 November 2020. [Index signatures in TypeScript](https://basarat.gitbook.io/typescript/type-system/index-signatures)
+1. Basarat. Last updated: 02 November 2020. [Index signatures in TypeScript](https://basarat.gitbook.io/typescript/type-system/index-signatures).
