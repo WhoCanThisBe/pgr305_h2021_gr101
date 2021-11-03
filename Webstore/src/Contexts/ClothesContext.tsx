@@ -12,6 +12,8 @@ export const ClothesContext = React.createContext<ClothesContextType | null>(
   null
 );
 
+// Disse klærne blir lagt i databasen, men jeg lar de ligge her, i tilfelle noe må testes raskt,
+// eller om man ikke skulle ha tilgang til databasen. Kommenter ut getClothes() fra useEffekt for å bruke disse
 const ClothesProvider: FC<Props> = ({children}) => {
     const [clothes, setClothes] = useState<IProduct[]>([
         {
