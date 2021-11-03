@@ -16,5 +16,6 @@ namespace WebstoreAPI.Models
         public string Color { get; set; }
         public string Gender { get; set; }
         public int Stock { get; set; }
+        public string Image { get; set; }
     }
 }
