@@ -1,6 +1,8 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {ClothesContextType} from "../types/ClothesContextType";
 import {IProduct} from "../Interfaces/IProduct";
+import testLogo from "../Images/logo512.png";
+import {ClothesService} from "../Services/ClothesService";
 
 type Props = {
     children: React.ReactNode;
@@ -20,6 +22,7 @@ const ClothesProvider: FC<Props> = ({children}) => {
             stock: 5,
             color: "blue",
             gender: "male",
+            image: testLogo
         },
         {
             brandName: "Gucci",
@@ -29,6 +32,7 @@ const ClothesProvider: FC<Props> = ({children}) => {
             stock: 10,
             color: "brown",
             gender: "unisex",
+            image: testLogo
         },
         {
             brandName: "H&M",
@@ -38,8 +42,18 @@ const ClothesProvider: FC<Props> = ({children}) => {
             stock: 10,
             color: "brown",
             gender: "female",
+            image: testLogo
         },
     ]);
+
+    useEffect( () => {
+        getClothes();
+    })
+
+    const getClothes = async () => {
+        const _clothes = await ClothesService.getAll();
+        setClothes( _clothes );
+    }
 
     const fetchProductsByGender = (gender: IProduct["gender"]) => {
         return clothes.filter((garment) => garment.gender === gender);
