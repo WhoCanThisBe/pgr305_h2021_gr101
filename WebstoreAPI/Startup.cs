@@ -70,7 +70,7 @@ namespace WebstoreAPI
 
             app.UseCors("AllowAny");
             
-            // Todo legg til defaultfilesoption, useDefaultfiles, usestaticfiles
+            app.UseStaticFiles();
             
             app.UseHttpsRedirection();
 

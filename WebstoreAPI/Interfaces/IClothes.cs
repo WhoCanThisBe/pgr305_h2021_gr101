@@ -10,5 +10,6 @@
         string Color { get; set; }
         string Gender { get; set; }
         int Stock { get; set; }
+        string Image { get; set; }
     }
 }

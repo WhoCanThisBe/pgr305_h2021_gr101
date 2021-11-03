@@ -5,11 +5,11 @@ import testLogo from "../Images/logo512.png";
 import {ClothesService} from "../Services/ClothesService";
 
 type Props = {
-    children: React.ReactNode;
+  children: React.ReactNode;
 };
 
 export const ClothesContext = React.createContext<ClothesContextType | null>(
-    null
+  null
 );
 
 const ClothesProvider: FC<Props> = ({children}) => {
@@ -55,20 +55,29 @@ const ClothesProvider: FC<Props> = ({children}) => {
         setClothes( _clothes );
     }
 
-    const fetchProductsByGender = (gender: IProduct["gender"]) => {
-        return clothes.filter((garment) => garment.gender === gender);
-    };
+  const fetchProductsByGender = (gender: IProduct["gender"]) => {
+    return clothes.filter((garment) => garment.gender === gender);
+  };
 
-    const clothesContext: ClothesContextType = {
-        clothes: clothes,
-        fetchProductsByGender,
-    };
-
-    return (
-        <ClothesContext.Provider value={clothesContext}>
-            {children}
-        </ClothesContext.Provider>
+  const fetchProductsByCategory = (
+    ...categories: IProduct["categoryType"][]
+  ) => {
+    return clothes.filter((garment) =>
+      categories.includes(garment.categoryType)
     );
+  };
+
+  const clothesContext: ClothesContextType = {
+    clothes: clothes,
+    fetchProductsByGender,
+    fetchProductsByCategory,
+  };
+
+  return (
+    <ClothesContext.Provider value={clothesContext}>
+      {children}
+    </ClothesContext.Provider>
+  );
 };
 
 export default ClothesProvider;

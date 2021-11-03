@@ -1,12 +1,77 @@
 # PGR305 H2021 Exam - Webutvikling 3
 
+### Tema valgt : Ett eller annet med klær, vesker, klokker e.l.
+
+
+### Hovedtema / Krav
+
+* [ ] React (frontend)
+* [ ] .NET/C# Web Api MongoDb (backend)
+* [ ] Husk at oppkoblingen til MongoDb krever en ConnectionString med brukernavn og passord.
+  * Du må vurdere om denne burde fjernes slik at sensorene evt. ikke skal kunne se sensitive data.
+    * det er ok å levere uten ConnectionString
+
+
+#### Spesifikke Backend Krav
+* [ ] Database i MongoDb Atlas
+* [ ] .NET/C# Web API med CRUD-funksjonalitet mot MongoDb
+
+Krav tekniker teknologier:
+
+* [ ] Controller 
+* [ ] Model-klasser
+* [ ] Interface
+* [ ] Service
+* [ ] Diverse konfigurering som for eksempel for CORS
+* [ ] MongoDb Atlas
+* [ ] CRUD – Create, Read, Update, Delete
+* [ ] Bildeopplasting
+
+- Interfaces, Model-klasser, Service-klasser med CRUD og Controllere Ca. 30-45%
+- Diverse konfigurasjon, CORS, staticFiles osv- Ca. 5-10%
+
+
+
+#### Spesifikke Frontend Krav
+
+
+* [ ] Sider med funksjonalitet hvor en bruker kan gjøre CRUD. Forsøk å dele opp CRUDfunksjonaliteten
+  i flere komponenter.
+* [ ] Diverse funksjonalitet som du mener kan passe å ha med.
+  * Eksempler kan være å ha med
+    * [ ] søkefunksjonalitet, 
+    * [ ] sorteringsfunksjonalitet, 
+    * [ ] quiz osv. Du har stor frihet til å
+        bestemme funksjonalitet du kan ha med her.
+
+Krav tekniker teknologier: 
+
+* [ ] Komponentbasert utvikling med blant annet List og Item-fordeling av ansvar
+* [ ] State management med Context
+* [ ] TypeScript
+  * [ ] Interface 
+  * [ ] Type
+  * [ ] Typesetting
+* [ ] Router
+* [ ] Ajax
+* [ ] React Bootstrap 
+  * Et hovedmoment her er å gjøre bruk av Grid-systemet i CSS-rammeverket
+* [ ] Diverse JS-teknikker som for eksempel .map(), spread operator, ternary operator, array, object literal osv.
+
+
+- Komponentbasert utvikling med blant annet List og Item-fordeling av ansvar.
+- TypeScript med Interface og Type og diverse typedefinering.
+- Diverse JS-teknikker som for eksempel .map(), spread operator, ternary operator, array, object literal, Ajax osv. Ca. 30-40%
+- State management med Context. Routing. Ca. 10-15%
+- React Bootstrap Ca. 10-15%
+
+
 ### Tools
 
 * [x] Bootstrap
 * [x] .NET5
 * [x] MongoDb
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -57,3 +122,6 @@ You can learn more in
 the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# Sources
+1. Basarat. Last updated 02 November 2020. [Index signatures in TypeScript](https://basarat.gitbook.io/typescript/type-system/index-signatures)
