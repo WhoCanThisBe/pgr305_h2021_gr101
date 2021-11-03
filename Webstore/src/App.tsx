@@ -1,13 +1,12 @@
-import React from 'react';
-import './App.css';
+import React from "react";
 import Routing from "./router/Routing";
 
 function App() {
-    return (
-        <div className="App">
-            <Routing/>
-        </div>
-    );
+  return (
+    <div className="App">
+      <Routing />
+    </div>
+  );
 }
 
 export default App;
