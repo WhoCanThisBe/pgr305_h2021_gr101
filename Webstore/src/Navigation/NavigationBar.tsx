@@ -16,6 +16,7 @@ const NavigationBar = () => {
     const resourceUrl = eventKey as string;
 
     // Don't continue if one of the "gender"-options were selected
+    // It also prevents a "gender"-option from being added to the url multiple times (e.g: /male/male)
     if (genders.includes(resourceUrl)) return;
 
     const selectedCategoryType = (
@@ -24,11 +25,6 @@ const NavigationBar = () => {
 
     // `.textContent` might be undefined, and then we don't want to continue
     if (!selectedCategoryType) return;
-
-    // Don't add the same "selectedCategoryType" multiple times...
-    if (resourceUrl.includes(selectedCategoryType)) return;
-
-    //console.log(evt);
 
     // URL: /<gender>-<page>/<category> (e.g.: /female-clothing/shoes)
     const selectedClothingUrl = `/${resourceUrl}/${selectedCategoryType}`;
@@ -101,14 +97,7 @@ const NavigationBar = () => {
             </Stack>
             <Stack direction={"horizontal"}>
               <Nav.Item>
-                <Nav.Link
-                  eventKey={`${gender}-clothing`}
-                  onClick={(evt) => {
-                    console.log(evt);
-                  }}
-                >
-                  Clothes
-                </Nav.Link>
+                <Nav.Link eventKey={`${gender}-clothing`}>Clothes</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey={`${gender}-clothing`}>Shoes</Nav.Link>
