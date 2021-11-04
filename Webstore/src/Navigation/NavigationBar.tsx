@@ -9,7 +9,7 @@ const NavigationBar = () => {
   const [gender, setGender] = useState("unisex");
 
   // NB: Had to use these types because the "Nav"-component from "React-Bootstrap" -
-  // use this typing on it's "onSelect"
+  // use this typing on its "onSelect"
   const handleSelect = (eventKey: any, evt: SyntheticEvent<unknown, Event>) => {
     const genders = ["female", "male", "unisex"];
 
@@ -35,8 +35,7 @@ const NavigationBar = () => {
     // URL: /<gender>-<page>/<category> (e.g.: /female-clothing/shoes)
     const selectedClothingUrl = `/${resourceUrl}/${selectedCategoryType}`;
 
-    // Found tip about index-signature typing for TypeScript here: https://basarat.gitbook.io/typescript/type-system/index-signatures
-    // Also added it in "Sources" in README.md
+    // Found tip about index-signature typing for TypeScript (see README.md, Sources #1)
     // Transforming received categories (clothes, shoes) into expected values (IProduct)
     const categories: { [index: string]: string[] } = {
       clothes: ["sko", "jakke", "genser", "bukse"],
@@ -48,6 +47,15 @@ const NavigationBar = () => {
       gender,
       categories: categories[selectedCategoryType],
     });
+  };
+
+  // Extract "gender"-value from clicked "gender-navigation"-button and store it in state
+  const handleGenderNavButtonClick = (
+    evt: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    const selectedGender = evt.currentTarget.textContent?.toLowerCase();
+
+    setGender(selectedGender ?? "");
   };
 
   return (
@@ -67,12 +75,7 @@ const NavigationBar = () => {
                   eventKey={"female"}
                   as={Link}
                   to={"/female-home"}
-                  onClick={(e) => {
-                    const selectedGender =
-                      e.currentTarget.textContent?.toLowerCase();
-
-                    setGender(selectedGender ?? "");
-                  }}
+                  onClick={handleGenderNavButtonClick}
                 >
                   Female
                 </Nav.Link>
@@ -82,12 +85,7 @@ const NavigationBar = () => {
                   eventKey={"male"}
                   as={Link}
                   to={"/male-home"}
-                  onClick={(e) => {
-                    const selectedGender =
-                      e.currentTarget.textContent?.toLowerCase();
-
-                    setGender(selectedGender ?? "");
-                  }}
+                  onClick={handleGenderNavButtonClick}
                 >
                   Male
                 </Nav.Link>
@@ -97,12 +95,7 @@ const NavigationBar = () => {
                   eventKey={"unisex"}
                   as={Link}
                   to={"/unisex-home"}
-                  onClick={(e) => {
-                    const selectedGender =
-                      e.currentTarget.textContent?.toLowerCase();
-
-                    setGender(selectedGender ?? "");
-                  }}
+                  onClick={handleGenderNavButtonClick}
                 >
                   Unisex
                 </Nav.Link>
