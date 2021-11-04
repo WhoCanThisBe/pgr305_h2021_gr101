@@ -26,7 +26,7 @@ const ClothesList: FC<Props> = ({filter}) => {
     }, [filter]);
 
     const createClothesList = () => {
-        return clothes.map((garment, index) => {
+        return clothes.map((garment: IProduct, index: number) => {
             return (
                 <Col key={index}>
                     <ClothesItem garment={garment}/>
