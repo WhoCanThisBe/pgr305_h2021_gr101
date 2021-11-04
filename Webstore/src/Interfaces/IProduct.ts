@@ -1,5 +1,5 @@
 export interface IProduct {
-    itemName?: number;
+    itemName?: string;
     brandName: string;
     clothingName: string;
     categoryType: "sko" | "jakke" | "genser" | "bukse";
@@ -7,4 +7,5 @@ export interface IProduct {
     stock: number;
     color: string;
     gender: "female" | "unisex" | "male";
+    image: string;
 }
