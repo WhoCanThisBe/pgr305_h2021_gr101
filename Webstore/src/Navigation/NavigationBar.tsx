@@ -18,10 +18,6 @@ const NavigationBar = () => {
     // Don't continue if one of the "gender"-options were selected
     if (genders.includes(resourceUrl)) return;
 
-    // Stop the event from "bubbling up" to the "gender"-Nav.Link(s)
-    // (avoid getting the "gender Nav.Link"-eventKey after getting the "categoryType"-eventKey)
-    evt.stopPropagation();
-
     const selectedCategoryType = (
       evt.currentTarget as HTMLAnchorElement
     ).textContent?.toLowerCase();
@@ -31,6 +27,8 @@ const NavigationBar = () => {
 
     // Don't add the same "selectedCategoryType" multiple times...
     if (resourceUrl.includes(selectedCategoryType)) return;
+
+    //console.log(evt);
 
     // URL: /<gender>-<page>/<category> (e.g.: /female-clothing/shoes)
     const selectedClothingUrl = `/${resourceUrl}/${selectedCategoryType}`;
@@ -103,7 +101,14 @@ const NavigationBar = () => {
             </Stack>
             <Stack direction={"horizontal"}>
               <Nav.Item>
-                <Nav.Link eventKey={`${gender}-clothing`}>Clothes</Nav.Link>
+                <Nav.Link
+                  eventKey={`${gender}-clothing`}
+                  onClick={(evt) => {
+                    console.log(evt);
+                  }}
+                >
+                  Clothes
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey={`${gender}-clothing`}>Shoes</Nav.Link>
