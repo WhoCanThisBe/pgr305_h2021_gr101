@@ -4,6 +4,6 @@ export type ClothesContextType = {
   clothes: IProduct[];
   fetchProductsByGender: (gender: IProduct["gender"]) => IProduct[];
   fetchProductsByCategory: (
-    ...categories: IProduct["categoryType"][]
+    ...categories: IProduct["category"][]
   ) => IProduct[];
 };

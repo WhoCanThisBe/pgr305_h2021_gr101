@@ -5,3 +5,7 @@
 .bg-menuOpt {
     position: absolute;
 }
+
+.capitalize {
+    text-transform: capitalize;
+}

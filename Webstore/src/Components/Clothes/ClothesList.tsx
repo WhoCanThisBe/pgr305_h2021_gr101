@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { IProduct } from "../../Interfaces/IProduct";
 import { ClothesContext } from "../../Contexts/ClothesContext";
-import { ClothesContextType } from "../../types/ClothesContextType";
+import { ClothesContextType } from "../../Types/ClothesContextType";
 import ClothesItem from "./ClothesItem";
 
 type Props = {

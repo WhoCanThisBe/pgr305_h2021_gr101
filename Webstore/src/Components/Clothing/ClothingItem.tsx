@@ -13,7 +13,10 @@ const ClothingItem: FC<Props> = ({ clothing }) => {
 
   return (
     <Card className={"w-50"}>
-      <Card.Img variant={"top"} src={testLogo} />
+      <Card.Img
+        variant={"top"}
+        src={`https://localhost:5001/images/${clothing.image}`}
+      />
       <Card.Body>
         <Card.Text>{clothing.brandName}</Card.Text>
         <Card.Title>{clothing.clothingName}</Card.Title>

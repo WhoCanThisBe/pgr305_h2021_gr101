@@ -17,7 +17,10 @@ const Clothing: FC<RouteComponentProps & Props> = ({ location }) => {
 
   return (
     <section>
-      <h2>Clothing for {filter.gender}</h2>
+      <h2>
+        <span className={"capitalize"}>{filter.category.name}</span> for{" "}
+        <span className={"capitalize"}>{filter.gender}</span>
+      </h2>
       <ClothingList filter={filter} />
     </section>
   );

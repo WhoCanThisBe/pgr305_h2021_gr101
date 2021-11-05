@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { ClothesContextType } from "../types/ClothesContextType";
+import { ClothesContextType } from "../Types/ClothesContextType";
 import { IProduct } from "../Interfaces/IProduct";
 import testLogo from "../Images/logo512.png";
 import { ClothesService } from "../Services/ClothesService";
@@ -17,9 +17,19 @@ export const ClothesContext = React.createContext<ClothesContextType | null>(
 const ClothesProvider: FC<Props> = ({ children }) => {
   const [clothes, setClothes] = useState<IProduct[]>([
     {
+      brandName: "H&M",
+      clothingName: "Gul Bukse",
+      category: "bukse",
+      size: "medium",
+      stock: 10,
+      color: "brown",
+      gender: "female",
+      image: testLogo,
+    },
+    {
       brandName: "Armani",
-      clothingName: "Blå Jakke",
-      categoryType: "jakke",
+      clothingName: "Blå Sko",
+      category: "sko",
       size: "large",
       stock: 5,
       color: "blue",
@@ -29,21 +39,11 @@ const ClothesProvider: FC<Props> = ({ children }) => {
     {
       brandName: "Gucci",
       clothingName: "Brun Bag",
-      categoryType: "genser",
+      category: "accesories",
       size: "small",
       stock: 10,
       color: "brown",
       gender: "unisex",
-      image: testLogo,
-    },
-    {
-      brandName: "H&M",
-      clothingName: "Gul Bukse",
-      categoryType: "bukse",
-      size: "medium",
-      stock: 10,
-      color: "brown",
-      gender: "female",
       image: testLogo,
     },
   ]);
@@ -61,12 +61,8 @@ const ClothesProvider: FC<Props> = ({ children }) => {
     return clothes.filter((garment) => garment.gender === gender);
   };
 
-  const fetchProductsByCategory = (
-    ...categories: IProduct["categoryType"][]
-  ) => {
-    return clothes.filter((garment) =>
-      categories.includes(garment.categoryType)
-    );
+  const fetchProductsByCategory = (...categories: IProduct["category"][]) => {
+    return clothes.filter((garment) => categories.includes(garment.category));
   };
 
   const clothesContext: ClothesContextType = {
