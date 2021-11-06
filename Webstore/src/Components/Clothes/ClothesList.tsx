@@ -14,6 +14,7 @@ const ClothesList: FC<Props> = ({ filter }) => {
 
   const [clothes, setClothes] = useState<IProduct[]>([]);
 
+  // Effect that fetches clothes on "initial-mount" and on navigation to a "<gender>-home"-page
   useEffect(() => {
     // Set all clothes if we haven't received any filter (e.g: male, female)
     if (!filter) return setClothes(clothesContext.clothes);
@@ -22,9 +23,11 @@ const ClothesList: FC<Props> = ({ filter }) => {
       // TODO: Switch out "gender"-key here with something more generic later
       clothesContext.fetchProductsByGender(filter as IProduct["gender"])
     );
-  }, [filter]);
+  }, [clothesContext.clothes]);
 
   const createClothesList = () => {
+    if (clothes.length === 0) return <h4>Loading products, please wait...</h4>;
+
     return clothes.map((garment: IProduct, index: number) => {
       return (
         <Col key={index}>
