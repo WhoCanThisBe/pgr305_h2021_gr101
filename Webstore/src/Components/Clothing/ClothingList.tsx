@@ -1,13 +1,16 @@
 import React, { FC } from "react";
 import { Col, Row } from "react-bootstrap";
-import { ClothesContextType } from "../../types/ClothesContextType";
+import { ClothesContextType } from "../../Types/ClothesContextType";
 import { ClothesContext } from "../../Contexts/ClothesContext";
 import { IProduct } from "../../Interfaces/IProduct";
 import ClothingItem from "./ClothingItem";
 
 export type ClothingFilter = {
   gender: IProduct["gender"];
-  categories: IProduct["categoryType"][];
+  category: {
+    name: string;
+    productTypes: IProduct["category"][];
+  };
 };
 
 type Props = {
@@ -24,8 +27,9 @@ const ClothingList: FC<Props> = ({ filter }) => {
       filter.gender
     );
 
+    // Extract clothing for the selected categories, for the selected gender
     const clothingForCategories = clothingForGender.filter((clothing) =>
-      filter.categories?.includes(clothing.categoryType)
+      filter.category.productTypes.includes(clothing.category)
     );
 
     return clothingForCategories.map((clothing, index) => (

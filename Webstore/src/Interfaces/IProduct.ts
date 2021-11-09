@@ -1,11 +1,11 @@
 export interface IProduct {
-    itemName?: string;
-    brandName: string;
-    clothingName: string;
-    categoryType: "sko" | "jakke" | "genser" | "bukse";
-    size: "small" | "medium" | "large";
-    stock: number;
-    color: string;
-    gender: "female" | "unisex" | "male";
-    image: string;
+  id?: string;
+  brandName: string;
+  clothingName: string;
+  category: "sko" | "jakke" | "genser" | "bukse" | "accesories";
+  size: "small" | "medium" | "large";
+  stock: number;
+  color: string;
+  gender: "female" | "unisex" | "male";
+  image: string;
 }
