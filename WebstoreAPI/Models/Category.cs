@@ -5,7 +5,8 @@
         Sko,
         Jakke,
         Genser,
-        Bukse
+        Bukse,
+        Accesories
 
     }
 }

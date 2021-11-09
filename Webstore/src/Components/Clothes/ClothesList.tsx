@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { IProduct } from "../../Interfaces/IProduct";
-import { ClothesContext } from "../../Contexts/ClothesContext";
-import { ClothesContextType } from "../../Types/ClothesContextType";
 import ClothesItem from "./ClothesItem";
+import {ClothesContextType} from "../../Types/ClothesContextType";
+import {ClothesContext} from "../../Contexts/ClothesContext";
 
 type Props = {
   filter?: string;

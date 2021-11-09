@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
-import { ClothesContextType } from "../Types/ClothesContextType";
 import { IProduct } from "../Interfaces/IProduct";
 import { ClothesService } from "../Services/ClothesService";
 import { IOrder } from "../Interfaces/IOrder";
+import {ClothesContextType} from "../Types/ClothesContextType";
 
 type Props = {
   children: React.ReactNode;

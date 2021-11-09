@@ -2,11 +2,10 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import { ButtonGroup, Card } from "react-bootstrap";
 import { IProduct } from "../../Interfaces/IProduct";
 import { ClothesContext } from "../../Contexts/ClothesContext";
-import { ClothesContextType } from "../../Types/ClothesContextType";
 import { IOrder } from "../../Interfaces/IOrder";
 import { SizeDropdown } from "../SizeDropdown";
 import { AddToCartButton } from "../AddToCartButton";
-import { useHistory } from "react-router-dom";
+import {ClothesContextType} from "../../Types/ClothesContextType";
 
 
 type Props = {

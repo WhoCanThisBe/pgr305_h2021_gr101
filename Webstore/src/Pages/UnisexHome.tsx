@@ -7,7 +7,7 @@ const UnisexHome: FC<Props> = () => {
     return (
         <>
             <h2>Unisex</h2>
-            <ClothesList filter={"unisex"}/>
+            <ClothesList filter={"Unisex"}/>
         </>
     );
 };

@@ -5,7 +5,7 @@ const FemaleHome: FC = () => {
     return (
         <>
             <h1>Female</h1>
-            <ClothesList filter={"female"}/>
+            <ClothesList filter={"Female"}/>
         </>
     );
 };

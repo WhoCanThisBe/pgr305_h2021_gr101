@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { Col, Row } from "react-bootstrap";
-import { ClothesContextType } from "../../Types/ClothesContextType";
 import { ClothesContext } from "../../Contexts/ClothesContext";
 import { IProduct } from "../../Interfaces/IProduct";
 import ClothingItem from "./ClothingItem";
+import {ClothesContextType} from "../../Types/ClothesContextType";
 
 export type ClothingFilter = {
   gender: IProduct["gender"];
