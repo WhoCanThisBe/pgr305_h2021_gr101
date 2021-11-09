@@ -6,8 +6,6 @@ import { ClothesContextType } from "../../Types/ClothesContextType";
 import { IOrder } from "../../Interfaces/IOrder";
 import { SizeDropdown } from "../SizeDropdown";
 import { AddToCartButton } from "../AddToCartButton";
-import React, { FC } from "react";
-import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 
@@ -51,12 +49,15 @@ const ClothesItem: FC<Props> = ({ garment }) => {
     placeNewOrder(newOrder);
   };
 
-
   return (
     <Card className={"w-50"}>
       <Card.Img
         variant={"top"}
-        src={`https://localhost:5001/images/${garment.image}`}
+        src={
+          garment.image
+            ? `https://localhost:5001/images/${garment.image}`
+            : require("../../Images/logo512.png").default
+        }
       />
       <Card.Body>
         <Card.Text>{garment.brandName}</Card.Text>
@@ -68,7 +69,6 @@ const ClothesItem: FC<Props> = ({ garment }) => {
           />
           <AddToCartButton isDisabled={!size} onClick={handleAddNewOrder} />
         </ButtonGroup>
-
       </Card.Body>
     </Card>
   );

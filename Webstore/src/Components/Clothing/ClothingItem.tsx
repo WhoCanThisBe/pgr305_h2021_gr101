@@ -51,7 +51,12 @@ const ClothingItem: FC<Props> = ({ clothing }) => {
     <Card className={"w-50"}>
       <Card.Img
         variant={"top"}
-        src={`https://localhost:5001/images/${clothing.image}`}
+        src={
+          clothing.image
+            ? `https://localhost:5001/images/${clothing.image}`
+            : require("../../Images/logo512.png").default
+        }
+
       />
       <Card.Body>
         <Card.Text>{clothing.brandName}</Card.Text>
