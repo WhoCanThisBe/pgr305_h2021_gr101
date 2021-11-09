@@ -3,6 +3,8 @@ import { ClothesContextType } from "../Types/ClothesContextType";
 import { IProduct } from "../Interfaces/IProduct";
 import testLogo from "../Images/logo512.png";
 import { ClothesService } from "../Services/ClothesService";
+import { IOrder } from "../Interfaces/IOrder";
+
 
 type Props = {
   children: React.ReactNode;
@@ -48,6 +50,26 @@ const ClothesProvider: FC<Props> = ({ children }) => {
     },
   ]);
 
+  // TODO: Discuss if this should be moved somewhere else (like in it's own "...Provider" and "...ContextType"-setup
+  // Cart -> Orders -> [Order: { id, products }, ...]
+  const [cart, setCart] = useState<{
+    orders: IOrder[];
+  }>({
+    orders: [],
+  });
+
+  const placeNewOrder = (order: IOrder) => {
+    // TODO: Check if it's already in the cart (based on orders with the same id...)
+    const updatedOrders = [...cart.orders, order];
+
+    console.log(updatedOrders);
+
+    setCart((prevCart) => ({
+      ...prevCart,
+      orders: updatedOrders,
+    }));
+  };
+
   useEffect(() => {
     getClothes();
   }, []);
@@ -69,6 +91,8 @@ const ClothesProvider: FC<Props> = ({ children }) => {
     clothes: clothes,
     fetchProductsByGender,
     fetchProductsByCategory,
+    orders: cart.orders,
+    placeNewOrder,
   };
 
   return (
