@@ -14,7 +14,7 @@ namespace WebstoreAPI.Controllers
     {
         private readonly ClothesService _clothesService;
 
-        private Boolean Checker(Clothes newClothes)
+        private bool Checker(Clothes newClothes)
         {
             return Enum.IsDefined(typeof(Category), newClothes.Category) &&
                    Enum.IsDefined(typeof(Size), newClothes.Size) &&
@@ -36,7 +36,10 @@ namespace WebstoreAPI.Controllers
         [HttpPost]
         public Clothes PostClothes(Clothes newClothes)
         {
-            if (!Checker(newClothes)) return null;
+            if (!Checker(newClothes))
+            {
+                throw new ArgumentException("Input is not valid");
+            } 
             
             _clothesService.PostClothes(newClothes);
             return newClothes;
