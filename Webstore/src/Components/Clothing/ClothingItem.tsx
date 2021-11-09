@@ -56,6 +56,7 @@ const ClothingItem: FC<Props> = ({ clothing }) => {
             ? `https://localhost:5001/images/${clothing.image}`
             : require("../../Images/logo512.png").default
         }
+
       />
       <Card.Body>
         <Card.Text>{clothing.brandName}</Card.Text>

@@ -6,6 +6,8 @@ import { ClothesContextType } from "../../Types/ClothesContextType";
 import { IOrder } from "../../Interfaces/IOrder";
 import { SizeDropdown } from "../SizeDropdown";
 import { AddToCartButton } from "../AddToCartButton";
+import { useHistory } from "react-router-dom";
+
 
 type Props = {
   garment: IProduct;

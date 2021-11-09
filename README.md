@@ -2,29 +2,49 @@
 
 ### Tema valgt : Ett eller annet med klær, vesker, klokker e.l.
 
+Krav til oss selv
+* [ ] Diverse konfigurering som for eksempel for CORS
+* [ ] wrap responses
+* [ ] enum
+
+* Laste opp nye produkter
+* Slette Produkter
+* Update (PUT) Oppdatering  (Admin side?)
+* [ ] Router
+* [ ] Ajax
+
+*** Nettside
+* Søkeside
+* [ ] søkefunksjonalitet,
+* [ ] sorteringsfunksjonalitet,
+
+* Cart - bruk av logoe, legge til flere antall, slette produkt som ikke skal være med
+* [ ] Admin side
+* Hjemme side random selction av klær
+
 
 ### Hovedtema / Krav
 
-* [ ] React (frontend)
-* [ ] .NET/C# Web Api MongoDb (backend)
+* [x] React (frontend)
+* [x] .NET/C# Web Api MongoDb (backend)
 * [ ] Husk at oppkoblingen til MongoDb krever en ConnectionString med brukernavn og passord.
   * Du må vurdere om denne burde fjernes slik at sensorene evt. ikke skal kunne se sensitive data.
     * det er ok å levere uten ConnectionString
 
 
 #### Spesifikke Backend Krav
-* [ ] Database i MongoDb Atlas
+* [x] Database i MongoDb Atlas
 * [ ] .NET/C# Web API med CRUD-funksjonalitet mot MongoDb
 
 Krav tekniker teknologier:
 
-* [ ] Controller 
-* [ ] Model-klasser
-* [ ] Interface
-* [ ] Service
+* [x] Controller 
+* [x] Model-klasser
+* [x] Interface
+* [x] Service
 * [ ] Diverse konfigurering som for eksempel for CORS
-* [ ] MongoDb Atlas
-* [ ] CRUD – Create, Read, Update, Delete
+* [x] MongoDb Atlas
+* [ ] CRUD – Create, Read, `Update`, `Delete`
 * [ ] Bildeopplasting
 
 - Interfaces, Model-klasser, Service-klasser med CRUD og Controllere Ca. 30-45%
@@ -46,17 +66,17 @@ Krav tekniker teknologier:
 
 Krav tekniker teknologier: 
 
-* [ ] Komponentbasert utvikling med blant annet List og Item-fordeling av ansvar
-* [ ] State management med Context
-* [ ] TypeScript
-  * [ ] Interface 
-  * [ ] Type
-  * [ ] Typesetting
+* [x] Komponentbasert utvikling med blant annet List og Item-fordeling av ansvar
+* [x] State management med Context
+* [x] TypeScript
+  * [x] Interface 
+  * [x] Type
+  * [x] Typesetting
 * [ ] Router
 * [ ] Ajax
-* [ ] React Bootstrap 
+* [x] React Bootstrap 
   * Et hovedmoment her er å gjøre bruk av Grid-systemet i CSS-rammeverket
-* [ ] Diverse JS-teknikker som for eksempel .map(), spread operator, ternary operator, array, object literal osv.
+* [x] Diverse JS-teknikker som for eksempel .map(), spread operator, ternary operator, array, object literal osv.
 
 
 - Komponentbasert utvikling med blant annet List og Item-fordeling av ansvar.
