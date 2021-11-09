@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using WebstoreAPI.Models;
 using System.Collections.Generic;
 using System.Linq;
+using WebstoreAPI.Interfaces;
 
 namespace WebstoreAPI.Services
 {
@@ -25,28 +26,13 @@ namespace WebstoreAPI.Services
         
         public List<Clothes> GetClothes()
         {
-
-            // var clothList = new List<Clothes>();
-            // var list =  _clothes.Find(clothes => true).ToList();
-            // var isValidGender = Enum.GetValues(typeof(Gender));
-            //
-            // foreach (var cloth in list)
-            // {
-            //     foreach (var gender in isValidGender)
-            //     {
-            //         if (cloth.Gender.Equals(gender.ToString()))
-            //         {
-            //             clothList.Add(cloth);
-            //         }
-            //     }
-            //     
-            // }
-            var list =  _clothes.Find(clothes => true).ToList();
+            var validList =  _clothes.Find(clothes => true).ToList();
             
-            return list.
-                Where(cloth => Enum.IsDefined(typeof(Gender), cloth.Gender)).ToList();
-            // return clothList.ToList();
-            // return _clothes.Find(clothes => true).ToList();
+            return validList.Where(cloth => 
+                Enum.IsDefined(typeof(Gender), cloth.Gender) && 
+                Enum.IsDefined(typeof(Category), cloth.Category) && 
+                Enum.IsDefined(typeof(Size), cloth.Size) ).ToList();
+
         }
 
         public Clothes PostClothes(Clothes newClothes)
