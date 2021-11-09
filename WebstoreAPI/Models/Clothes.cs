@@ -11,7 +11,7 @@ namespace WebstoreAPI.Models
         public string Id { get; set; }
         public string BrandName { get; set; }
         public string ClothingName { get; set; }
-        public string Category { get; set; }
+        public string Category { get; set;}
         public string Size { get; set; }
         public string Color { get; set; }
         public string Gender { get; set; }
