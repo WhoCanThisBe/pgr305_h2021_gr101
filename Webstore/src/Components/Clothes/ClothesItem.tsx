@@ -6,13 +6,17 @@ import { IOrder } from "../../Interfaces/IOrder";
 import { SizeDropdown } from "../SizeDropdown";
 import { AddToCartButton } from "../AddToCartButton";
 import {ClothesContextType} from "../../Types/ClothesContextType";
-
+import {CartContext} from "../../Contexts/CartContext";
+import {CartContextType} from "../../types/CartContextType";
 
 type Props = {
   garment: IProduct;
 };
 
 const ClothesItem: FC<Props> = ({ garment }) => {
+
+    const cartContext = React.useContext(CartContext) as CartContextType;
+
   const { placeNewOrder, orders } = useContext(
     ClothesContext
   ) as ClothesContextType;
@@ -66,7 +70,7 @@ const ClothesItem: FC<Props> = ({ garment }) => {
             onSizeChange={(eventKey, _) => setSize(eventKey as string)}
             size={size}
           />
-          <AddToCartButton isDisabled={!size} onClick={handleAddNewOrder} />
+          <AddToCartButton isDisabled={!size} onClick={() => cartContext.addToCart(garment)} />
         </ButtonGroup>
       </Card.Body>
     </Card>

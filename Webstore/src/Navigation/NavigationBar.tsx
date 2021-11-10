@@ -114,6 +114,9 @@ const NavigationBar = () => {
             </Stack>
           </Stack>
         </Nav>
+        <Nav>
+          <Nav.Link as={Link} to={"/cart"}>Cart</Nav.Link>
+        </Nav>
       </Navbar>
     </div>
   );

@@ -8,4 +8,5 @@ export interface IProduct {
   color: string;
   gender: "Female" | "Unisex" | "Male";
   image: string;
+    amount: number;
 }

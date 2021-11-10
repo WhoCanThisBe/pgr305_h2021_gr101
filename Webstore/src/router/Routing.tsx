@@ -8,12 +8,14 @@ import UnisexHome from "../Pages/UnisexHome";
 import NavigationBar from "../Navigation/NavigationBar";
 import ClothesProvider from "../Contexts/ClothesContext";
 import Clothing from "../Pages/Clothing";
+import Cart from "../Pages/Cart";
+import CartProvider from "../Contexts/CartContext";
 
 const Routing: FC = () => {
   return (
     <BrowserRouter>
       <Container>
-        <NavigationBar />
+              <NavigationBar />
         <Switch>
           <Route
             path={["/female-clothing", "/male-clothing", "/unisex-clothing"]}
@@ -38,15 +40,31 @@ const Routing: FC = () => {
                 component = <UnisexHome />;
               }
 
-              return <ClothesProvider>{component}</ClothesProvider>;
+                return (
+                    <ClothesProvider>
+                            <CartProvider>
+                                {component}
+                            </CartProvider>
+                    </ClothesProvider>
+                );
             }}
+          />
+          <Route
+            path={"/cart"}
+            render={(props) => (
+                <CartProvider>
+                    <Cart {...props} />
+                </CartProvider>
+            )}
           />
           <Route
             exact
             path={"/"}
             render={(props) => (
               <ClothesProvider>
+                  <CartProvider>
                 <Home {...props} />
+                  </CartProvider>
               </ClothesProvider>
             )}
           />

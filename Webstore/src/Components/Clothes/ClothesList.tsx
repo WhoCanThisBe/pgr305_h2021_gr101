@@ -25,7 +25,7 @@ const ClothesList: FC<Props> = ({ filter }) => {
       clothesContext.fetchProductsByGender(filter as IProduct["gender"])
     );
   }, [clothesContext.clothes]);
- 
+
 
   const createClothesList = () => {
     if (clothes.length === 0) return <h4>Loading products, please wait...</h4>;
