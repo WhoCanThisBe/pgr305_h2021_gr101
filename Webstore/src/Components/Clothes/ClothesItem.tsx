@@ -1,14 +1,15 @@
 import React, {FC} from "react";
 import {Button, Card} from "react-bootstrap";
-import {useHistory} from "react-router-dom";
 import {IProduct} from "../../Interfaces/IProduct";
+import {CartContext} from "../../Contexts/CartContext";
+import {CartContextType} from "../../types/CartContextType";
 
 type Props = {
     garment: IProduct;
 };
 
 const ClothesItem: FC<Props> = ({garment}) => {
-    const history = useHistory();
+    const cartContext = React.useContext(CartContext) as CartContextType;
 
     return (
         <Card className={"w-50"}>
@@ -16,7 +17,7 @@ const ClothesItem: FC<Props> = ({garment}) => {
             <Card.Body>
                 <Card.Text>{garment.brandName}</Card.Text>
                 <Card.Title>{garment.clothingName}</Card.Title>
-                <Button variant={"primary"} onClick={() => history.push("/cart")}>
+                <Button variant={"primary"} onClick={() => cartContext.addToCart(garment)}>
                     Add to cart
                 </Button>
             </Card.Body>

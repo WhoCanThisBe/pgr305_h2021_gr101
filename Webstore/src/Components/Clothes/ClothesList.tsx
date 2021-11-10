@@ -5,7 +5,6 @@ import {ClothesContext} from "../../Contexts/ClothesContext";
 import {ClothesContextType} from "../../types/ClothesContextType";
 import ClothesItem from "./ClothesItem";
 
-
 type Props = {
     filter?: string;
 };
@@ -29,7 +28,7 @@ const ClothesList: FC<Props> = ({filter}) => {
         return clothes.map((garment: IProduct, index: number) => {
             return (
                 <Col key={index}>
-                    <ClothesItem garment={garment}/>
+                    <ClothesItem garment={garment} />
                 </Col>
             );
         });

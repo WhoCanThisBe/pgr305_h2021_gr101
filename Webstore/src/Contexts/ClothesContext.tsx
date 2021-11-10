@@ -17,6 +17,7 @@ export const ClothesContext = React.createContext<ClothesContextType | null>(
 const ClothesProvider: FC<Props> = ({children}) => {
     const [clothes, setClothes] = useState<IProduct[]>([
         {
+            id: "1",
             brandName: "Armani",
             clothingName: "Blå Jakke",
             categoryType: "jakke",
@@ -24,9 +25,11 @@ const ClothesProvider: FC<Props> = ({children}) => {
             stock: 5,
             color: "blue",
             gender: "male",
-            image: testLogo
+            image: testLogo,
+            amount: 0
         },
         {
+            id: "2",
             brandName: "Gucci",
             clothingName: "Brun Bag",
             categoryType: "genser",
@@ -34,9 +37,11 @@ const ClothesProvider: FC<Props> = ({children}) => {
             stock: 10,
             color: "brown",
             gender: "unisex",
-            image: testLogo
+            image: testLogo,
+            amount: 0
         },
         {
+            id: "3",
             brandName: "H&M",
             clothingName: "Gul Bukse",
             categoryType: "bukse",
@@ -44,7 +49,8 @@ const ClothesProvider: FC<Props> = ({children}) => {
             stock: 10,
             color: "brown",
             gender: "female",
-            image: testLogo
+            image: testLogo,
+            amount: 0
         },
     ]);
 

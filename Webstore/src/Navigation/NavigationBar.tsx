@@ -89,6 +89,9 @@ const NavigationBar = () => {
             </NavDropdown>
           </Nav.Link>
         </Nav>
+        <Nav>
+          <Nav.Link as={Link} to={"/cart"}>Cart</Nav.Link>
+        </Nav>
       </Navbar>
     </div>
   );
