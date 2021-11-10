@@ -21,7 +21,7 @@ const CartItem: FC <Props> = ({ clothing, addToCart, removeFromCart }) => {
                 <Col>
                     <Card.Body>
                         <Card.Text>{clothing.brandName}</Card.Text>
-                        <Card.Text>{clothing.categoryType} {clothing.color}</Card.Text>
+                        <Card.Text>{clothing.category} {clothing.color}</Card.Text>
                         <Card.Text>{clothing.size}</Card.Text>
                         <Button
                             variant={"contained"}

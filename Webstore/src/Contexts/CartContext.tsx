@@ -1,6 +1,6 @@
 import React, {FC, useState, useEffect} from "react";
 import {IProduct} from "../Interfaces/IProduct";
-import {CartContextType} from "../types/CartContextType";
+import {CartContextType} from "../Types/CartContextType"
 
 export const CartContext = React.createContext<CartContextType | null>(
         null

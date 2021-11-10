@@ -7,7 +7,7 @@ import { SizeDropdown } from "../SizeDropdown";
 import { AddToCartButton } from "../AddToCartButton";
 import {ClothesContextType} from "../../Types/ClothesContextType";
 import {CartContext} from "../../Contexts/CartContext";
-import {CartContextType} from "../../types/CartContextType";
+import {CartContextType} from "../../Types/CartContextType";
 
 type Props = {
   garment: IProduct;

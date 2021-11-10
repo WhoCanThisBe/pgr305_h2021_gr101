@@ -12,6 +12,7 @@ export const ClothesService = (function () {
       color: "brown",
       gender: "Female",
       image: "",
+      amount: 0
     },
     {
       brandName: "Armani",
@@ -22,6 +23,7 @@ export const ClothesService = (function () {
       color: "blue",
       gender: "Male",
       image: "",
+      amount: 0
     },
     {
       brandName: "Gucci",
@@ -32,6 +34,7 @@ export const ClothesService = (function () {
       color: "brown",
       gender: "Unisex",
       image: "",
+      amount: 0
     },
   ];
 

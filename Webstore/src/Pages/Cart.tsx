@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import CartList from "../Components/Cart/CartList";
 import CartProvider, {CartContext} from "../Contexts/CartContext";
-import {CartContextType} from "../types/CartContextType";
+import {CartContextType} from "../Types/CartContextType";
 import {RouteComponentProps} from "react-router";
 
 const Cart: FC<RouteComponentProps> = () => {
