@@ -3,8 +3,8 @@ import { ButtonGroup, Card } from "react-bootstrap";
 import { IProduct } from "../../Interfaces/IProduct";
 import { ClothesContext } from "../../Contexts/ClothesContext";
 import { IOrder } from "../../Interfaces/IOrder";
-import { SizeDropdown } from "../SizeDropdown";
-import { AddToCartButton } from "../AddToCartButton";
+import { SizeDropdown } from "../Shared/SizeDropdown";
+import { AddToCartButton } from "../Shared/AddToCartButton";
 import {ClothesContextType} from "../../Types/ClothesContextType";
 
 

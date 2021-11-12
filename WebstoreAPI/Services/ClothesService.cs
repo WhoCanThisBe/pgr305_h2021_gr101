@@ -35,12 +35,22 @@ namespace WebstoreAPI.Services
 
         }
 
+        public Clothes GetClothes(string id) =>
+            _clothes.Find<Clothes>(clothes => clothes.Id == id).FirstOrDefault();
+        
         public Clothes PostClothes(Clothes newClothes)
         {
-            // TODO ADD TRY CATCH
             _clothes.InsertOne( newClothes );
             return newClothes;
         }
-        
+
+        public void UpdateClothes(string id, Clothes clothingIn) =>
+            _clothes.ReplaceOne(clothing => clothing.Id == id, clothingIn);
+
+        //public void DeleteClothes(Clothes clothingIn) =>
+        //    _clothes.DeleteOne(clothing => clothing.Id == clothingIn.Id);
+
+        public void DeleteClothes(string id) =>
+            _clothes.DeleteOne(clothing => clothing.Id == id);
     }
 }

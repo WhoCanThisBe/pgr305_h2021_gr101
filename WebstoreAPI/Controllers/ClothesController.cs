@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using WebstoreAPI.Models;
 using System.Collections.Generic;
+using WebstoreAPI.Models;
 using WebstoreAPI.Interfaces;
 using WebstoreAPI.Services;
 
@@ -27,14 +27,24 @@ namespace WebstoreAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Clothes> GetClothes()
-        {   
-            //Get clothes need also a checker if contain the correct types
-            return _clothesService.GetClothes();
+        public ActionResult<List<Clothes>> GetClothes() =>
+            _clothesService.GetClothes();
+
+        [HttpGet("{id}")]
+        public ActionResult<Clothes> GetClothes(string id)
+        {
+            var clothes = _clothesService.GetClothes(id);
+
+            if (clothes == null)
+            {
+                return NotFound();
+            }
+
+            return clothes;
         }
 
         [HttpPost]
-        public Clothes PostClothes(Clothes newClothes)
+        public IActionResult PostClothes(Clothes newClothes)
         {
             if (!isValid(newClothes))
             {
@@ -42,7 +52,37 @@ namespace WebstoreAPI.Controllers
             } 
             
             _clothesService.PostClothes(newClothes);
-            return newClothes;
+            return CreatedAtAction(nameof(PostClothes), new {id = newClothes.Id}, newClothes);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateClothes(string id, Clothes clothesIn)
+        {
+            var clothing = _clothesService.GetClothes(id);
+
+            if (clothing == null)
+            {
+                return NotFound();
+            }
+            
+            _clothesService.UpdateClothes(id, clothesIn);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteClothes(string id)
+        {
+            var clothing = _clothesService.GetClothes(id);
+
+            if (clothing == null)
+            {
+                return NotFound();
+            }
+            
+            _clothesService.DeleteClothes(clothing.Id);
+
+            return NoContent();
         }
     }
 }

@@ -8,6 +8,7 @@ import UnisexHome from "../Pages/UnisexHome";
 import NavigationBar from "../Navigation/NavigationBar";
 import ClothesProvider from "../Contexts/ClothesContext";
 import Clothing from "../Pages/Clothing";
+import Admin from "../Pages/Admin";
 
 const Routing: FC = () => {
   return (
@@ -40,6 +41,12 @@ const Routing: FC = () => {
 
               return <ClothesProvider>{component}</ClothesProvider>;
             }}
+          />
+          <Route
+              path={"/Admin"}
+              render={ () => {
+                  return <Admin />
+              }}
           />
           <Route
             exact
