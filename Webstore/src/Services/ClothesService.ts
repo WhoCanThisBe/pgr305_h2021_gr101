@@ -67,12 +67,30 @@ export const ClothesService = (function () {
         })
       } catch(error) {
         console.error(error);
+        return _fallbackClothes;
       }
     }
+  };
+
+  const putClothing = (newClothes: IProduct) => {
+    try{
+      axios.put(`${urlToClothesController}/${newClothes.id}`, newClothes);
+    }catch (error){
+      console.error(error);
+    }
+  };
+
+  const deleteClothing = (clothesDeleting: IProduct) =>{
+    axios.delete(urlToClothesController+"/"+clothesDeleting.id)
+        .catch(error => {
+          console.error(error);
+        })
   };
 
   return {
     getAll,
     postClothing,
+    putClothing,
+    deleteClothing
   };
 })();

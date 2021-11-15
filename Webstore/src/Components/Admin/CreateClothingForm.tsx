@@ -6,6 +6,7 @@ import {IProduct} from "../../Interfaces/IProduct";
 import {Button, Form} from "react-bootstrap";
 import {ClothesService} from "../../Services/ClothesService";
 
+// Form that lets you create clothing and push it to the database
 const CreateClothingForm : FC = () => {
 
     const [newClothing, setNewClothing] = useState<IProduct>({
@@ -19,9 +20,9 @@ const CreateClothingForm : FC = () => {
         size: "Small",
         stock: 0
     });
-
     const [newImage, setNewImage] = useState<File>();
 
+    // One usestate for each dropdown-menu. useEffect puts the new dropdown choice into the Clothing useState
     const [newCategory, setCategory] = useState( newClothing.category );
     useEffect(() => {
         setNewClothing( {...newClothing, category: newCategory});
@@ -40,6 +41,7 @@ const CreateClothingForm : FC = () => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         let { name } = event.target;
 
+        // Updates the clothing and/or image useState, every time an input changes
         switch ( name ){
             case "brand":
                 setNewClothing( {...newClothing, brandName: event.target.value });
@@ -65,8 +67,6 @@ const CreateClothingForm : FC = () => {
     };
 
     const postNewClothing = () => {
-        console.log(newClothing);
-        console.log(newImage);
         ClothesService.postClothing(newClothing, newImage as File)
     };
 

@@ -9,6 +9,7 @@ import NavigationBar from "../Navigation/NavigationBar";
 import ClothesProvider from "../Contexts/ClothesContext";
 import Clothing from "../Pages/Clothing";
 import Admin from "../Pages/Admin";
+import UpdateClothingForm from "../Components/Admin/UpdateClothingForm";
 
 const Routing: FC = () => {
   return (
@@ -43,9 +44,15 @@ const Routing: FC = () => {
             }}
           />
           <Route
-              path={"/Admin"}
+              path={"/admin"}
+              render={ (props) => {
+                  return <ClothesProvider><Admin {...props}/></ClothesProvider>
+              }}
+          />
+          <Route
+              path = "/update-clothing/:id"
               render={ () => {
-                  return <Admin />
+                  return <ClothesProvider><UpdateClothingForm /></ClothesProvider>
               }}
           />
           <Route
