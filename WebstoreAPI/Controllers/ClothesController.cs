@@ -55,22 +55,25 @@ namespace WebstoreAPI.Controllers
             return CreatedAtAction(nameof(PostClothes), new {id = newClothes.Id}, newClothes);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:length(24)}")]
         public IActionResult UpdateClothes(string id, Clothes clothesIn)
         {
-            var clothing = _clothesService.GetClothes(id);
-
-            if (clothing == null)
+            if (id != clothesIn.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
             
+            var clothing = _clothesService.GetClothes(id);
+
+            if (clothing is null)
+                return NotFound();
+
             _clothesService.UpdateClothes(id, clothesIn);
 
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:length(24)}")]
         public IActionResult DeleteClothes(string id)
         {
             var clothing = _clothesService.GetClothes(id);

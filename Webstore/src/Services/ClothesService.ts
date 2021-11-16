@@ -80,11 +80,13 @@ export const ClothesService = (function () {
     }
   };
 
-  const deleteClothing = (clothesDeleting: IProduct) =>{
-    axios.delete(urlToClothesController+"/"+clothesDeleting.id)
-        .catch(error => {
-          console.error(error);
-        })
+  const deleteClothing = (id: string | undefined) =>{
+    if(id) {
+      axios.delete(`${urlToClothesController}/${id}`)
+          .catch(error => {
+            console.error(error);
+          });
+    }
   };
 
   return {
