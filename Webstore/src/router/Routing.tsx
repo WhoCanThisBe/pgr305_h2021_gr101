@@ -17,10 +17,10 @@ const Routing: FC = () => {
   return (
     <BrowserRouter>
       <Container>
-          <NavigationBar />
+        <NavigationBar />
         <Switch>
           <Route
-            path={["/female-clothing", "/male-clothing", "/unisex-clothing"]}
+            path={["/Female-clothing", "/Male-clothing", "/Unisex-clothing"]}
             render={(props) => {
               return (
                 <ClothesProvider>
@@ -30,45 +30,51 @@ const Routing: FC = () => {
             }}
           />
           <Route
-            path={["/female-home", "/male-home", "/unisex-home"]}
+            path={["/Female-home", "/Male-home", "/Unisex-home"]}
             render={(props) => {
               let component;
 
-              if (props.location.pathname.includes("female")) {
+              if (props.location.pathname.includes("Female")) {
                 component = <FemaleHome />;
-              } else if (props.location.pathname.includes("male")) {
+              } else if (props.location.pathname.includes("Male")) {
                 component = <MaleHome />;
-              } else if (props.location.pathname.includes("unisex")) {
+              } else if (props.location.pathname.includes("Unisex")) {
                 component = <UnisexHome />;
               }
 
-                return (
-                    <ClothesProvider>
-                            <CartProvider>
-                                {component}
-                            </CartProvider>
-                    </ClothesProvider>
-                );
+              return (
+                <ClothesProvider>
+                  <CartProvider>{component}</CartProvider>
+                </ClothesProvider>
+              );
             }}
           />
           <Route
-              path={"/admin"}
-              render={ (props) => {
-                  return <ClothesProvider><Admin {...props}/></ClothesProvider>
-              }}
+            path={"/admin"}
+            render={(props) => {
+              return (
+                <ClothesProvider>
+                  <Admin {...props} />
+                </ClothesProvider>
+              );
+            }}
           />
           <Route
-              path = "/update-clothing/:id"
-              render={ () => {
-                  return <ClothesProvider><UpdateClothingForm /></ClothesProvider>
-              }}
+            path="/update-clothing/:id"
+            render={() => {
+              return (
+                <ClothesProvider>
+                  <UpdateClothingForm />
+                </ClothesProvider>
+              );
+            }}
           />
           <Route
             path={"/cart"}
             render={(props) => (
-                <CartProvider>
-                    <Cart {...props} />
-                </CartProvider>
+              <CartProvider>
+                <Cart {...props} />
+              </CartProvider>
             )}
           />
           <Route
@@ -76,9 +82,9 @@ const Routing: FC = () => {
             path={"/"}
             render={(props) => (
               <ClothesProvider>
-                  <CartProvider>
-                <Home {...props} />
-                  </CartProvider>
+                <CartProvider>
+                  <Home {...props} />
+                </CartProvider>
               </ClothesProvider>
             )}
           />

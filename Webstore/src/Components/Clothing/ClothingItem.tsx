@@ -5,7 +5,7 @@ import { ClothesContext } from "../../Contexts/ClothesContext";
 import { IOrder } from "../../Interfaces/IOrder";
 import { SizeDropdown } from "../Shared/SizeDropdown";
 import { AddToCartButton } from "../Shared/AddToCartButton";
-import {ClothesContextType} from "../../Types/ClothesContextType";
+import { ClothesContextType } from "../../Types/ClothesContextType";
 
 type Props = {
   clothing: IProduct;
@@ -20,14 +20,14 @@ const ClothingItem: FC<Props> = ({ clothing }) => {
 
   const clearOrder = () => setOrder({ products: [], timestamp: "" });
 
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState<IProduct["size"]>();
 
   useEffect(() => {
     if (orders.length === 0) return;
 
     // Clear state after adding a new order to the cart
     clearOrder();
-    setSize("");
+    setSize(undefined);
   }, [orders]);
 
   const handleAddNewOrder = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -56,15 +56,16 @@ const ClothingItem: FC<Props> = ({ clothing }) => {
             ? `https://localhost:5001/images/${clothing.image}`
             : require("../../Images/logo512.png").default
         }
-
       />
       <Card.Body>
         <Card.Text>{clothing.brandName}</Card.Text>
         <Card.Title>{clothing.clothingName}</Card.Title>
         <ButtonGroup>
           <SizeDropdown
-            onSizeChange={(eventKey, _) => setSize(eventKey as string)}
-            size={size}
+            onSizeChange={(eventKey, _) =>
+              setSize(eventKey as IProduct["size"])
+            }
+            size={size as IProduct["size"]}
           />
           <AddToCartButton isDisabled={!size} onClick={handleAddNewOrder} />
         </ButtonGroup>
