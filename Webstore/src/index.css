@@ -9,3 +9,9 @@
 .capitalize {
     text-transform: capitalize;
 }
+
+.card-img-top-cart {
+    width: 100%;
+    height:15vw;
+    object-fit: cover;
+}
