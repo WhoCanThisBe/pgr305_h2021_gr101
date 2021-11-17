@@ -16,7 +16,7 @@ export const SizeDropdown: FC<Props> = ({ onSizeChange, size }) => {
   const [sizes, setSizes] = useState([""]);
 
   useEffect(() => {
-    setSizes(["small", "medium", "large"]);
+    setSizes(["Small", "Medium", "Large"]);
   }, []);
 
   return (

@@ -7,6 +7,7 @@ export type ClothesContextType = {
   fetchProductsByCategory: (
     ...categories: IProduct["category"][]
   ) => IProduct[];
+  fetchProductById: ( id: string) => IProduct;
   orders: IOrder[];
   placeNewOrder: (newOrder: IOrder) => void;
 };

@@ -52,10 +52,15 @@ const ClothesProvider: FC<Props> = ({ children }) => {
     return clothes.filter((garment) => categories.includes(garment.category));
   };
 
+  const fetchProductById = (id: string) => {
+    return clothes.find( clothing => clothing.id === id ) as IProduct
+  };
+
   const clothesContext: ClothesContextType = {
     clothes: clothes,
     fetchProductsByGender,
     fetchProductsByCategory,
+    fetchProductById,
     orders: cart.orders,
     placeNewOrder,
   };

@@ -10,12 +10,14 @@ import ClothesProvider from "../Contexts/ClothesContext";
 import Clothing from "../Pages/Clothing";
 import Cart from "../Pages/Cart";
 import CartProvider from "../Contexts/CartContext";
+import Admin from "../Pages/Admin";
+import UpdateClothingForm from "../Components/Admin/UpdateClothingForm";
 
 const Routing: FC = () => {
   return (
     <BrowserRouter>
       <Container>
-              <NavigationBar />
+          <NavigationBar />
         <Switch>
           <Route
             path={["/female-clothing", "/male-clothing", "/unisex-clothing"]}
@@ -48,6 +50,18 @@ const Routing: FC = () => {
                     </ClothesProvider>
                 );
             }}
+          />
+          <Route
+              path={"/admin"}
+              render={ (props) => {
+                  return <ClothesProvider><Admin {...props}/></ClothesProvider>
+              }}
+          />
+          <Route
+              path = "/update-clothing/:id"
+              render={ () => {
+                  return <ClothesProvider><UpdateClothingForm /></ClothesProvider>
+              }}
           />
           <Route
             path={"/cart"}

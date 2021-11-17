@@ -39,6 +39,7 @@ export const ClothesService = (function () {
   ];
 
   const urlToClothesController = "https://localhost:5001/Clothes";
+  const urlToImageUploadController = "https://localhost:5001/ImageUpload/SaveImage";
 
   // Get list of all clothes from the database trough the API
   const getAll = async () => {
@@ -51,14 +52,50 @@ export const ClothesService = (function () {
     }
   };
 
-  // Post a new clothing to the API, there it will be
-  // converted to a C# object, then inserted in the database
-  const postNewClothing = async (newClothes: IProduct) => {
-    const result = await axios.post(urlToClothesController, newClothes);
+  // Post a new clothing to the API with an image
+  const postClothing = (newClothes: IProduct, image: File ) => {
+
+    let formData = new FormData();
+    formData.append( "file", image);
+
+    if(formData)
+    {
+      try {
+        axios.post(urlToClothesController, newClothes);
+        axios({
+          url: urlToImageUploadController,
+          method: "POST",
+          data: formData,
+          headers: {"Content-Type": "multipart/form-data"}
+        })
+      } catch(error) {
+        console.error(error);
+        return _fallbackClothes;
+      }
+    }
+  };
+
+  const putClothing = (newClothes: IProduct) => {
+    try{
+      axios.put(`${urlToClothesController}/${newClothes.id}`, newClothes);
+    }catch (error){
+      console.error(error);
+    }
+  };
+
+  const deleteClothing = (id: string | undefined) =>{
+    if(id) {
+      axios.delete(`${urlToClothesController}/${id}`)
+          .catch(error => {
+            console.error(error);
+          });
+    }
   };
 
   return {
     getAll,
-    postNewClothing,
+    postClothing,
+    putClothing,
+    deleteClothing
   };
 })();
