@@ -5,17 +5,16 @@ import { ClothesContext } from "../../Contexts/ClothesContext";
 import { IOrder } from "../../Interfaces/IOrder";
 import { SizeDropdown } from "../Shared/SizeDropdown";
 import { AddToCartButton } from "../Shared/AddToCartButton";
-import {ClothesContextType} from "../../Types/ClothesContextType";
-import {CartContext} from "../../Contexts/CartContext";
-import {CartContextType} from "../../Types/CartContextType";
+import { ClothesContextType } from "../../Types/ClothesContextType";
+import { CartContext } from "../../Contexts/CartContext";
+import { CartContextType } from "../../Types/CartContextType";
 
 type Props = {
   garment: IProduct;
 };
 
 const ClothesItem: FC<Props> = ({ garment }) => {
-
-    const cartContext = React.useContext(CartContext) as CartContextType;
+  const cartContext = React.useContext(CartContext) as CartContextType;
 
   const { placeNewOrder, orders } = useContext(
     ClothesContext
@@ -25,14 +24,14 @@ const ClothesItem: FC<Props> = ({ garment }) => {
 
   const clearOrder = () => setOrder({ products: [], timestamp: "" });
 
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState<IProduct["size"]>();
 
   useEffect(() => {
     if (orders.length === 0) return;
 
     // Clear state after adding a new order to the cart
     clearOrder();
-    setSize("");
+    setSize(undefined);
   }, [orders]);
 
   const handleAddNewOrder = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,10 +66,15 @@ const ClothesItem: FC<Props> = ({ garment }) => {
         <Card.Title>{garment.clothingName}</Card.Title>
         <ButtonGroup>
           <SizeDropdown
-            onSizeChange={(eventKey, _) => setSize(eventKey as string)}
-            size={size}
+            onSizeChange={(eventKey, _) =>
+              setSize(eventKey as IProduct["size"])
+            }
+            size={size as IProduct["size"]}
           />
-          <AddToCartButton isDisabled={!size} onClick={() => cartContext.addToCart(garment)} />
+          <AddToCartButton
+            isDisabled={!size}
+            onClick={() => cartContext.addToCart(garment)}
+          />
         </ButtonGroup>
       </Card.Body>
     </Card>

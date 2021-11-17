@@ -6,14 +6,15 @@ import React, {
   useState,
 } from "react";
 import { ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap";
+import { IProduct } from "../../Interfaces/IProduct";
 
 type Props = {
   onSizeChange: (eventKey: string | null, e: SyntheticEvent<unknown>) => void;
-  size: string;
+  size: IProduct["size"];
 };
 
 export const SizeDropdown: FC<Props> = ({ onSizeChange, size }) => {
-  const [sizes, setSizes] = useState([""]);
+  const [sizes, setSizes] = useState<IProduct["size"][]>([]);
 
   useEffect(() => {
     setSizes(["Small", "Medium", "Large"]);
