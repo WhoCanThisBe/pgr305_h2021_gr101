@@ -23,7 +23,8 @@ const UpdateClothingForm: FC = () => {
         id: undefined,
         image: "",
         size: "Small",
-        stock: 0
+        stock: 0,
+        amount: 0
     });
 
     // Set clothing by id on render
