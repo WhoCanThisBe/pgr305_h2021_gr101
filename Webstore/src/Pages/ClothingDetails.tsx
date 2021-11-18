@@ -9,9 +9,11 @@ import { ButtonGroup, Col, Image, Row, Stack } from "react-bootstrap";
 import { SizeDropdown } from "../Components/Shared/SizeDropdown";
 import { AddToCartButton } from "../Components/Shared/AddToCartButton";
 
+type ProductId = { id: string };
+
 const ClothingDetails = () => {
   // Fetch "productId" sent here through `useHistrory()`
-  const location = useLocation<{ id: string }>();
+  const location = useLocation<ProductId>();
 
   const { fetchProductById } = useContext(ClothesContext) as ClothesContextType;
   const { addToCart } = useContext(CartContext) as CartContextType;
