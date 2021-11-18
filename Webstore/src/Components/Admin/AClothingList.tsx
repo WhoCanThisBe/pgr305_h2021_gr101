@@ -13,8 +13,12 @@ const AClothingList: FC = () => {
     const [clothes, setClothes] = useState<IProduct[]>([]);
 
     useEffect(() => {
-        setClothes(clothesContext.clothes);
+        updateList();
     }, [clothesContext.clothes]);
+
+    const updateList = () => {
+        setClothes(clothesContext.clothes)
+    };
 
     const manageDeletion = (id: string | undefined) => {
         const confirm = window.confirm(

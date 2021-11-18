@@ -67,6 +67,8 @@ const CreateClothingForm : FC = () => {
         }
     };
 
+    // TODO Add Input validation before running this method
+    // TODO Find way to reload list in AClothingList when calling this method
     const postNewClothing = () => {
         ClothesService.postClothing(newClothing, newImage as File)
     };
