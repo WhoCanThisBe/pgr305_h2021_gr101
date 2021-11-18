@@ -1,27 +1,13 @@
 import {FC} from "react";
 import {IProduct} from "../../Interfaces/IProduct";
 import {Button, Nav} from "react-bootstrap";
-import {ClothesService} from "../../Services/ClothesService";
 
 type Props = {
     garment: IProduct;
+    manageDeletion: (id: string | undefined) => void;
 };
 
-const AClothingItem: FC<Props> = ({garment}) => {
-
-        const manageDeletion = (id: string | undefined) => {
-            const confirm = window.confirm(
-              "Do you really want to delete this product?"
-            );
-            if(confirm) {
-                if(id) {
-                    ClothesService.deleteClothing(id);
-                    // TODO Find a more elegant solution to reload the list
-                    window.location.reload();
-                }
-            }
-        };
-
+const AClothingItem: FC<Props> = ({garment, manageDeletion}) => {
         return (
             <article>
                 <h2>{garment.clothingName}</h2>
