@@ -1,7 +1,7 @@
 import {FC} from "react";
 import CreateClothingForm from "../Components/Admin/CreateClothingForm";
-import AClothingList from "../Components/Admin/AClothingList";
 import {RouteComponentProps} from "react-router";
+import AClothingList from "../Components/Admin/AClothingList";
 
 type Props = {};
 
