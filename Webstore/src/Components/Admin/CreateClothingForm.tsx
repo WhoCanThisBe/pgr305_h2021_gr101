@@ -59,7 +59,7 @@ const CreateClothingForm : FC = () => {
             case "image":
                 let { files } = event.target;
                 if ( files ){
-                        // TODO Fix bug where program crashes when you exit the file pop up, after an image is already selected
+                    if( files[0] != undefined )
                         setNewClothing({...newClothing, image: files[0].name});
                         setNewImage(files[0]);
                 }
