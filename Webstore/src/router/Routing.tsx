@@ -12,6 +12,7 @@ import Cart from "../Pages/Cart";
 import CartProvider from "../Contexts/CartContext";
 import Admin from "../Pages/Admin";
 import UpdateClothingForm from "../Components/Admin/UpdateClothingForm";
+import ClothingDetails from "../Pages/ClothingDetails";
 
 const Routing: FC = () => {
   return (
@@ -75,6 +76,16 @@ const Routing: FC = () => {
               <CartProvider>
                 <Cart {...props} />
               </CartProvider>
+            )}
+          />
+          <Route
+            path={"/:brandName-:clothingName"}
+            render={() => (
+              <ClothesProvider>
+                <CartProvider>
+                  <ClothingDetails />
+                </CartProvider>
+              </ClothesProvider>
             )}
           />
           <Route

@@ -1,58 +1,18 @@
-import React, { FC, useContext, useEffect, useState } from "react";
-import { ButtonGroup, Card } from "react-bootstrap";
+import React, { FC } from "react";
+import { Card } from "react-bootstrap";
 import { IProduct } from "../../Interfaces/IProduct";
-import { ClothesContext } from "../../Contexts/ClothesContext";
-import { IOrder } from "../../Interfaces/IOrder";
-import { SizeDropdown } from "../Shared/SizeDropdown";
-import { AddToCartButton } from "../Shared/AddToCartButton";
-import { ClothesContextType } from "../../Types/ClothesContextType";
-import { CartContext } from "../../Contexts/CartContext";
-import { CartContextType } from "../../Types/CartContextType";
 
 type Props = {
   garment: IProduct;
+  onNavigationToDetails: (product: IProduct) => void;
 };
 
-const ClothesItem: FC<Props> = ({ garment }) => {
-  const cartContext = React.useContext(CartContext) as CartContextType;
-
-  const { placeNewOrder, orders } = useContext(
-    ClothesContext
-  ) as ClothesContextType;
-
-  const [order, setOrder] = useState<IOrder>({ products: [], timestamp: "" });
-
-  const clearOrder = () => setOrder({ products: [], timestamp: "" });
-
-  const [size, setSize] = useState<IProduct["size"]>();
-
-  useEffect(() => {
-    if (orders.length === 0) return;
-
-    // Clear state after adding a new order to the cart
-    clearOrder();
-    setSize(undefined);
-  }, [orders]);
-
-  const handleAddNewOrder = (evt: React.MouseEvent<HTMLButtonElement>) => {
-    // Copy info from currently rendered clothing/garment
-    const productToOrder = garment;
-
-    // Update it's size to the selected size
-    productToOrder.size = size as IProduct["size"];
-
-    // Prepare a new order that will be added to the cart
-    const newOrder: IOrder = order;
-
-    newOrder.products = [...order.products, productToOrder];
-    newOrder.timestamp = new Date(Date.now()).toLocaleString();
-
-    // Send the order to cart in context (simulation for now)
-    placeNewOrder(newOrder);
-  };
-
+const ClothesItem: FC<Props> = ({ garment, onNavigationToDetails }) => {
   return (
-    <Card className={"w-50"}>
+    <Card
+      className={"clickable"}
+      onClick={() => onNavigationToDetails(garment)}
+    >
       <Card.Img
         variant={"top"}
         src={
@@ -64,18 +24,6 @@ const ClothesItem: FC<Props> = ({ garment }) => {
       <Card.Body>
         <Card.Text>{garment.brandName}</Card.Text>
         <Card.Title>{garment.clothingName}</Card.Title>
-        <ButtonGroup>
-          <SizeDropdown
-            onSizeChange={(eventKey, _) =>
-              setSize(eventKey as IProduct["size"])
-            }
-            size={size as IProduct["size"]}
-          />
-          <AddToCartButton
-            isDisabled={!size}
-            onClick={() => cartContext.addToCart(garment)}
-          />
-        </ButtonGroup>
       </Card.Body>
     </Card>
   );

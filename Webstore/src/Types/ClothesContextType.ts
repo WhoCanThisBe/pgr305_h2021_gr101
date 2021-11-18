@@ -1,5 +1,4 @@
 import { IProduct } from "../Interfaces/IProduct";
-import { IOrder } from "../Interfaces/IOrder";
 
 export type ClothesContextType = {
   clothes: IProduct[];
@@ -7,7 +6,5 @@ export type ClothesContextType = {
   fetchProductsByCategory: (
     ...categories: IProduct["category"][]
   ) => IProduct[];
-  fetchProductById: ( id: string) => IProduct;
-  orders: IOrder[];
-  placeNewOrder: (newOrder: IOrder) => void;
+  fetchProductById: (id: string) => IProduct;
 };
