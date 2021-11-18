@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using WebstoreAPI.Models;
 using WebstoreAPI.Interfaces;
 using WebstoreAPI.Services;
@@ -76,15 +77,27 @@ namespace WebstoreAPI.Controllers
         [HttpDelete("{id:length(24)}")]
         public IActionResult DeleteClothes(string id)
         {
+            var imageRoot = "./wwwroot/images";
             var clothing = _clothesService.GetClothes(id);
 
             if (clothing == null)
             {
                 return NotFound();
             }
-            
-            _clothesService.DeleteClothes(clothing.Id);
 
+            try
+            {
+                var clothingImageRoot = Path.Combine(imageRoot, clothing.Image);
+                
+                System.IO.File.Delete(clothingImageRoot);
+                
+            }catch (DirectoryNotFoundException dirNotFound)
+            {
+                Console.WriteLine(dirNotFound.Message);
+            }
+
+            _clothesService.DeleteClothes(clothing.Id);
+            
             return NoContent();
         }
     }
