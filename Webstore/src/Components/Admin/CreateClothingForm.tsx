@@ -5,9 +5,12 @@ import { GenderDropdown} from "../Shared/GenderDropdown";
 import {IProduct} from "../../Interfaces/IProduct";
 import {Button, Form} from "react-bootstrap";
 import {ClothesService} from "../../Services/ClothesService";
+import createHistory from 'history/createBrowserHistory'
 
 // Form that lets you create clothing and push it to the database
 const CreateClothingForm : FC = () => {
+
+    const history = createHistory();
 
     const [newClothing, setNewClothing] = useState<IProduct>({
         brandName: "",
@@ -68,43 +71,46 @@ const CreateClothingForm : FC = () => {
     };
 
     // TODO Add Input validation before running this method
-    // TODO Find way to reload list in AClothingList when calling this method
+    // TODO Find way to reload list in AClothingList when calling this method to replace history.go()
     const postNewClothing = () => {
-        ClothesService.postClothing(newClothing, newImage as File)
+        ClothesService.postClothing(newClothing, newImage as File);
+        history.go(0);
     };
 
     return (
-        <Form>
-            <Form.Group>
-                <Form.Label>Brand name</Form.Label>
-                <Form.Control onChange={handleChange} name="brand" type="text"/>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Clothing name</Form.Label>
-                <Form.Control onChange={handleChange} name="name" type="text"/>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Stock</Form.Label>
-                <Form.Control onChange={handleChange} name="stock" type="number"/>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Color</Form.Label>
-                <Form.Control onChange={handleChange} name="color" type="text"/>
-            </Form.Group>
-            <Form.Group>
-                <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Jakke" | "Genser" | "Bukse" | "Accesories">)} category={newCategory}/>
-                <SizeDropdown onSizeChange={(eventKey, _) => setSize(eventKey as SetStateAction<"Small" | "Medium" | "Large">)} size={newSize}/>
-                <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
-            </Form.Group>
-            <Form.Group>
-                <Form.Control onChange={handleChange} name="image" type="file"/>
-            </Form.Group>
-            <Form.Group>
-                <Button className="mt-2" onClick={postNewClothing} variant="primary">
-                    Save new clothing
-                </Button>
-            </Form.Group>
-        </Form>
+        <article>
+            <Form>
+                <Form.Group>
+                    <Form.Label>Brand name</Form.Label>
+                    <Form.Control onChange={handleChange} name="brand" type="text"/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Clothing name</Form.Label>
+                    <Form.Control onChange={handleChange} name="name" type="text"/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Stock</Form.Label>
+                    <Form.Control onChange={handleChange} name="stock" type="number"/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Color</Form.Label>
+                    <Form.Control onChange={handleChange} name="color" type="text"/>
+                </Form.Group>
+                <Form.Group>
+                    <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Jakke" | "Genser" | "Bukse" | "Accesories">)} category={newCategory}/>
+                    <SizeDropdown onSizeChange={(eventKey, _) => setSize(eventKey as SetStateAction<"Small" | "Medium" | "Large">)} size={newSize}/>
+                    <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Control onChange={handleChange} name="image" type="file"/>
+                </Form.Group>
+                <Form.Group>
+                    <Button className="mt-2" onClick={postNewClothing} variant="primary">
+                        Save new clothing
+                    </Button>
+                </Form.Group>
+            </Form>
+        </article>
     )
 };
 
