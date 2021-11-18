@@ -3,7 +3,8 @@ import { Col, Row } from "react-bootstrap";
 import { ClothesContext } from "../../Contexts/ClothesContext";
 import { IProduct } from "../../Interfaces/IProduct";
 import ClothingItem from "./ClothingItem";
-import {ClothesContextType} from "../../Types/ClothesContextType";
+import { ClothesContextType } from "../../Types/ClothesContextType";
+import { useHistory } from "react-router-dom";
 
 export type ClothingFilter = {
   gender: IProduct["gender"];
@@ -22,6 +23,14 @@ const ClothingList: FC<Props> = ({ filter }) => {
     ClothesContext
   ) as ClothesContextType;
 
+  const history = useHistory();
+
+  const handleNavigationToDetails = (product: IProduct) => {
+    history.push(`/${product.brandName}-${product.clothingName}`, {
+      id: product.id,
+    });
+  };
+
   const createClothingList = () => {
     const clothingForGender = clothingContext.fetchProductsByGender(
       filter.gender
@@ -34,12 +43,21 @@ const ClothingList: FC<Props> = ({ filter }) => {
 
     return clothingForCategories.map((clothing, index) => (
       <Col key={index}>
-        <ClothingItem clothing={clothing} />
+        <ClothingItem
+          clothing={clothing}
+          onNavigationToDetails={(product) =>
+            handleNavigationToDetails(product)
+          }
+        />
       </Col>
     ));
   };
 
-  return <Row>{createClothingList()}</Row>;
+  return (
+    <Row sm={2} md={2} lg={4} className={"gap-3"}>
+      {createClothingList()}
+    </Row>
+  );
 };
 
 export default ClothingList;
