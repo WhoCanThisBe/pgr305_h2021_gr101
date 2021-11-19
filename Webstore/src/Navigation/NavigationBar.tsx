@@ -1,10 +1,11 @@
-import { Nav, Navbar, Stack } from "react-bootstrap";
+import { Col, Nav, Navbar, Row, Stack } from "react-bootstrap";
 import logo from "../Images/logo.svg";
 import { Link, useHistory } from "react-router-dom";
-import { Fragment, SyntheticEvent, useEffect, useState } from "react";
+import { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
 import { IProduct } from "../Interfaces/IProduct";
+import ViewmodeNavigation, { Viewmode } from "./ViewmodeNavigation";
 
-const NavigationBar = () => {
+const NavigationBar: FC = () => {
   const history = useHistory();
 
   // labels and values for "gender-navigation"-button(s)
@@ -99,32 +100,92 @@ const NavigationBar = () => {
     setGender(selectedGender as IProduct["gender"]);
   };
 
+  // State that decides which navbar-items to render
+  // The idea is to use this in case we want to render some "admin-specific navigation-items"
+  const [viewmodeName, setViewmodeName] =
+    useState<Viewmode["name"]>("customer");
+
   return (
-    <div>
-      <Navbar bg="myGrey menuOpt" variant="dark">
-        <Navbar.Brand>
-          <Nav.Link as={Link} to={"/"}>
-            <img src={logo} width="40px" height="40px" alt={""} />
-            Logo
-          </Nav.Link>
-        </Navbar.Brand>
-        <Nav onSelect={handleSelect} defaultActiveKey={gender}>
-          <Stack direction={"vertical"}>
+    <Navbar bg="myGrey" variant="dark">
+      {/* Make the row(s) take up the whole navbar-width ("w-100" => "width: 100%") -
+            and center all content on the y-axis
+            - Adding row-gap for some spacing between the "navbars"
+        */}
+      <Stack direction={"vertical"} gap={2}>
+        <Row className={"w-100 align-content-center"}>
+          {/* Use 12 to make it use all available columns (12/12) */}
+          <Col xs={12}>
+            <ViewmodeNavigation
+              modes={[
+                { name: "customer", destination: "/" },
+                { name: "admin", destination: "/admin" },
+              ]}
+              onSelectViewmode={(viewmodeName: Viewmode["name"]) =>
+                setViewmodeName(viewmodeName)
+              }
+            />
+          </Col>
+        </Row>
+        <Row className={"w-100 align-content-center"}>
+          {/* Brand and gender-navigation-buttons on "one-half" of the navbar-width (6 out of 12) */}
+          <Col xs={6}>
+            {/* Place brand and navbuttons horizontally on the same line (horizontal-stack) */}
             <Stack direction={"horizontal"}>
-              {createGenderNavigationButtons()}
+              <Navbar.Brand>
+                <Nav.Link
+                  as={Link}
+                  to={"/"}
+                  onClick={() => setViewmodeName("customer")}
+                >
+                  <img src={logo} width="40px" height="40px" alt={""} />
+                  Logo
+                </Nav.Link>
+              </Navbar.Brand>
+
+              {viewmodeName === "customer" && (
+                <Nav
+                  variant={"pills"}
+                  onSelect={handleSelect}
+                  defaultActiveKey={gender}
+                >
+                  {createGenderNavigationButtons()}
+                </Nav>
+              )}
             </Stack>
-            <Stack direction={"horizontal"}>
-              {createCategoryNavigationButtons()}
+          </Col>
+          {/* Navigation "actions" at the right-side of the navbar */}
+          <Col xs={6}>
+            {/* Wrap a stack around the "Nav" and use "justify-content-end" -
+                to put the "Nav" with its content at the end (right-side)
+            */}
+            {/* NB: To make it align the "Nav"-component with content -
+                we need to make the stack "use the same height as its parent" (h-100 => height: 100%)
+            */}
+            <Stack
+              direction={"horizontal"}
+              className={"h-100 justify-content-end"}
+            >
+              <Nav>
+                <Nav.Item>
+                  <Nav.Link as={Link} to={"/cart"}>
+                    Cart
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
             </Stack>
-          </Stack>
-        </Nav>
-        <Nav>
-          <Nav.Link as={Link} to={"/cart"}>
-            Cart
-          </Nav.Link>
-        </Nav>
-      </Navbar>
-    </div>
+          </Col>
+        </Row>
+        <Row className={"w-100 align-content-center"}>
+          <Col xs={12}>
+            {viewmodeName === "customer" && (
+              <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
+                {createCategoryNavigationButtons()}
+              </Nav>
+            )}
+          </Col>
+        </Row>
+      </Stack>
+    </Navbar>
   );
 };
 
