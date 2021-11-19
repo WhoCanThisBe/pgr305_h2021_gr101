@@ -6,12 +6,24 @@
     position: absolute;
 }
 
-.capitalize {
-    text-transform: capitalize;
-}
-
 .card-img-top-cart {
     width: 100%;
     height:15vw;
     object-fit: cover;
+}
+
+/*
+    ===============
+    Utility classes
+    ===============
+ */
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.clickable:hover {
+    cursor: pointer;
+    /* Add box-shadow on the left-side and bottom */
+    box-shadow: -2px 2px 4px 2px grey;
 }
