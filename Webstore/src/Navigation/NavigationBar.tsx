@@ -1,7 +1,8 @@
 import { Col, Nav, Navbar, Row, Stack } from "react-bootstrap";
 import logo from "../Images/logo.svg";
+import cartIco from "../Images/shopping_cart.png";
 import { Link, useHistory } from "react-router-dom";
-import { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
+import React, { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
 import { IProduct } from "../Interfaces/IProduct";
 import ViewmodeNavigation, { Viewmode } from "./ViewmodeNavigation";
 
@@ -105,6 +106,19 @@ const NavigationBar: FC = () => {
   const [viewmodeName, setViewmodeName] =
     useState<Viewmode["name"]>("customer");
 
+  // Counter that shows how many items are in the cart
+
+  const showCartItemCount = () => {
+    const cartItems = localStorage.getItem('items');
+    if(cartItems) {
+      const cartItemsParsed = JSON.parse(cartItems);
+      if (cartItemsParsed <= 0) return (<></>);
+      return (
+            <span>{cartItemsParsed.length}</span>
+      )
+    }
+  };
+
   return (
     <Navbar bg="myGrey" variant="dark">
       {/* Make the row(s) take up the whole navbar-width ("w-100" => "width: 100%") -
@@ -168,7 +182,11 @@ const NavigationBar: FC = () => {
               <Nav>
                 <Nav.Item>
                   <Nav.Link as={Link} to={"/cart"}>
-                    Cart
+                    <img
+                        alt={"Shopping-cart Icon"}
+                        src={cartIco}
+                        width={"40"} />
+                    {showCartItemCount()}
                   </Nav.Link>
                 </Nav.Item>
               </Nav>

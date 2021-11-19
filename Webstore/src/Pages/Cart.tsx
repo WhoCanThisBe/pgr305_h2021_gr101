@@ -6,7 +6,7 @@ import {RouteComponentProps} from "react-router";
 
 const Cart: FC<RouteComponentProps> = () => {
 
-    const cartContext = React.useContext(CartContext) as CartContextType
+    const cartContext = React.useContext(CartContext) as CartContextType;
         return (
             <section>
                 <h1>Cart</h1>

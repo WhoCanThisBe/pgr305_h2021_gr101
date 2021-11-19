@@ -56,7 +56,7 @@ const CartProvider: FC = ({ children }) => {
     const cartContext: CartContextType = {
         item: cartItems,
         addToCart,
-        removeFromCart
+        removeFromCart,
     };
 
     return (
