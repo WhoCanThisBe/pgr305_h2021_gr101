@@ -100,31 +100,92 @@ const NavigationBar = () => {
   };
 
   return (
-    <div>
-      <Navbar bg="myGrey menuOpt" variant="dark">
-        <Navbar.Brand>
-          <Nav.Link as={Link} to={"/"}>
-            <img src={logo} width="40px" height="40px" alt={""} />
-            Logo
-          </Nav.Link>
-        </Navbar.Brand>
-        <Nav onSelect={handleSelect} defaultActiveKey={gender}>
-          <Stack direction={"vertical"}>
-            <Stack direction={"horizontal"}>
+    <Navbar bg="myGrey" variant="dark">
+      {/* Make the row take up the whole navbar-width ("w-100" => "width: 100%") -
+            and center all content on the y-axis
+            - Adding row-gap for some spacing between the "navbars"
+        */}
+
+      <Row className={"w-100 align-content-center"} style={{ gap: ".5rem 0" }}>
+        {/* Use 12 to make it use all available columns (12/12) */}
+        <Col xs={12}>
+          <Nav
+            style={{ paddingLeft: "9rem" }}
+            variant={"pills"}
+            onSelect={(eventKey, _) => {
+              const mode = eventKey as string;
+
+              const customerRegex = /customer/i;
+              const adminRegex = /admin/i;
+
+              if (customerRegex.test(mode)) {
+                history.push("/");
+              } else if (adminRegex.test(mode)) {
+                history.push("/admin");
+              } else {
+                console.error(
+                  `The selected view-mode: ${mode}, is not supported`
+                );
+              }
+            }}
+            defaultActiveKey={"customer"}
+          >
+            {/* Used "paddingLeft" with this value to align the "nav-buttons" with the "gender-nav-buttons" */}
+            <Nav.Item className={"capitalize"}>
+              <Nav.Link eventKey={`customer`}>customer</Nav.Link>
+            </Nav.Item>
+            <Nav.Item className={"capitalize"}>
+              <Nav.Link eventKey={`admin`}>admin</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Col>
+        {/* Brand and gender-navigation-buttons on "one-half" of the navbar-width (6 out of 12) */}
+        <Col xs={6}>
+          {/* Place brand and navbuttons horizontally on the same line (horizontal-stack) */}
+          <Stack direction={"horizontal"}>
+            <Navbar.Brand>
+              <Nav.Link as={Link} to={"/"}>
+                <img src={logo} width="40px" height="40px" alt={""} />
+                Logo
+              </Nav.Link>
+            </Navbar.Brand>
+            <Nav
+              variant={"pills"}
+              onSelect={handleSelect}
+              defaultActiveKey={gender}
+            >
               {createGenderNavigationButtons()}
-            </Stack>
-            <Stack direction={"horizontal"}>
-              {createCategoryNavigationButtons()}
-            </Stack>
+            </Nav>
           </Stack>
-        </Nav>
-        <Nav>
-          <Nav.Link as={Link} to={"/cart"}>
-            Cart
-          </Nav.Link>
-        </Nav>
-      </Navbar>
-    </div>
+        </Col>
+        {/* Navigation "actions" at the right-side of the navbar */}
+        <Col xs={6}>
+          {/* Wrap a stack around the "Nav" and use "justify-content-end" -
+                to put the "Nav" with its content at the end (right-side)
+            */}
+          {/* NB: To make it align the "Nav"-component with content -
+                we need to make the stack "use the same height as its parent"
+            */}
+          <Stack
+            direction={"horizontal"}
+            className={"h-100 justify-content-end"}
+          >
+            <Nav>
+              <Nav.Item>
+                <Nav.Link as={Link} to={"/cart"}>
+                  Cart
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Stack>
+        </Col>
+        <Col>
+          <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
+            {createCategoryNavigationButtons()}
+          </Nav>
+        </Col>
+      </Row>
+    </Navbar>
   );
 };
 
