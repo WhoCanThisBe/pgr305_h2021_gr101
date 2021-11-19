@@ -1,11 +1,11 @@
 import { Col, Nav, Navbar, Row, Stack } from "react-bootstrap";
 import logo from "../Images/logo.svg";
 import { Link, useHistory } from "react-router-dom";
-import { Fragment, SyntheticEvent, useEffect, useState } from "react";
+import { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
 import { IProduct } from "../Interfaces/IProduct";
-import ViewmodeNavigation from "./ViewmodeNavigation";
+import ViewmodeNavigation, { Viewmode } from "./ViewmodeNavigation";
 
-const NavigationBar = () => {
+const NavigationBar: FC = () => {
   const history = useHistory();
 
   // labels and values for "gender-navigation"-button(s)
@@ -100,6 +100,10 @@ const NavigationBar = () => {
     setGender(selectedGender as IProduct["gender"]);
   };
 
+  // State that decides which navbar-items to render
+  // The idea is to use this in case we want to render some "admin-specific navigation-items"
+  const [viewmodeName, setViewmodeName] = useState<Viewmode["name"]>("");
+
   return (
     <Navbar bg="myGrey" variant="dark">
       {/* Make the row(s) take up the whole navbar-width ("w-100" => "width: 100%") -
@@ -115,6 +119,9 @@ const NavigationBar = () => {
                 { name: "customer", destination: "/" },
                 { name: "admin", destination: "/admin" },
               ]}
+              onSelectViewmode={(viewmodeName: Viewmode["name"]) =>
+                setViewmodeName(viewmodeName)
+              }
             />
           </Col>
         </Row>
@@ -124,18 +131,25 @@ const NavigationBar = () => {
             {/* Place brand and navbuttons horizontally on the same line (horizontal-stack) */}
             <Stack direction={"horizontal"}>
               <Navbar.Brand>
-                <Nav.Link as={Link} to={"/"}>
+                <Nav.Link
+                  as={Link}
+                  to={"/"}
+                  onClick={() => setViewmodeName("customer")}
+                >
                   <img src={logo} width="40px" height="40px" alt={""} />
                   Logo
                 </Nav.Link>
               </Navbar.Brand>
-              <Nav
-                variant={"pills"}
-                onSelect={handleSelect}
-                defaultActiveKey={gender}
-              >
-                {createGenderNavigationButtons()}
-              </Nav>
+
+              {viewmodeName === "customer" && (
+                <Nav
+                  variant={"pills"}
+                  onSelect={handleSelect}
+                  defaultActiveKey={gender}
+                >
+                  {createGenderNavigationButtons()}
+                </Nav>
+              )}
             </Stack>
           </Col>
           {/* Navigation "actions" at the right-side of the navbar */}
@@ -162,9 +176,11 @@ const NavigationBar = () => {
         </Row>
         <Row className={"w-100 align-content-center"}>
           <Col xs={12}>
-            <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
-              {createCategoryNavigationButtons()}
-            </Nav>
+            {viewmodeName === "customer" && (
+              <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
+                {createCategoryNavigationButtons()}
+              </Nav>
+            )}
           </Col>
         </Row>
       </Stack>

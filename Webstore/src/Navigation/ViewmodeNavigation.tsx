@@ -9,9 +9,10 @@ export type Viewmode = {
 
 type Props = {
   modes: Viewmode[];
+  onSelectViewmode: (viewmodeName: Viewmode["name"]) => void;
 };
 
-const ViewmodeNavigation: FC<Props> = ({ modes }) => {
+const ViewmodeNavigation: FC<Props> = ({ modes, onSelectViewmode }) => {
   const [selectedMode, setSelectedMode] = useState(modes[0].name);
 
   const history = useHistory();
@@ -23,6 +24,9 @@ const ViewmodeNavigation: FC<Props> = ({ modes }) => {
     const mode = eventKey as string;
 
     setSelectedMode(mode);
+
+    // Change rendered navigationbar in `NavigationBar.tsx`
+    onSelectViewmode(mode);
 
     const foundMode = modes.find((m) => m.name === mode);
 
