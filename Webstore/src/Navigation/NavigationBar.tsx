@@ -1,8 +1,9 @@
-import { Nav, Navbar, Stack } from "react-bootstrap";
+import { Col, Nav, Navbar, Row, Stack } from "react-bootstrap";
 import logo from "../Images/logo.svg";
 import { Link, useHistory } from "react-router-dom";
 import { Fragment, SyntheticEvent, useEffect, useState } from "react";
 import { IProduct } from "../Interfaces/IProduct";
+import ViewmodeNavigation from "./ViewmodeNavigation";
 
 const NavigationBar = () => {
   const history = useHistory();
@@ -101,90 +102,72 @@ const NavigationBar = () => {
 
   return (
     <Navbar bg="myGrey" variant="dark">
-      {/* Make the row take up the whole navbar-width ("w-100" => "width: 100%") -
+      {/* Make the row(s) take up the whole navbar-width ("w-100" => "width: 100%") -
             and center all content on the y-axis
             - Adding row-gap for some spacing between the "navbars"
         */}
-
-      <Row className={"w-100 align-content-center"} style={{ gap: ".5rem 0" }}>
-        {/* Use 12 to make it use all available columns (12/12) */}
-        <Col xs={12}>
-          <Nav
-            style={{ paddingLeft: "9rem" }}
-            variant={"pills"}
-            onSelect={(eventKey, _) => {
-              const mode = eventKey as string;
-
-              const customerRegex = /customer/i;
-              const adminRegex = /admin/i;
-
-              if (customerRegex.test(mode)) {
-                history.push("/");
-              } else if (adminRegex.test(mode)) {
-                history.push("/admin");
-              } else {
-                console.error(
-                  `The selected view-mode: ${mode}, is not supported`
-                );
-              }
-            }}
-            defaultActiveKey={"customer"}
-          >
-            {/* Used "paddingLeft" with this value to align the "nav-buttons" with the "gender-nav-buttons" */}
-            <Nav.Item className={"capitalize"}>
-              <Nav.Link eventKey={`customer`}>customer</Nav.Link>
-            </Nav.Item>
-            <Nav.Item className={"capitalize"}>
-              <Nav.Link eventKey={`admin`}>admin</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        {/* Brand and gender-navigation-buttons on "one-half" of the navbar-width (6 out of 12) */}
-        <Col xs={6}>
-          {/* Place brand and navbuttons horizontally on the same line (horizontal-stack) */}
-          <Stack direction={"horizontal"}>
-            <Navbar.Brand>
-              <Nav.Link as={Link} to={"/"}>
-                <img src={logo} width="40px" height="40px" alt={""} />
-                Logo
-              </Nav.Link>
-            </Navbar.Brand>
-            <Nav
-              variant={"pills"}
-              onSelect={handleSelect}
-              defaultActiveKey={gender}
-            >
-              {createGenderNavigationButtons()}
-            </Nav>
-          </Stack>
-        </Col>
-        {/* Navigation "actions" at the right-side of the navbar */}
-        <Col xs={6}>
-          {/* Wrap a stack around the "Nav" and use "justify-content-end" -
+      <Stack direction={"vertical"} gap={2}>
+        <Row className={"w-100 align-content-center"}>
+          {/* Use 12 to make it use all available columns (12/12) */}
+          <Col xs={12}>
+            <ViewmodeNavigation
+              modes={[
+                { name: "customer", destination: "/" },
+                { name: "admin", destination: "/admin" },
+              ]}
+            />
+          </Col>
+        </Row>
+        <Row className={"w-100 align-content-center"}>
+          {/* Brand and gender-navigation-buttons on "one-half" of the navbar-width (6 out of 12) */}
+          <Col xs={6}>
+            {/* Place brand and navbuttons horizontally on the same line (horizontal-stack) */}
+            <Stack direction={"horizontal"}>
+              <Navbar.Brand>
+                <Nav.Link as={Link} to={"/"}>
+                  <img src={logo} width="40px" height="40px" alt={""} />
+                  Logo
+                </Nav.Link>
+              </Navbar.Brand>
+              <Nav
+                variant={"pills"}
+                onSelect={handleSelect}
+                defaultActiveKey={gender}
+              >
+                {createGenderNavigationButtons()}
+              </Nav>
+            </Stack>
+          </Col>
+          {/* Navigation "actions" at the right-side of the navbar */}
+          <Col xs={6}>
+            {/* Wrap a stack around the "Nav" and use "justify-content-end" -
                 to put the "Nav" with its content at the end (right-side)
             */}
-          {/* NB: To make it align the "Nav"-component with content -
-                we need to make the stack "use the same height as its parent"
+            {/* NB: To make it align the "Nav"-component with content -
+                we need to make the stack "use the same height as its parent" (h-100 => height: 100%)
             */}
-          <Stack
-            direction={"horizontal"}
-            className={"h-100 justify-content-end"}
-          >
-            <Nav>
-              <Nav.Item>
-                <Nav.Link as={Link} to={"/cart"}>
-                  Cart
-                </Nav.Link>
-              </Nav.Item>
+            <Stack
+              direction={"horizontal"}
+              className={"h-100 justify-content-end"}
+            >
+              <Nav>
+                <Nav.Item>
+                  <Nav.Link as={Link} to={"/cart"}>
+                    Cart
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Stack>
+          </Col>
+        </Row>
+        <Row className={"w-100 align-content-center"}>
+          <Col xs={12}>
+            <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
+              {createCategoryNavigationButtons()}
             </Nav>
-          </Stack>
-        </Col>
-        <Col>
-          <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
-            {createCategoryNavigationButtons()}
-          </Nav>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </Stack>
     </Navbar>
   );
 };
