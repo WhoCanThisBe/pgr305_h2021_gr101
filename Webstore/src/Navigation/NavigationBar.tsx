@@ -75,7 +75,7 @@ const NavigationBar = () => {
     // Transforming received categories (clothes, shoes) into expected values (IProduct)
     const productTypesForCategory: { [index: string]: IProduct["category"][] } =
       {
-        clothes: ["Sko", "Jakke", "Genser", "Bukse", "Accesories"],
+        clothes: ["Sko", "Overdel", "Bukse", "Accesories"],
         shoes: ["Sko"],
         accesories: ["Accesories"],
       };

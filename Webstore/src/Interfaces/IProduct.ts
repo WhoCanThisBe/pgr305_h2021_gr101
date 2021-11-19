@@ -1,12 +1,15 @@
+import {IImage} from "./IImage";
+
 export interface IProduct {
   id?: string;
   brandName: string;
   clothingName: string;
-  category: "Sko" | "Jakke" | "Genser" | "Bukse" | "Accesories";
+  category: "Sko" | "Overdel" | "Bukse" | "Accesories";
   size: "Small" | "Medium" | "Large";
   stock: number;
+  priceNok: number;
   color: string;
   gender: "Female" | "Unisex" | "Male";
-  image: string;
+  images: IImage[];
   amount: number;
 }
