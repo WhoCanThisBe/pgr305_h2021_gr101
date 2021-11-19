@@ -102,7 +102,8 @@ const NavigationBar: FC = () => {
 
   // State that decides which navbar-items to render
   // The idea is to use this in case we want to render some "admin-specific navigation-items"
-  const [viewmodeName, setViewmodeName] = useState<Viewmode["name"]>("");
+  const [viewmodeName, setViewmodeName] =
+    useState<Viewmode["name"]>("customer");
 
   return (
     <Navbar bg="myGrey" variant="dark">
