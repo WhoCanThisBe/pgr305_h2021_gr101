@@ -4,7 +4,7 @@
     {
         Sko,
         Overdel,
-        Bukse,
+        Underdel,
         Accesories
 
     }
