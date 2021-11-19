@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, SetStateAction, useEffect, useState} from "react";
+import React, {ChangeEvent, FC, SetStateAction, useEffect, useState} from "react";
 import { SizeDropdown } from "../Shared/SizeDropdown"
 import { CategoryDropdown } from "../Shared/CategoryDropdown";
 import { GenderDropdown} from "../Shared/GenderDropdown";
@@ -19,9 +19,10 @@ const CreateClothingForm : FC = () => {
         color: "",
         gender: "Male",
         id: undefined,
-        image: "",
+        images: [],
         size: "Small",
         stock: 0,
+        priceNok: 0,
         amount: 0
     });
     const [newImage, setNewImage] = useState<File>();
@@ -56,6 +57,9 @@ const CreateClothingForm : FC = () => {
             case "stock":
                 setNewClothing( {...newClothing, stock: parseInt(event.target.value) });
                 break;
+            case "priceNok":
+                setNewClothing({...newClothing, priceNok: parseInt(event.target.value)});
+                break;
             case "color":
                 setNewClothing( {...newClothing, color: event.target.value });
                 break;
@@ -63,7 +67,9 @@ const CreateClothingForm : FC = () => {
                 let { files } = event.target;
                 if ( files ){
                     if( files[0] != undefined )
-                        setNewClothing({...newClothing, image: files[0].name});
+                        setNewClothing({...newClothing, images: [{
+                                name: files[0].name
+                            }]});
                         setNewImage(files[0]);
                 }
                 break;
@@ -93,11 +99,15 @@ const CreateClothingForm : FC = () => {
                     <Form.Control onChange={handleChange} name="stock" type="number"/>
                 </Form.Group>
                 <Form.Group>
+                    <Form.Label>Price NOK</Form.Label>
+                    <Form.Control onChange={handleChange} name="priceNok" type="number"/>
+                </Form.Group>
+                <Form.Group>
                     <Form.Label>Color</Form.Label>
                     <Form.Control onChange={handleChange} name="color" type="text"/>
                 </Form.Group>
                 <Form.Group>
-                    <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Jakke" | "Genser" | "Bukse" | "Accesories">)} category={newCategory}/>
+                    <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Underdel" | "Accesories">)} category={newCategory}/>
                     <SizeDropdown onSizeChange={(eventKey, _) => setSize(eventKey as SetStateAction<"Small" | "Medium" | "Large">)} size={newSize}/>
                     <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
                 </Form.Group>

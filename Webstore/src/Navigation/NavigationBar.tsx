@@ -1,7 +1,8 @@
 import { Col, Nav, Navbar, Row, Stack } from "react-bootstrap";
 import logo from "../Images/logo.svg";
+import cartIco from "../Images/shopping_cart.png";
 import { Link, useHistory } from "react-router-dom";
-import { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
+import React, { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
 import { IProduct } from "../Interfaces/IProduct";
 import ViewmodeNavigation, { Viewmode } from "./ViewmodeNavigation";
 
@@ -76,7 +77,7 @@ const NavigationBar: FC = () => {
     // Transforming received categories (clothes, shoes) into expected values (IProduct)
     const productTypesForCategory: { [index: string]: IProduct["category"][] } =
       {
-        clothes: ["Sko", "Jakke", "Genser", "Bukse", "Accesories"],
+        clothes: ["Sko", "Overdel", "Underdel", "Accesories"],
         shoes: ["Sko"],
         accesories: ["Accesories"],
       };
@@ -104,6 +105,19 @@ const NavigationBar: FC = () => {
   // The idea is to use this in case we want to render some "admin-specific navigation-items"
   const [viewmodeName, setViewmodeName] =
     useState<Viewmode["name"]>("customer");
+
+  // Counter that shows how many items are in the cart
+
+  const showCartItemCount = () => {
+    const cartItems = localStorage.getItem('items');
+    if(cartItems) {
+      const cartItemsParsed = JSON.parse(cartItems);
+      if (cartItemsParsed <= 0) return (<></>);
+      return (
+            <span>{cartItemsParsed.length}</span>
+      )
+    }
+  };
 
   return (
     <Navbar bg="myGrey" variant="dark">
@@ -168,7 +182,11 @@ const NavigationBar: FC = () => {
               <Nav>
                 <Nav.Item>
                   <Nav.Link as={Link} to={"/cart"}>
-                    Cart
+                    <img
+                        alt={"Shopping-cart Icon"}
+                        src={cartIco}
+                        width={"40"} />
+                    {showCartItemCount()}
                   </Nav.Link>
                 </Nav.Item>
               </Nav>

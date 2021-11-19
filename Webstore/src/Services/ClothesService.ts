@@ -6,12 +6,13 @@ export const ClothesService = (function () {
     {
       brandName: "H&M",
       clothingName: "Gul Bukse",
-      category: "Bukse",
+      category: "Underdel",
       size: "Medium",
       stock: 10,
+      priceNok: 0,
       color: "brown",
       gender: "Female",
-      image: "",
+      images: [],
       amount: 0
     },
     {
@@ -20,9 +21,10 @@ export const ClothesService = (function () {
       category: "Sko",
       size: "Large",
       stock: 5,
+      priceNok: 0,
       color: "blue",
       gender: "Male",
-      image: "",
+      images: [],
       amount: 0
     },
     {
@@ -31,9 +33,10 @@ export const ClothesService = (function () {
       category: "Accesories",
       size: "Small",
       stock: 10,
+      priceNok: 0,
       color: "brown",
       gender: "Unisex",
-      image: "",
+      images: [],
       amount: 0
     },
   ];

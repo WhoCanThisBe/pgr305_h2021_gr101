@@ -77,17 +77,32 @@ namespace WebstoreAPI.Controllers
         [HttpDelete("{id:length(24)}")]
         public IActionResult DeleteClothes(string id)
         {
-            var imageRoot = "./wwwroot/images";
             var clothing = _clothesService.GetClothes(id);
 
             if (clothing == null)
             {
                 return NotFound();
             }
+            
+            _clothesService.DeleteClothes(clothing.Id);
+            
+            return NoContent();
+        }
 
+        [HttpDelete("{name}")]
+        public IActionResult DeleteClothingImage(string name)
+        {
+            var imageRoot = "./wwwroot/images";
+            var imageName = name;
+
+            if (imageName == null)
+            {
+                return NotFound();
+            }
+            
             try
             {
-                var clothingImageRoot = Path.Combine(imageRoot, clothing.Image);
+                var clothingImageRoot = Path.Combine(imageRoot, name);
                 
                 System.IO.File.Delete(clothingImageRoot);
                 
@@ -96,9 +111,8 @@ namespace WebstoreAPI.Controllers
                 Console.WriteLine(dirNotFound.Message);
             }
 
-            _clothesService.DeleteClothes(clothing.Id);
-            
             return NoContent();
         }
+        
     }
 }
