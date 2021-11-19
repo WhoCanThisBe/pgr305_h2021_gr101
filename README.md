@@ -145,3 +145,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 # Sources
 1. Basarat. Last updated: 02 November 2020. [Index signatures in TypeScript](https://basarat.gitbook.io/typescript/type-system/index-signatures).
+2. React Router. "Query Parameters" example. [React Router v5 Query Parameter example](https://v5.reactrouter.com/web/example/query-parameters)
+3. MDN Info about removing eventListener(s). [Removing eventListeners](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)

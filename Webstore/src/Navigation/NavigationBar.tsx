@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
 import { IProduct } from "../Interfaces/IProduct";
 import ViewmodeNavigation, { Viewmode } from "./ViewmodeNavigation";
+import SearchNavigationItem from "./SearchNavigationItem";
 
 const NavigationBar: FC = () => {
   const history = useHistory();
@@ -176,12 +177,15 @@ const NavigationBar: FC = () => {
           </Col>
         </Row>
         <Row className={"w-100 align-content-center"}>
-          <Col xs={12}>
+          <Col xs={6}>
             {viewmodeName === "customer" && (
               <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
                 {createCategoryNavigationButtons()}
               </Nav>
             )}
+          </Col>
+          <Col xs={6}>
+            <SearchNavigationItem />
           </Col>
         </Row>
       </Stack>

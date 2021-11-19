@@ -13,6 +13,7 @@ import CartProvider from "../Contexts/CartContext";
 import Admin from "../Pages/Admin";
 import UpdateClothingForm from "../Components/Admin/UpdateClothingForm";
 import ClothingDetails from "../Pages/ClothingDetails";
+import Search from "../Pages/Search";
 
 const Routing: FC = () => {
   return (
@@ -20,6 +21,14 @@ const Routing: FC = () => {
       <Container>
         <NavigationBar />
         <Switch>
+          <Route
+            path={"/search"}
+            render={() => (
+              <ClothesProvider>
+                <Search />
+              </ClothesProvider>
+            )}
+          />
           <Route
             path={["/Female-clothing", "/Male-clothing", "/Unisex-clothing"]}
             render={(props) => {
