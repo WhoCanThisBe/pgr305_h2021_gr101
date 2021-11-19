@@ -107,7 +107,7 @@ const UpdateClothingForm: FC = () => {
                 <Form.Control onChange={handleChange} name="color" type="text"/>
             </Form.Group>
             <Form.Group>
-                <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Bukse" | "Accesories">)} category={newCategory}/>
+                <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Underdel" | "Accesories">)} category={newCategory}/>
                 <SizeDropdown onSizeChange={(eventKey, _) => setSize(eventKey as SetStateAction<"Small" | "Medium" | "Large">)} size={newSize}/>
                 <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
             </Form.Group>

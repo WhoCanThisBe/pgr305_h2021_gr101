@@ -6,7 +6,7 @@ export const ClothesService = (function () {
     {
       brandName: "H&M",
       clothingName: "Gul Bukse",
-      category: "Bukse",
+      category: "Underdel",
       size: "Medium",
       stock: 10,
       priceNok: 0,
