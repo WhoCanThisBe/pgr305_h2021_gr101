@@ -2,9 +2,16 @@ import { Col, Nav, Navbar, Row, Stack } from "react-bootstrap";
 import logo from "../Images/logo.svg";
 import cartIco from "../Images/shopping_cart.png";
 import { Link, useHistory } from "react-router-dom";
-import React, { FC, Fragment, SyntheticEvent, useEffect, useState } from "react";
+import React, {
+  FC,
+  Fragment,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 import { IProduct } from "../Interfaces/IProduct";
 import ViewmodeNavigation, { Viewmode } from "./ViewmodeNavigation";
+import SearchNavigationItem from "./SearchNavigationItem";
 
 const NavigationBar: FC = () => {
   const history = useHistory();
@@ -109,13 +116,14 @@ const NavigationBar: FC = () => {
   // Counter that shows how many items are in the cart
 
   const showCartItemCount = () => {
-    const cartItems = localStorage.getItem('items');
-    if(cartItems) {
+    const cartItems = localStorage.getItem("items");
+
+    if (cartItems) {
       const cartItemsParsed = JSON.parse(cartItems);
-      if (cartItemsParsed <= 0) return (<></>);
-      return (
-            <span>{cartItemsParsed.length}</span>
-      )
+
+      if (cartItemsParsed <= 0) return <></>;
+
+      return <span>{cartItemsParsed.length}</span>;
     }
   };
 
@@ -183,9 +191,10 @@ const NavigationBar: FC = () => {
                 <Nav.Item>
                   <Nav.Link as={Link} to={"/cart"}>
                     <img
-                        alt={"Shopping-cart Icon"}
-                        src={cartIco}
-                        width={"40"} />
+                      alt={"Shopping-cart Icon"}
+                      src={cartIco}
+                      width={"40"}
+                    />
                     {showCartItemCount()}
                   </Nav.Link>
                 </Nav.Item>
@@ -194,12 +203,15 @@ const NavigationBar: FC = () => {
           </Col>
         </Row>
         <Row className={"w-100 align-content-center"}>
-          <Col xs={12}>
+          <Col xs={6}>
             {viewmodeName === "customer" && (
               <Nav onSelect={handleSelect} style={{ paddingLeft: "9rem" }}>
                 {createCategoryNavigationButtons()}
               </Nav>
             )}
+          </Col>
+          <Col xs={6}>
+            <SearchNavigationItem />
           </Col>
         </Row>
       </Stack>

@@ -51,7 +51,7 @@ const ClothesList: FC<Props> = ({ filter }) => {
   };
 
   return (
-    <Row sm={2} md={2} lg={4} className={"gap-3"}>
+    <Row xs={12} md={6} lg={5} className={"gap-3"}>
       {createClothesList()}
     </Row>
   );
