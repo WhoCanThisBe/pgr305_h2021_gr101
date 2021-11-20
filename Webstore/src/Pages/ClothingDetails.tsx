@@ -8,7 +8,7 @@ import { IProduct } from "../Interfaces/IProduct";
 import { ButtonGroup, Col, Image, Row, Stack } from "react-bootstrap";
 import { SizeDropdown } from "../Components/Shared/SizeDropdown";
 import { AddToCartButton } from "../Components/Shared/AddToCartButton";
-import {IImage} from "../Interfaces/IImage";
+import { IImage } from "../Interfaces/IImage";
 
 type ProductId = { id: string };
 
@@ -41,7 +41,9 @@ const ClothingDetails = () => {
   const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
-    setSelectedImage(clothing.images[0].name);
+    if (!clothing) return;
+
+    setSelectedImage(clothing.images[0]?.name);
   }, []);
 
   const createClothingDetailsItem = () => {
@@ -69,7 +71,11 @@ const ClothingDetails = () => {
         <Col>
           {/* TODO: Remove "w-100" after replacing this with real images in the correct size */}
           {selectedImage && (
-            <Image src={`https://localhost:5001/images/${selectedImage}`} rounded className={"w-100"} />
+            <Image
+              src={`https://localhost:5001/images/${selectedImage}`}
+              rounded
+              className={"w-100"}
+            />
           )}
         </Col>
 

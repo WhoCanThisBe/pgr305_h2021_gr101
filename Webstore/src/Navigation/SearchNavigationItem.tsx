@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import {
   CloseButton,
@@ -8,9 +8,10 @@ import {
   Nav,
 } from "react-bootstrap";
 import { ClothingFilter } from "../Types/ClothingFilter";
+import NavigationService from "../Services/NavigationService";
 
 export type PageNavigationInfo = {
-  pagePath: string;
+  path: string;
   state: ClothingFilter | unknown;
 };
 
@@ -19,10 +20,6 @@ const SearchNavigationItem: FC = () => {
   const searchInput = useRef<HTMLInputElement>(null);
 
   const history = useHistory();
-
-  // Store info from the previous navigated page, so we can go back there with needed info on "search-cancel"
-  const [prevPageNavigationInfo, setPrevPageNavigationInfo] =
-    useState<PageNavigationInfo>();
 
   // Function that check when someone has typed "Enter" into the search-field and extracts the query
   const handleSubmitSearch = (evt: KeyboardEvent) => {
@@ -39,9 +36,7 @@ const SearchNavigationItem: FC = () => {
     // Give the "search"-page some info on where the search originated from -
     // (e.g.: search performed from "/Male-home")
     // referer can be used to "redirect back when a search is canceled" etc
-    history.push(`/search?q=${enteredQuery}`, {
-      prevPageInfo: prevPageNavigationInfo,
-    });
+    history.push(`/search?q=${enteredQuery}`);
   };
 
   useEffect(() => {
@@ -72,10 +67,10 @@ const SearchNavigationItem: FC = () => {
                 if (history.location.pathname.includes("search")) return;
 
                 // Get info on which page we are at, when the "search-field" is "clicked/selected" by the user
-                setPrevPageNavigationInfo({
-                  pagePath: history.location.pathname,
-                  state: history.location.state,
-                });
+                NavigationService.updateNavInfo(
+                  history.location.pathname,
+                  history.location.state
+                );
               }}
             />
           </FloatingLabel>

@@ -1,29 +1,29 @@
 import { FC, useContext, useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { IProduct } from "../Interfaces/IProduct";
-import { PageNavigationInfo } from "../Navigation/SearchNavigationItem";
 import { ClothesContext } from "../Contexts/ClothesContext";
 import { ClothesContextType } from "../Types/ClothesContextType";
 import ClothingItem from "../Components/Clothing/ClothingItem";
-import { Col, Row, Stack } from "react-bootstrap";
+import { Col, Image, Row, Stack } from "react-bootstrap";
+import NavigationService from "../Services/NavigationService";
 
 const Search: FC = () => {
   const { clothes, fetchProductsByGender } = useContext(
     ClothesContext
   ) as ClothesContextType;
 
-  const location = useLocation<{ prevPageInfo: PageNavigationInfo }>();
+  //const location = useLocation();
 
   const history = useHistory();
 
   const [query, setQuery] = useState<URLSearchParams>(
-    new URLSearchParams(location.search.toLowerCase())
+    new URLSearchParams(history.location.search.toLowerCase())
   );
 
   // Effect that updates query on search (to render list of new results)
   useEffect(() => {
-    setQuery(new URLSearchParams(location.search.toLowerCase()));
-  }, [location.search]);
+    setQuery(new URLSearchParams(history.location.search.toLowerCase()));
+  }, [history.location.search]);
 
   useEffect(() => {
     if (!query) return;
@@ -111,9 +111,8 @@ const Search: FC = () => {
         <>
           <Stack direction={"vertical"}>
             <Col>
-              <p>
-                You searched for:{" "}
-                <strong>{query.toString().replace("q=", "")}</strong>
+              <p className={"capitalize"}>
+                You searched for: <strong>{query.get("q")}</strong>
               </p>
             </Col>
             <Col>
@@ -150,9 +149,41 @@ const Search: FC = () => {
         <h2>Search page</h2>
         <h3>Search results</h3>
       </header>
-      <Row xs={12} md={5} lg={5}>
-        {renderResultList()}
+
+      <Row>
+        <Col xs={2} md={2} lg={2}>
+          <Stack direction={"horizontal"} gap={3}>
+            <Image
+              src={require("../Images/left-arrow.png").default}
+              height={32}
+              width={32}
+              onClick={() => {
+                const { path, state } = NavigationService.fetchNavInfo();
+
+                history.push(`${path}`, state);
+              }}
+            />
+            <h2 className={"capitalize"}>"{query.get("q")}"</h2>
+          </Stack>
+        </Col>
+        <Col xs={10} md={6} lg={10}>
+          <Row>{renderResultList()}</Row>
+        </Col>
       </Row>
+
+      <div>
+        Icons made by{" "}
+        <a
+          href="https://www.flaticon.com/authors/roundicons"
+          title="Roundicons"
+        >
+          Roundicons
+        </a>{" "}
+        from{" "}
+        <a href="https://www.flaticon.com/" title="Flaticon">
+          www.flaticon.com
+        </a>
+      </div>
     </>
   );
 };
