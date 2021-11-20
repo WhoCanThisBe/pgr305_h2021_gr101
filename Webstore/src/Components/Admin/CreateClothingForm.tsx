@@ -46,6 +46,7 @@ const CreateClothingForm : FC = () => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         let { name } = event.target;
 
+
         // Updates the clothing and/or image useState, every time an input changes
         switch ( name ){
             case "brand":
@@ -78,33 +79,34 @@ const CreateClothingForm : FC = () => {
 
     // TODO Add Input validation before running this method
     // TODO Find way to reload list in AClothingList when calling this method to replace history.go()
-    const postNewClothing = () => {
+    const postNewClothing = (e:React.FormEvent) => {
+        e.preventDefault();
         ClothesService.postClothing(newClothing, newImage as File);
         history.go(0);
     };
 
     return (
         <article>
-            <Form>
+            <Form onSubmit={postNewClothing}>
                 <Form.Group>
                     <Form.Label>Brand name</Form.Label>
-                    <Form.Control onChange={handleChange} name="brand" type="text"/>
+                    <Form.Control onChange={handleChange} name="brand" type="text" required/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Clothing name</Form.Label>
-                    <Form.Control onChange={handleChange} name="name" type="text"/>
+                    <Form.Control onChange={handleChange} name="name" type="text" required/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Stock</Form.Label>
-                    <Form.Control onChange={handleChange} name="stock" type="number"/>
+                    <Form.Control onChange={handleChange} name="stock" type="number" required/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Price NOK</Form.Label>
-                    <Form.Control onChange={handleChange} name="priceNok" type="number"/>
+                    <Form.Control onChange={handleChange} name="priceNok" type="number" required/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Color</Form.Label>
-                    <Form.Control onChange={handleChange} name="color" type="text"/>
+                    <Form.Control onChange={handleChange} name="color" type="text" required/>
                 </Form.Group>
                 <Form.Group>
                     <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Underdel" | "Accesories">)} category={newCategory}/>
@@ -112,10 +114,10 @@ const CreateClothingForm : FC = () => {
                     <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Control onChange={handleChange} name="image" type="file"/>
+                    <Form.Control onChange={handleChange} name="image" type="file" required/>
                 </Form.Group>
                 <Form.Group>
-                    <Button className="mt-2" onClick={postNewClothing} variant="primary">
+                    <Button type="submit" className="mt-2" variant="primary">
                         Save new clothing
                     </Button>
                 </Form.Group>
