@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import ClothingList, {
-  ClothingFilter,
-} from "../Components/Clothing/ClothingList";
+import ClothingList from "../Components/Clothing/ClothingList";
+import { ClothingFilter } from "../Types/ClothingFilter";
 
 type Props = {};
 

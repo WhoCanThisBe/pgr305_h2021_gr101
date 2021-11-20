@@ -7,6 +7,12 @@ import {
   InputGroup,
   Nav,
 } from "react-bootstrap";
+import { ClothingFilter } from "../Types/ClothingFilter";
+
+export type PageNavigationInfo = {
+  pagePath: string;
+  state: ClothingFilter | unknown;
+};
 
 const SearchNavigationItem: FC = () => {
   // Ref. for checking when the "Enter"-key has been clicked etc.
@@ -14,9 +20,9 @@ const SearchNavigationItem: FC = () => {
 
   const history = useHistory();
 
-  const [referer, setReferer] = useState(
-    history.location.pathname.split("search")[0]
-  );
+  // Store info from the previous navigated page, so we can go back there with needed info on "search-cancel"
+  const [prevPageNavigationInfo, setPrevPageNavigationInfo] =
+    useState<PageNavigationInfo>();
 
   // Function that check when someone has typed "Enter" into the search-field and extracts the query
   const handleSubmitSearch = (evt: KeyboardEvent) => {
@@ -34,7 +40,7 @@ const SearchNavigationItem: FC = () => {
     // (e.g.: search performed from "/Male-home")
     // referer can be used to "redirect back when a search is canceled" etc
     history.push(`/search?q=${enteredQuery}`, {
-      referer,
+      prevPageInfo: prevPageNavigationInfo,
     });
   };
 
@@ -60,6 +66,17 @@ const SearchNavigationItem: FC = () => {
               type={"text"}
               placeholder={"Type in something to search for"}
               min={3}
+              onFocus={() => {
+                // Don't set the "previous navigated page" to "/search" -
+                // when the input-field is focused on the search-page
+                if (history.location.pathname.includes("search")) return;
+
+                // Get info on which page we are at, when the "search-field" is "clicked/selected" by the user
+                setPrevPageNavigationInfo({
+                  pagePath: history.location.pathname,
+                  state: history.location.state,
+                });
+              }}
             />
           </FloatingLabel>
           <CloseButton
@@ -69,22 +86,16 @@ const SearchNavigationItem: FC = () => {
               right: "2px",
             }}
             onClick={() => {
-              /*
-                TODO: Find a solution for the following situation:
-                - Do a search (e.g: type in "male") and clear the field (with the "X"-symbol).
-                - Navigate to "Female" => "Clothes".
-                - Clear the input twice and crash...
-              */
+              // Don't continue if we have no "search-field"
+              if (!searchInput.current) return;
 
-              // Prepare to send the customer back
-              setReferer(history.location.pathname.split("search")[0]);
+              const enteredSearchText = searchInput.current.value;
+
+              // Don't navigate back if the search-field is empty and the user clicks on the "clear-field"-icon
+              if (enteredSearchText.length === 0) return;
 
               // Clear search-input
-              if (searchInput?.current?.value) {
-                searchInput.current.value = "";
-              }
-
-              history.push(`${referer}`);
+              searchInput.current.value = "";
             }}
           />
         </InputGroup>

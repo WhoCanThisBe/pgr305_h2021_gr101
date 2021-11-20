@@ -5,14 +5,7 @@ import { IProduct } from "../../Interfaces/IProduct";
 import ClothingItem from "./ClothingItem";
 import { ClothesContextType } from "../../Types/ClothesContextType";
 import { useHistory } from "react-router-dom";
-
-export type ClothingFilter = {
-  gender: IProduct["gender"];
-  category: {
-    name: string;
-    productTypes: IProduct["category"][];
-  };
-};
+import { ClothingFilter } from "../../Types/ClothingFilter";
 
 type Props = {
   filter: ClothingFilter;
