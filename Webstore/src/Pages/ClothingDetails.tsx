@@ -105,8 +105,6 @@ const ClothingDetails = () => {
                   isDisabled={!selectedSize}
                   onClick={() => {
                     addToCart({ ...clothing, size: [selectedSize!] });
-                    // @ts-ignore
-                    setSelectedSize(undefined);
                   }}
                 />
               </ButtonGroup>

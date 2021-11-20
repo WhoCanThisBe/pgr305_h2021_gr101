@@ -16,7 +16,7 @@ const ClothesItem: FC<Props> = ({ garment, onNavigationToDetails }) => {
       <Card.Img
         variant={"top"}
         src={
-          garment.images[0].name
+          garment.images[0]?.name
             ? `https://localhost:5001/images/${garment.images[0].name}`
             : require("../../Images/logo512.png").default
         }

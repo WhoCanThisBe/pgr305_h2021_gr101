@@ -20,6 +20,7 @@ namespace WebstoreAPI.Controllers
         [Route("[action]")]
         public ActionResult SaveImage(IFormFile file)
         {
+            
             string webRootPath = _hosting.WebRootPath;
             string absolutePath = Path.Combine($"{webRootPath}/images/{file.FileName}");
 

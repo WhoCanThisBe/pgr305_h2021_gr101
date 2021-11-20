@@ -72,6 +72,7 @@ export const ClothesService = (function () {
 
   // Post a new clothing to the API with an image
   const postClothing = (newClothes: IProduct, image: File ) => {
+    
 
     let formData = new FormData();
     formData.append( "file", image);
@@ -79,13 +80,14 @@ export const ClothesService = (function () {
     if(formData)
     {
       try {
-        axios.post(urlToClothesController, newClothes);
         axios({
           url: urlToImageUploadController,
           method: "POST",
           data: formData,
           headers: {"Content-Type": "multipart/form-data"}
         })
+        axios.post(urlToClothesController, newClothes);
+
       } catch(error) {
         console.error(error);
         return _fallbackClothes;

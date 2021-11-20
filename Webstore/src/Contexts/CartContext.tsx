@@ -23,26 +23,31 @@ const CartProvider: FC = ({ children }) => {
     const addToCart = (clickedItem: IProduct) => {
         setCartItems(prev => {
             // Item already in cart
-            const itemInCart = prev.find(item => item.id === clickedItem.id);
+            const itemInCart = prev.find(item => {
+                return item.id === clickedItem.id && 
+                       item.size[0] === clickedItem.size[0];
+            });
 
             //Set item amount
             if(itemInCart) {
                 return prev.map(item =>
-                    item.id === clickedItem.id
+                    (item.id === clickedItem.id &&
+                    item.size[0] === clickedItem.size[0])
                         ? { ...item, amount: item.amount + 1} // If item found update amount
                         : item                                // Else return items as is
                 );
             }
+            
             // First item added
             return [...prev, { ...clickedItem, amount: 1}]
         });
     };
 
-    const removeFromCart = (id: string | undefined) => {
+    const removeFromCart = (id: string | undefined, name: string | undefined) => {
         setCartItems(prev =>
             prev.reduce((acc, item) => {
                 // If item found, return accumulator to remove item
-                if (item.id === id) {
+                if (item.id === id && item.size[0].name === name) {
                     if(item.amount === 1) return acc;
                     return [...acc, {...item, amount: item.amount - 1}];
                 }else {
