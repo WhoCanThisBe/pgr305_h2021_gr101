@@ -23,6 +23,8 @@ const ClothesProvider: FC<Props> = ({ children }) => {
   const getClothes = async () => {
     const _clothes = await ClothesService.getAll();
     setClothes(_clothes);
+    
+    return _clothes;
   };
 
   const fetchProductsByGender = (gender: IProduct["gender"]) => {
@@ -39,6 +41,7 @@ const ClothesProvider: FC<Props> = ({ children }) => {
 
   const clothesContext: ClothesContextType = {
     clothes: clothes,
+    getClothes,
     fetchProductsByGender,
     fetchProductsByCategory,
     fetchProductById,

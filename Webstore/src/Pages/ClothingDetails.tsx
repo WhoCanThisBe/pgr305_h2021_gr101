@@ -1,126 +1,149 @@
-import { useLocation } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { ClothesContext } from "../Contexts/ClothesContext";
-import { ClothesContextType } from "../Types/ClothesContextType";
-import { CartContext } from "../Contexts/CartContext";
-import { CartContextType } from "../Types/CartContextType";
-import { IProduct } from "../Interfaces/IProduct";
-import { ButtonGroup, Col, Image, Row, Stack } from "react-bootstrap";
-import { SizeDropdown } from "../Components/Shared/SizeDropdown";
-import { AddToCartButton } from "../Components/Shared/AddToCartButton";
+import {useLocation} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {ClothesContext} from "../Contexts/ClothesContext";
+import {ClothesContextType} from "../Types/ClothesContextType";
+import {CartContext} from "../Contexts/CartContext";
+import {CartContextType} from "../Types/CartContextType";
+import {IProduct} from "../Interfaces/IProduct";
+import {ButtonGroup, Col, Form, Image, Row, Stack} from "react-bootstrap";
+import {SizeDropdown} from "../Components/Shared/SizeDropdown";
+import {AddToCartButton} from "../Components/Shared/AddToCartButton";
 import {IImage} from "../Interfaces/IImage";
 import {ISize} from "../Interfaces/ISize";
+import {useParams} from "react-router";
 
-type ProductId = { id: string };
+type ClothingParams = {
+    clothingId: string;
+}
 
 const ClothingDetails = () => {
-  // Fetch "productId" sent here through `useHistory()`
-  const location = useLocation<ProductId>();
+    // Fetch "productId" sent here through `useHistory()`
+    //const location = useLocation<ProductId>();
+    const { clothingId } = useParams<ClothingParams>();
 
-  const imageUrl = "https://localhost:5001/images";
+    const imageUrl = "https://localhost:5001/images";
 
-  const { fetchProductById } = useContext(ClothesContext) as ClothesContextType;
-  const { addToCart } = useContext(CartContext) as CartContextType;
+    const {fetchProductById, getClothes} = useContext(ClothesContext) as ClothesContextType;
+    const {addToCart} = useContext(CartContext) as CartContextType;
 
-  const [clothing, setClothing] = useState<IProduct>(
-    fetchProductById(location.state.id)
-  );
+    const [clothing, setClothing] = useState<IProduct>(
+        fetchProductById(clothingId)
+    );
 
-  // State that will be "forwarded" to the size-dropdown
-  const [sizes, setSizes] = useState<ISize[]>([]);
+    // State that will be "forwarded" to the size-dropdown
+    const [sizes, setSizes] = useState<ISize[]>([]);
 
-  const [selectedSize, setSelectedSize] = useState<ISize>();
+    const [selectedSize, setSelectedSize] = useState<ISize>();
 
-  // Effect that fetches the clothing we want to display details for -
-  // it also updates the value when we get here on navigation from different clothes
-  useEffect(() => {
-    const foundClothing = fetchProductById(location.state.id);
+    // Effect that fetches the clothing we want to display details for -
+    // it also updates the value when we get here on navigation from different clothes
+    useEffect(() => {
+        const foundClothing = fetchProductById(clothingId);
+        
+        // Simple but a little dirty fix to fix refresh
+        if (!foundClothing) {
+            getClothes().then((_clothes) => {
+                const foundClothing = _clothes.find((clothing) => clothing.id === clothingId) as IProduct;
 
-    if (!foundClothing) return;
+                setClothing(foundClothing);
+                setSizes(foundClothing.size);
+            });
+            
+            return;
+        }
 
-    setClothing(foundClothing);
-    setSizes(foundClothing.size);
-  }, [location.state.id]);
+        setClothing(foundClothing);
+        setSizes(foundClothing.size);
+    }, []);
 
-  const [selectedImage, setSelectedImage] = useState("");
+    const [selectedImage, setSelectedImage] = useState("");
 
-  useEffect(() => {
-    setSelectedImage(clothing.images[0].name);
-  }, []);
+    useEffect(() => {
+        setSelectedImage(clothing?.images[0].name);
+    }, [clothing]);
 
-  const createClothingDetailsItem = () => {
-    if (!clothing) return <h2>Loading details, please wait...</h2>;
+    const createClothingDetailsItem = () => {
+        if (!clothing) return <h2>Loading details, please wait...</h2>;
+
+        return (
+            <Row xs={1} sm={1} md={3} className={"py-3"}>
+                <Stack direction={"vertical"} gap={2}>
+                    {/* Image thunmbail that change the displayed image on click */}
+                    {clothing.images.map((image: IImage, index: number) => (
+                        <Col
+                            key={index}
+                            xs={1}
+                            sm={2}
+                            md={3}
+                            onClick={() => setSelectedImage(image.name)}
+                            className={"clickable"}
+                        >
+                            <Image src={`${imageUrl}/${image.name}`} thumbnail/>
+                        </Col>
+                    ))}
+                </Stack>
+
+                {/* Selected image of the product */}
+                <Col>
+                    {/* TODO: Remove "w-100" after replacing this with real images in the correct size */}
+                    {selectedImage && (
+                        <Image src={`https://localhost:5001/images/${selectedImage}`} rounded className={"w-100"}/>
+                    )}
+                </Col>
+
+                <Col>
+                    <Stack direction={"vertical"} gap={3}>
+                        {/* Product details */}
+                        <Row>
+                            <header>
+                                <h2>{clothing.brandName}</h2>
+                                <h3>{clothing.clothingName}</h3>
+                            </header>
+                        </Row>
+                        <Row>
+                            <p>
+                                Color: <strong>{clothing.color}</strong>
+                            </p>
+                        </Row>
+
+                        {/* ButtonGroup with "actions" */}
+                        <Row>
+                            <ButtonGroup>
+                                <SizeDropdown
+                                    onSizeChange={(size) => {
+                                        setSelectedSize(size);
+                                    }}
+                                    clothingSizes={sizes}
+                                />
+                                <AddToCartButton
+                                    isDisabled={!selectedSize}
+                                    onClick={() => {
+                                        addToCart({...clothing, size: [selectedSize!]});
+                                    }}
+                                />
+                            </ButtonGroup>
+                        </Row>
+
+                        <Row>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Label>Write a new review</Form.Label>
+                                    <Form.Control type={"text"} placeholder={"Review"}/>
+                                </Form.Group>
+                            </Form>
+                        </Row>
+                    </Stack>
+                </Col>
+            </Row>
+        );
+    };
 
     return (
-      <Row xs={1} sm={1} md={3} className={"py-3"}>
-        <Stack direction={"vertical"} gap={2}>
-          {/* Image thunmbail that change the displayed image on click */}
-          {clothing.images.map((image: IImage, index: number) => (
-            <Col
-              key={index}
-              xs={1}
-              sm={2}
-              md={3}
-              onClick={() => setSelectedImage(image.name)}
-              className={"clickable"}
-            >
-              <Image src={`${imageUrl}/${image.name}`} thumbnail />
-            </Col>
-          ))}
-        </Stack>
-
-        {/* Selected image of the product */}
-        <Col>
-          {/* TODO: Remove "w-100" after replacing this with real images in the correct size */}
-          {selectedImage && (
-            <Image src={`https://localhost:5001/images/${selectedImage}`} rounded className={"w-100"} />
-          )}
-        </Col>
-
-        <Col>
-          <Stack direction={"vertical"} gap={3}>
-            {/* Product details */}
-            <Row>
-              <header>
-                <h2>{clothing.brandName}</h2>
-                <h3>{clothing.clothingName}</h3>
-              </header>
-            </Row>
-            <Row>
-              <p>
-                Color: <strong>{clothing.color}</strong>
-              </p>
-            </Row>
-
-            {/* ButtonGroup with "actions" */}
-            <Row>
-              <ButtonGroup>
-                <SizeDropdown
-                  onSizeChange={(size) => {
-                    setSelectedSize(size);
-                  }}
-                  clothingSizes={sizes}
-                />
-                <AddToCartButton
-                  isDisabled={!selectedSize}
-                  onClick={() => {
-                    addToCart({ ...clothing, size: [selectedSize!] });
-                  }}
-                />
-              </ButtonGroup>
-            </Row>
-          </Stack>
-        </Col>
-      </Row>
+        <>
+            <h1 className={"my-3"}>Clothing details for {clothing?.clothingName}</h1>
+            {createClothingDetailsItem()}
+        </>
     );
-  };
-
-  return (
-    <>
-      <h1 className={"my-3"}>Clothing details for {clothing?.clothingName}</h1>
-      {createClothingDetailsItem()}
-    </>
-  );
 };
 
 export default ClothingDetails;
