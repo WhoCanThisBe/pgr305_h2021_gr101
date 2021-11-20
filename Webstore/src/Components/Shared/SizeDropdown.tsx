@@ -6,29 +6,33 @@ import React, {
   useState,
 } from "react";
 import { ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap";
-import { IProduct } from "../../Interfaces/IProduct";
+import {ISize} from "../../Interfaces/ISize";
 
 type Props = {
-  onSizeChange: (eventKey: string | null, e: SyntheticEvent<unknown>) => void;
-  size: IProduct["size"];
+  onSizeChange: (size: ISize) => void;
+  clothingSizes: ISize[];
 };
 
-export const SizeDropdown: FC<Props> = ({ onSizeChange, size }) => {
-  const [sizes, setSizes] = useState<IProduct["size"][]>([]);
+export const SizeDropdown: FC<Props> = ({ onSizeChange, clothingSizes }) => {
+  const [selectedSize, setSelectedSize] = useState<ISize>();
 
-  useEffect(() => {
-    setSizes(["Small", "Medium", "Large"]);
-  }, []);
+  function onChange(eventKey: string | null) {
+    const found = clothingSizes.find(cloth => cloth.name === eventKey);
+    if (found) {
+      setSelectedSize(found);
+      onSizeChange(found);
+    }
+  }
 
   return (
     <DropdownButton
-      onSelect={onSizeChange}
-      title={size ? `Selected size: ${size}` : "Select a size"}
+      onSelect={onChange}
+      title={selectedSize ? `Selected size: ${selectedSize.name}` : "Select a size"}
       as={ButtonGroup}
     >
-      {sizes.map((size, index) => (
+      {clothingSizes && clothingSizes.map((size, index) => (
         <Fragment key={index}>
-          <Dropdown.Item eventKey={size}>{size}</Dropdown.Item>
+          <Dropdown.Item eventKey={size.name}>{size.name}: {size.stock}</Dropdown.Item>
         </Fragment>
       ))}
     </DropdownButton>

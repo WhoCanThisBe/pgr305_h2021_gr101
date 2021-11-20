@@ -1,10 +1,8 @@
 ﻿namespace WebstoreAPI.Models
 {
-    public enum Size
+    public class Size : ISize
     {
-        Small,
-        Medium,
-        Large
-
+        public string Name { get; set; }
+        public int Stock { get; set; }
     }
 }

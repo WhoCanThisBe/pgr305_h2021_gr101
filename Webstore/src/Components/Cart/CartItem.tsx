@@ -19,7 +19,7 @@ const CartItem: FC <Props> = ({ clothing, addToCart, removeFromCart }) => {
                     <Card.Body>
                         <Card.Text>{clothing.brandName}</Card.Text>
                         <Card.Text>{clothing.category} {clothing.color}</Card.Text>
-                        <Card.Text>{clothing.size}</Card.Text>
+                        <Card.Text>{clothing.size[0].name}</Card.Text>
                         <Button
                             variant={"contained"}
                             onClick={() => removeFromCart(clothing.id)}

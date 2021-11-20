@@ -7,7 +7,12 @@ export const ClothesService = (function () {
       brandName: "H&M",
       clothingName: "Gul Bukse",
       category: "Underdel",
-      size: "Medium",
+      size: [
+        {
+          name: "Small",
+          stock: 10,
+        }
+      ],
       stock: 10,
       priceNok: 0,
       color: "brown",
@@ -19,7 +24,12 @@ export const ClothesService = (function () {
       brandName: "Armani",
       clothingName: "Blå Sko",
       category: "Sko",
-      size: "Large",
+      size: [
+        {
+          name: "Small",
+          stock: 10,
+        }
+      ],
       stock: 5,
       priceNok: 0,
       color: "blue",
@@ -31,7 +41,12 @@ export const ClothesService = (function () {
       brandName: "Gucci",
       clothingName: "Brun Bag",
       category: "Accesories",
-      size: "Small",
+      size: [
+        {
+          name: "Small",
+          stock: 10,
+        }
+      ],
       stock: 10,
       priceNok: 0,
       color: "brown",

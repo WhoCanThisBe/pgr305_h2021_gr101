@@ -8,10 +8,9 @@ namespace WebstoreAPI.Interfaces
         string Id { get; set; }
         string BrandName { get; set; }
         string ClothingName { get; set; }
-        string Size { get; set; }
+        List<Size> Size { get; set; }
         string Color { get; set; }
         string Gender { get; set; }
-        int Stock { get; set; }
         int PriceNok { get; set; }
         List<Image> Images { get; set; }
     }

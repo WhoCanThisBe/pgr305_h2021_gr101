@@ -30,8 +30,7 @@ namespace WebstoreAPI.Services
             
             return validList.Where(cloth => 
                 Enum.IsDefined(typeof(Gender), cloth.Gender) && 
-                Enum.IsDefined(typeof(Category), cloth.Category) && 
-                Enum.IsDefined(typeof(Size), cloth.Size) ).ToList();
+                Enum.IsDefined(typeof(Category), cloth.Category) ).ToList();
 
         }
 

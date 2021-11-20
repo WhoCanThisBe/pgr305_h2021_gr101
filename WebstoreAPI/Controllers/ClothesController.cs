@@ -18,7 +18,6 @@ namespace WebstoreAPI.Controllers
         private bool isValid(Clothes newClothes)
         {
             return Enum.IsDefined(typeof(Category), newClothes.Category) &&
-                   Enum.IsDefined(typeof(Size), newClothes.Size) &&
                    Enum.IsDefined(typeof(Gender), newClothes.Gender);
         }
 
