@@ -39,6 +39,7 @@ const SearchNavigationItem: FC = () => {
     history.push(`/search?q=${enteredQuery}`);
   };
 
+  // Effect that add listener for "when the user taps the Enter"-key
   useEffect(() => {
     if (!searchInput.current) return;
 
@@ -49,6 +50,19 @@ const SearchNavigationItem: FC = () => {
     return () =>
       searchInput?.current?.removeEventListener("keyup", handleSubmitSearch);
   }, [searchInput.current]);
+
+  const handleClearSearchField = () => {
+    // Don't continue if we have no "search-field"
+    if (!searchInput.current) return;
+
+    const enteredSearchText = searchInput.current.value;
+
+    // Don't navigate back if the search-field is empty and the user clicks on the "clear-field"-icon
+    if (enteredSearchText.length === 0) return;
+
+    // Clear search-input
+    searchInput.current.value = "";
+  };
 
   return (
     <Nav>
@@ -76,22 +90,12 @@ const SearchNavigationItem: FC = () => {
           </FloatingLabel>
           <CloseButton
             style={{
-              height: "2.9rem",
+              height: "2.8rem",
               position: "absolute",
+              top: "3px",
               right: "2px",
             }}
-            onClick={() => {
-              // Don't continue if we have no "search-field"
-              if (!searchInput.current) return;
-
-              const enteredSearchText = searchInput.current.value;
-
-              // Don't navigate back if the search-field is empty and the user clicks on the "clear-field"-icon
-              if (enteredSearchText.length === 0) return;
-
-              // Clear search-input
-              searchInput.current.value = "";
-            }}
+            onClick={handleClearSearchField}
           />
         </InputGroup>
       </Nav.Item>

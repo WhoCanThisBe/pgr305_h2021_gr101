@@ -12,8 +12,6 @@ const Search: FC = () => {
     ClothesContext
   ) as ClothesContextType;
 
-  //const location = useLocation();
-
   const history = useHistory();
 
   const [query, setQuery] = useState<URLSearchParams>(
@@ -166,7 +164,7 @@ const Search: FC = () => {
             <h2 className={"capitalize"}>"{query.get("q")}"</h2>
           </Stack>
         </Col>
-        <Col xs={10} md={6} lg={10}>
+        <Col xs={6} md={5} lg={4}>
           <Row>{renderResultList()}</Row>
         </Col>
       </Row>
