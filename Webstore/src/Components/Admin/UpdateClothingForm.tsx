@@ -9,6 +9,7 @@ import {SizeDropdown} from "../Shared/SizeDropdown";
 import {GenderDropdown} from "../Shared/GenderDropdown";
 import {ClothesService} from "../../Services/ClothesService";
 import createHistory from "history/createBrowserHistory";
+import {ISize} from "../../Interfaces/ISize";
 
 const UpdateClothingForm: FC = () => {
 
@@ -25,16 +26,21 @@ const UpdateClothingForm: FC = () => {
         gender: "Male",
         id: undefined,
         images: [],
-        size: "Small",
+        size: [],
         stock: 0,
         priceNok: 0,
         amount: 0
     });
 
+    const [sizes, setSizes] = useState<ISize[]>([]);
+
     // Set clothing by id on render
     useEffect(() => {
             const _clothing = fetchProductById(id);
-            setClothing(() => _clothing);
+            if (_clothing) {
+                setClothing(() => _clothing);
+                setSizes(() => _clothing.size);
+            }
     },[id, fetchProductById]);
 
     // One usestate for each dropdown-menu. useEffect puts the new dropdown choice into the Clothing useState
@@ -79,10 +85,38 @@ const UpdateClothingForm: FC = () => {
         }
     };
 
+    const handleSizeChange = (index: number, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        let {name, value} = event.target;
+
+        if (name === "size") {
+            const editSizes = sizes;
+            editSizes[index].name = value;
+            setSizes(editSizes);
+        } else if (name === "stock") {
+            const editSizes = sizes;
+            editSizes[index].stock = Number(value);
+            setSizes(editSizes);
+        }
+
+        setClothing({...clothing, size: sizes});
+    }
+
     const putNewClothing = () => {
         ClothesService.putClothing(clothing);
         history.go(0);
     };
+
+    const addNewSize = () => {
+        setSizes([...sizes, {
+            name: "",
+            stock: 0
+        }]);
+    }
+
+    const removeSize = (index: number) => {
+        const _sizes = sizes.filter((_, i) => i !== index);
+        setSizes(_sizes);
+    }
 
     return (
         <Form>
@@ -95,10 +129,6 @@ const UpdateClothingForm: FC = () => {
                 <Form.Control onChange={handleChange} name="name" type="text"/>
             </Form.Group>
             <Form.Group>
-                <Form.Label>Stock: {clothing?.stock}</Form.Label>
-                <Form.Control onChange={handleChange} name="stock" type="number"/>
-            </Form.Group>
-            <Form.Group>
                 <Form.Label>Price NOK: {clothing?.priceNok}</Form.Label>
                 <Form.Control onChange={handleChange} name="priceNok" type="number"/>
             </Form.Group>
@@ -106,9 +136,27 @@ const UpdateClothingForm: FC = () => {
                 <Form.Label>Color: {clothing?.color}</Form.Label>
                 <Form.Control onChange={handleChange} name="color" type="text"/>
             </Form.Group>
+
+            <h2>Sizes</h2>
+            {sizes.map((size, index) => {
+              return <Form.Group>
+                  <Form.Label>Size Name: {size.name}</Form.Label>
+                  <Form.Control onChange={event => handleSizeChange(index, event)} name="size" type="text"/>
+                  <Form.Label>Size Stock: {size.stock}</Form.Label>
+                  <Form.Control onChange={event => handleSizeChange(index, event)} name="stock" type="number"/>
+                  <Button className={"mt-2"} variant={"danger"} onClick={() => removeSize(index)}>
+                      Remove size
+                  </Button>
+              </Form.Group>
+            })}
+
+            <Form.Group>
+                <Button className="mt-2" onClick={addNewSize} variant={"primary"}>
+                    Add new size
+                </Button>
+            </Form.Group>
             <Form.Group>
                 <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Underdel" | "Accesories">)} category={newCategory}/>
-                <SizeDropdown onSizeChange={(eventKey, _) => setSize(eventKey as SetStateAction<"Small" | "Medium" | "Large">)} size={newSize}/>
                 <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
             </Form.Group>
             <Form.Group>

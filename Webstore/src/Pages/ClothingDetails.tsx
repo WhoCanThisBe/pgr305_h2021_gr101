@@ -9,6 +9,7 @@ import { ButtonGroup, Col, Image, Row, Stack } from "react-bootstrap";
 import { SizeDropdown } from "../Components/Shared/SizeDropdown";
 import { AddToCartButton } from "../Components/Shared/AddToCartButton";
 import {IImage} from "../Interfaces/IImage";
+import {ISize} from "../Interfaces/ISize";
 
 type ProductId = { id: string };
 
@@ -26,7 +27,9 @@ const ClothingDetails = () => {
   );
 
   // State that will be "forwarded" to the size-dropdown
-  const [selectedSize, setSelectedSize] = useState<IProduct["size"]>();
+  const [sizes, setSizes] = useState<ISize[]>([]);
+
+  const [selectedSize, setSelectedSize] = useState<ISize>();
 
   // Effect that fetches the clothing we want to display details for -
   // it also updates the value when we get here on navigation from different clothes
@@ -36,6 +39,7 @@ const ClothingDetails = () => {
     if (!foundClothing) return;
 
     setClothing(foundClothing);
+    setSizes(foundClothing.size);
   }, [location.state.id]);
 
   const [selectedImage, setSelectedImage] = useState("");
@@ -92,15 +96,16 @@ const ClothingDetails = () => {
             <Row>
               <ButtonGroup>
                 <SizeDropdown
-                  onSizeChange={(eventKey, _) =>
-                    setSelectedSize(eventKey as IProduct["size"])
-                  }
-                  size={selectedSize as IProduct["size"]}
+                  onSizeChange={(size) => {
+                    setSelectedSize(size);
+                  }}
+                  clothingSizes={sizes}
                 />
                 <AddToCartButton
                   isDisabled={!selectedSize}
                   onClick={() => {
-                    addToCart({ ...clothing, size: selectedSize! });
+                    addToCart({ ...clothing, size: [selectedSize!] });
+                    // @ts-ignore
                     setSelectedSize(undefined);
                   }}
                 />
