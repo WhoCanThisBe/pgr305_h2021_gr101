@@ -8,15 +8,12 @@ type Props = {
     removeFromCart: (id: string | undefined) => void;
 }
 
-// TODO Siden kan trenge litt styling
-
 const CartItem: FC <Props> = ({ clothing, addToCart, removeFromCart }) => {
-
     return (
         <Card>
             <Row>
                 <Col xs={2} sm={2} md={2} lg={2}>
-                    <Card.Img className={"card-img-top-cart"} src={`https://localhost:5001/images/${clothing.image}`}/>
+                    <Card.Img className={"card-img-top-cart"} src={`https://localhost:5001/images/${clothing.images[0].name}`}/>
                 </Col>
                 <Col>
                     <Card.Body>
@@ -40,7 +37,7 @@ const CartItem: FC <Props> = ({ clothing, addToCart, removeFromCart }) => {
                 <Col>
                     <Card.Body>
                         <Card.Text>{clothing.amount}</Card.Text>
-                        <Card.Text>Price: placeholder</Card.Text>
+                        <Card.Text>Price: {clothing.priceNok * clothing.amount}</Card.Text>
                     </Card.Body>
                 </Col>
             </Row>

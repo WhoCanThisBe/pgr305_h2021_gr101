@@ -8,8 +8,11 @@ import {CategoryDropdown} from "../Shared/CategoryDropdown";
 import {SizeDropdown} from "../Shared/SizeDropdown";
 import {GenderDropdown} from "../Shared/GenderDropdown";
 import {ClothesService} from "../../Services/ClothesService";
+import createHistory from "history/createBrowserHistory";
 
 const UpdateClothingForm: FC = () => {
+
+    const history = createHistory();
 
     const { id }: any = useParams();
 
@@ -21,9 +24,10 @@ const UpdateClothingForm: FC = () => {
         color: "",
         gender: "Male",
         id: undefined,
-        image: "",
+        images: [],
         size: "Small",
         stock: 0,
+        priceNok: 0,
         amount: 0
     });
 
@@ -66,6 +70,9 @@ const UpdateClothingForm: FC = () => {
             case "stock":
                 setClothing( {...clothing, stock: parseInt(event.target.value) });
                 break;
+            case "priceNok":
+                setClothing({...clothing, priceNok: parseInt(event.target.value) });
+                break;
             case "color":
                 setClothing( {...clothing, color: event.target.value });
                 break;
@@ -74,6 +81,7 @@ const UpdateClothingForm: FC = () => {
 
     const putNewClothing = () => {
         ClothesService.putClothing(clothing);
+        history.go(0);
     };
 
     return (
@@ -91,11 +99,15 @@ const UpdateClothingForm: FC = () => {
                 <Form.Control onChange={handleChange} name="stock" type="number"/>
             </Form.Group>
             <Form.Group>
+                <Form.Label>Price NOK: {clothing?.priceNok}</Form.Label>
+                <Form.Control onChange={handleChange} name="priceNok" type="number"/>
+            </Form.Group>
+            <Form.Group>
                 <Form.Label>Color: {clothing?.color}</Form.Label>
                 <Form.Control onChange={handleChange} name="color" type="text"/>
             </Form.Group>
             <Form.Group>
-                <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Jakke" | "Genser" | "Bukse" | "Accesories">)} category={newCategory}/>
+                <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Underdel" | "Accesories">)} category={newCategory}/>
                 <SizeDropdown onSizeChange={(eventKey, _) => setSize(eventKey as SetStateAction<"Small" | "Medium" | "Large">)} size={newSize}/>
                 <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
             </Form.Group>

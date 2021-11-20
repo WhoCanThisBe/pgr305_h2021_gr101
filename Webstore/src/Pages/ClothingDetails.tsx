@@ -8,12 +8,15 @@ import { IProduct } from "../Interfaces/IProduct";
 import { ButtonGroup, Col, Image, Row, Stack } from "react-bootstrap";
 import { SizeDropdown } from "../Components/Shared/SizeDropdown";
 import { AddToCartButton } from "../Components/Shared/AddToCartButton";
+import {IImage} from "../Interfaces/IImage";
 
 type ProductId = { id: string };
 
 const ClothingDetails = () => {
-  // Fetch "productId" sent here through `useHistrory()`
+  // Fetch "productId" sent here through `useHistory()`
   const location = useLocation<ProductId>();
+
+  const imageUrl = "https://localhost:5001/images";
 
   const { fetchProductById } = useContext(ClothesContext) as ClothesContextType;
   const { addToCart } = useContext(CartContext) as CartContextType;
@@ -35,30 +38,11 @@ const ClothingDetails = () => {
     setClothing(foundClothing);
   }, [location.state.id]);
 
-  // Temporary placeholders for testing
-  const [thumbnails, setThumbnails] = useState([""]);
-
-  const [images, setImages] = useState([""]);
-
-  useEffect(() => {
-    setImages([
-      "https://images.pexels.com/photos/10029377/pexels-photo-10029377.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-      "https://images.pexels.com/photos/10029383/pexels-photo-10029383.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      "https://images.pexels.com/photos/10029381/pexels-photo-10029381.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      "https://images.pexels.com/photos/10029385/pexels-photo-10029385.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    ]);
-
-    setThumbnails(Array(4).fill(require("../Images/logo512.png").default));
-  }, []);
-
-  useEffect(() => {
-    // Don't continue if the images-array only contain the default value ("")
-    if (!images[0]) return;
-
-    setSelectedImage(images[0]);
-  }, [images]);
-
   const [selectedImage, setSelectedImage] = useState("");
+
+  useEffect(() => {
+    setSelectedImage(clothing.images[0].name);
+  }, []);
 
   const createClothingDetailsItem = () => {
     if (!clothing) return <h2>Loading details, please wait...</h2>;
@@ -67,16 +51,16 @@ const ClothingDetails = () => {
       <Row xs={1} sm={1} md={3} className={"py-3"}>
         <Stack direction={"vertical"} gap={2}>
           {/* Image thunmbail that change the displayed image on click */}
-          {thumbnails.map((thumbnail, index: number) => (
+          {clothing.images.map((image: IImage, index: number) => (
             <Col
               key={index}
               xs={1}
               sm={2}
               md={3}
-              onClick={() => setSelectedImage(images[index])}
+              onClick={() => setSelectedImage(image.name)}
               className={"clickable"}
             >
-              <Image src={thumbnail} thumbnail />
+              <Image src={`${imageUrl}/${image.name}`} thumbnail />
             </Col>
           ))}
         </Stack>
@@ -85,7 +69,7 @@ const ClothingDetails = () => {
         <Col>
           {/* TODO: Remove "w-100" after replacing this with real images in the correct size */}
           {selectedImage && (
-            <Image src={selectedImage} rounded className={"w-100"} />
+            <Image src={`https://localhost:5001/images/${selectedImage}`} rounded className={"w-100"} />
           )}
         </Col>
 

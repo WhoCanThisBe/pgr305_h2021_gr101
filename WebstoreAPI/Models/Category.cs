@@ -3,9 +3,8 @@
     public enum Category
     {
         Sko,
-        Jakke,
-        Genser,
-        Bukse,
+        Overdel,
+        Underdel,
         Accesories
 
     }

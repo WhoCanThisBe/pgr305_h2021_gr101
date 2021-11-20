@@ -36,9 +36,8 @@ const AClothingList: FC = () => {
         if (clothes.length === 0) return <h4>Loading products, please wait...</h4>;
         return clothes.map( (clothing: IProduct, key: number ) => {
             return (
-                <Col>
+                <Col key={key}>
                     <AClothingItem
-                        key={key}
                         garment={clothing}
                         manageDeletion={manageDeletion}
                     />

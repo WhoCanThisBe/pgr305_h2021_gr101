@@ -20,7 +20,7 @@ export const CategoryDropdown: FC<Props> = ({ onCategoryChange, category }) => {
   const [categories, setCategories] = useState<IProduct["category"][]>([]);
 
   useEffect(() => {
-    setCategories(["Sko", "Jakke", "Genser", "Bukse", "Accesories"]);
+    setCategories(["Sko", "Overdel", "Underdel", "Accesories"]);
   }, []);
 
   return (
