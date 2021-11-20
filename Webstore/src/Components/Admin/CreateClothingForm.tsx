@@ -77,8 +77,8 @@ const CreateClothingForm : FC = () => {
         }
     };
 
-    // TODO Add Input validation before running this method
     // TODO Find way to reload list in AClothingList when calling this method to replace history.go()
+    // TODO have a checker that the file you put in passes only if its a jpeg
     const postNewClothing = (e:React.FormEvent) => {
         e.preventDefault();
         ClothesService.postClothing(newClothing, newImage as File);
