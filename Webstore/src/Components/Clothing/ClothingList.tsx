@@ -5,6 +5,7 @@ import { IProduct } from "../../Interfaces/IProduct";
 import ClothingItem from "./ClothingItem";
 import { ClothesContextType } from "../../Types/ClothesContextType";
 import { useHistory } from "react-router-dom";
+import NoClothingView from "../Shared/NoClothingView";
 
 export type ClothingFilter = {
   gender: IProduct["gender"];
@@ -38,8 +39,16 @@ const ClothingList: FC<Props> = ({ filter }) => {
 
     // Extract clothing for the selected categories, for the selected gender
     const clothingForCategories = clothingForGender.filter((clothing) =>
-      filter.category.productTypes.includes(clothing.category)
+        filter.category.productTypes.includes(clothing.category)
     );
+
+    //Check if there is something in there
+    if(clothingForCategories.length === 0){
+      return (
+          <NoClothingView/>
+
+      )
+    }
 
     return clothingForCategories.map((clothing, index) => (
       <Col key={index}>
@@ -52,6 +61,7 @@ const ClothingList: FC<Props> = ({ filter }) => {
       </Col>
     ));
   };
+
 
   return (
     <Row sm={2} md={2} lg={4} className={"gap-3"}>
