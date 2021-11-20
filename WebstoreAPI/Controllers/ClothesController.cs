@@ -55,6 +55,14 @@ namespace WebstoreAPI.Controllers
             return CreatedAtAction(nameof(PostClothes), new {id = newClothes.Id}, newClothes);
         }
 
+        [HttpPost("{id}/review")]
+        public IActionResult PostReview(string id, Review review)
+        {
+            _clothesService.PostReview(id, review);
+
+            return NoContent();
+        }
+
         [HttpPut("{id:length(24)}")]
         public IActionResult UpdateClothes(string id, Clothes clothesIn)
         {

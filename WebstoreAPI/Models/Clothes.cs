@@ -18,5 +18,6 @@ namespace WebstoreAPI.Models
         public string Gender { get; set; }
         public int PriceNok { get; set; }
         public List<Image> Images { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

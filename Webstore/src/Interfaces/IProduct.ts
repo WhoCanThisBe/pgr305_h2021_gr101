@@ -1,5 +1,6 @@
 import {IImage} from "./IImage";
 import {ISize} from "./ISize";
+import {IReview} from "./IReview";
 
 export interface IProduct {
   id?: string;
@@ -13,4 +14,5 @@ export interface IProduct {
   gender: "Female" | "Unisex" | "Male";
   images: IImage[];
   amount: number;
+  reviews: IReview[];
 }

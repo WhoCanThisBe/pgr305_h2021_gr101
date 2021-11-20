@@ -24,7 +24,8 @@ const CreateClothingForm : FC = () => {
         size: [],
         stock: 0,
         priceNok: 0,
-        amount: 0
+        amount: 0,
+        reviews: []
     });
     const [newImage, setNewImage] = useState<File>();
 

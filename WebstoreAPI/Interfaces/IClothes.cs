@@ -13,5 +13,6 @@ namespace WebstoreAPI.Interfaces
         string Gender { get; set; }
         int PriceNok { get; set; }
         List<Image> Images { get; set; }
+        List<Review> Reviews { get; set; }
     }
 }

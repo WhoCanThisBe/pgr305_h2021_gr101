@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IProduct } from "../Interfaces/IProduct";
+import {IReview} from "../Interfaces/IReview";
 
 export const ClothesService = (function () {
   const _fallbackClothes: IProduct[] = [
@@ -18,7 +19,8 @@ export const ClothesService = (function () {
       color: "brown",
       gender: "Female",
       images: [],
-      amount: 0
+      amount: 0,
+      reviews: []
     },
     {
       brandName: "Armani",
@@ -35,7 +37,8 @@ export const ClothesService = (function () {
       color: "blue",
       gender: "Male",
       images: [],
-      amount: 0
+      amount: 0,
+      reviews: []
     },
     {
       brandName: "Gucci",
@@ -52,7 +55,8 @@ export const ClothesService = (function () {
       color: "brown",
       gender: "Unisex",
       images: [],
-      amount: 0
+      amount: 0,
+      reviews: []
     },
   ];
 
@@ -94,6 +98,16 @@ export const ClothesService = (function () {
       }
     }
   };
+  
+  const postReview = (id: string, review: IReview) => {
+      console.log("Review 2", review);
+    
+      try {
+        axios.post(`${urlToClothesController}/${id}/review`, review);
+      } catch(error) {
+        console.error(error);
+      }
+  }
 
   const putClothing = (newClothes: IProduct) => {
     try{
@@ -116,6 +130,7 @@ export const ClothesService = (function () {
     getAll,
     postClothing,
     putClothing,
-    deleteClothing
+    deleteClothing,
+    postReview
   };
 })();

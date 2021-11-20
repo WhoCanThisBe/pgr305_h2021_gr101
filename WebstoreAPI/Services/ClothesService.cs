@@ -43,6 +43,14 @@ namespace WebstoreAPI.Services
             return newClothes;
         }
 
+        public void PostReview(string id, Review review)
+        {
+            Clothes found = _clothes.Find<Clothes>(clothes => clothes.Id == id).FirstOrDefault();
+            found.Reviews.Add(review);
+
+            _clothes.ReplaceOne(clothing => clothing.Id == id, found);
+        }
+
         public void UpdateClothes(string id, Clothes clothingIn) =>
             _clothes.ReplaceOne(clothing => clothing.Id == id, clothingIn);
         

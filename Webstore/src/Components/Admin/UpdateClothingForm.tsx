@@ -5,7 +5,6 @@ import { IProduct } from "../../Interfaces/IProduct";
 import {ClothesContextType} from "../../Types/ClothesContextType";
 import {Button, Form} from "react-bootstrap";
 import {CategoryDropdown} from "../Shared/CategoryDropdown";
-import {SizeDropdown} from "../Shared/SizeDropdown";
 import {GenderDropdown} from "../Shared/GenderDropdown";
 import {ClothesService} from "../../Services/ClothesService";
 import createHistory from "history/createBrowserHistory";
@@ -29,7 +28,8 @@ const UpdateClothingForm: FC = () => {
         size: [],
         stock: 0,
         priceNok: 0,
-        amount: 0
+        amount: 0,
+        reviews: []
     });
 
     const [sizes, setSizes] = useState<ISize[]>([]);

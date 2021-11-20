@@ -1,16 +1,19 @@
 import {useLocation} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {ClothesContext} from "../Contexts/ClothesContext";
 import {ClothesContextType} from "../Types/ClothesContextType";
 import {CartContext} from "../Contexts/CartContext";
 import {CartContextType} from "../Types/CartContextType";
 import {IProduct} from "../Interfaces/IProduct";
-import {ButtonGroup, Col, Form, Image, Row, Stack} from "react-bootstrap";
+import {Button, ButtonGroup, Col, Form, Image, Row, Stack} from "react-bootstrap";
 import {SizeDropdown} from "../Components/Shared/SizeDropdown";
 import {AddToCartButton} from "../Components/Shared/AddToCartButton";
 import {IImage} from "../Interfaces/IImage";
 import {ISize} from "../Interfaces/ISize";
 import {useParams} from "react-router";
+import ReviewItem from "../Components/Clothes/ReviewItem";
+import {ClothesService} from "../Services/ClothesService";
+import {IReview} from "../Interfaces/IReview";
 
 type ClothingParams = {
     clothingId: string;
@@ -47,6 +50,7 @@ const ClothingDetails = () => {
 
                 setClothing(foundClothing);
                 setSizes(foundClothing.size);
+                setReviews(foundClothing.reviews);
             });
             
             return;
@@ -54,6 +58,7 @@ const ClothingDetails = () => {
 
         setClothing(foundClothing);
         setSizes(foundClothing.size);
+        setReviews(foundClothing.reviews);
     }, []);
 
     const [selectedImage, setSelectedImage] = useState("");
@@ -61,6 +66,19 @@ const ClothingDetails = () => {
     useEffect(() => {
         setSelectedImage(clothing?.images[0].name);
     }, [clothing]);
+
+    const [review, setReview] = useState("");
+    const [reviews, setReviews] = useState<IReview[]>([]);
+    
+    const createReview = (element: React.FormEvent) => {
+        element.preventDefault();
+        
+        const newReview: IReview = {text: review};
+        
+        ClothesService.postReview(clothingId, newReview);
+        
+        setReviews([...reviews, newReview]);
+    }
 
     const createClothingDetailsItem = () => {
         if (!clothing) return <h2>Loading details, please wait...</h2>;
@@ -124,14 +142,34 @@ const ClothingDetails = () => {
                             </ButtonGroup>
                         </Row>
 
-                        <Row>
-                            <Form>
-                                <Form.Group>
-                                    <Form.Label>Write a new review</Form.Label>
-                                    <Form.Control type={"text"} placeholder={"Review"}/>
-                                </Form.Group>
-                            </Form>
-                        </Row>
+                        <Form onSubmit={createReview}>
+                            <Stack direction={"vertical"} gap={3}>
+                                <Row>
+                                    <Form.Group>
+                                        <Form.Label>Write a new review</Form.Label>
+                                        <Form.Control value={review} onChange={e => setReview(e.target.value)} name={"review"} type={"text"} placeholder={"Review"}/>
+                                    </Form.Group>
+                                </Row>
+                                <Row>
+                                    <Form.Group>
+                                        <ButtonGroup>
+                                            <Button type={"submit"} variant={"primary"}>
+                                                Make review
+                                            </Button>
+                                        </ButtonGroup>
+                                    </Form.Group>
+                                </Row>
+                            </Stack>
+                        </Form>
+                        
+                        <Stack direction={"vertical"} gap={3}>
+                            {reviews.map((review, index) => {
+                                return <ReviewItem
+                                    key={index}
+                                    review={review.text}
+                                />
+                            })}
+                        </Stack>
                     </Stack>
                 </Col>
             </Row>
