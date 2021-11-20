@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IProduct } from "../Interfaces/IProduct";
+import {IReview} from "../Interfaces/IReview";
 
 export const ClothesService = (function () {
   const _fallbackClothes: IProduct[] = [
@@ -7,37 +8,55 @@ export const ClothesService = (function () {
       brandName: "H&M",
       clothingName: "Gul Bukse",
       category: "Underdel",
-      size: "Medium",
+      size: [
+        {
+          name: "Small",
+          stock: 10,
+        }
+      ],
       stock: 10,
       priceNok: 0,
       color: "brown",
       gender: "Female",
       images: [],
-      amount: 0
+      amount: 0,
+      reviews: []
     },
     {
       brandName: "Armani",
       clothingName: "Blå Sko",
       category: "Sko",
-      size: "Large",
+      size: [
+        {
+          name: "Small",
+          stock: 10,
+        }
+      ],
       stock: 5,
       priceNok: 0,
       color: "blue",
       gender: "Male",
       images: [],
-      amount: 0
+      amount: 0,
+      reviews: []
     },
     {
       brandName: "Gucci",
       clothingName: "Brun Bag",
       category: "Accesories",
-      size: "Small",
+      size: [
+        {
+          name: "Small",
+          stock: 10,
+        }
+      ],
       stock: 10,
       priceNok: 0,
       color: "brown",
       gender: "Unisex",
       images: [],
-      amount: 0
+      amount: 0,
+      reviews: []
     },
   ];
 
@@ -57,6 +76,7 @@ export const ClothesService = (function () {
 
   // Post a new clothing to the API with an image
   const postClothing = (newClothes: IProduct, image: File ) => {
+    
 
     let formData = new FormData();
     formData.append( "file", image);
@@ -64,19 +84,30 @@ export const ClothesService = (function () {
     if(formData)
     {
       try {
-        axios.post(urlToClothesController, newClothes);
         axios({
           url: urlToImageUploadController,
           method: "POST",
           data: formData,
           headers: {"Content-Type": "multipart/form-data"}
         })
+        axios.post(urlToClothesController, newClothes);
+
       } catch(error) {
         console.error(error);
         return _fallbackClothes;
       }
     }
   };
+  
+  const postReview = (id: string, review: IReview) => {
+      console.log("Review 2", review);
+    
+      try {
+        axios.post(`${urlToClothesController}/${id}/review`, review);
+      } catch(error) {
+        console.error(error);
+      }
+  }
 
   const putClothing = (newClothes: IProduct) => {
     try{
@@ -99,6 +130,7 @@ export const ClothesService = (function () {
     getAll,
     postClothing,
     putClothing,
-    deleteClothing
+    deleteClothing,
+    postReview
   };
 })();

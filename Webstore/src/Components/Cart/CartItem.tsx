@@ -5,7 +5,7 @@ import {Button, Card, Col, Row} from "react-bootstrap";
 type Props = {
     clothing: IProduct;
     addToCart: (clickedItem: IProduct) => void;
-    removeFromCart: (id: string | undefined) => void;
+    removeFromCart: (id: string | undefined, name: string) => void;
 }
 
 const CartItem: FC <Props> = ({ clothing, addToCart, removeFromCart }) => {
@@ -19,10 +19,10 @@ const CartItem: FC <Props> = ({ clothing, addToCart, removeFromCart }) => {
                     <Card.Body>
                         <Card.Text>{clothing.brandName}</Card.Text>
                         <Card.Text>{clothing.category} {clothing.color}</Card.Text>
-                        <Card.Text>{clothing.size}</Card.Text>
+                        <Card.Text>{clothing.size[0].name}</Card.Text>
                         <Button
                             variant={"contained"}
-                            onClick={() => removeFromCart(clothing.id)}
+                            onClick={() => removeFromCart(clothing.id, clothing.size[0].name)}
                         >
                             Remove
                         </Button>

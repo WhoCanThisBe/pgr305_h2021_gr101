@@ -30,8 +30,7 @@ namespace WebstoreAPI.Services
             
             return validList.Where(cloth => 
                 Enum.IsDefined(typeof(Gender), cloth.Gender) && 
-                Enum.IsDefined(typeof(Category), cloth.Category) && 
-                Enum.IsDefined(typeof(Size), cloth.Size) ).ToList();
+                Enum.IsDefined(typeof(Category), cloth.Category) ).ToList();
 
         }
 
@@ -42,6 +41,14 @@ namespace WebstoreAPI.Services
         {
             _clothes.InsertOne( newClothes );
             return newClothes;
+        }
+
+        public void PostReview(string id, Review review)
+        {
+            Clothes found = _clothes.Find<Clothes>(clothes => clothes.Id == id).FirstOrDefault();
+            found.Reviews.Add(review);
+
+            _clothes.ReplaceOne(clothing => clothing.Id == id, found);
         }
 
         public void UpdateClothes(string id, Clothes clothingIn) =>

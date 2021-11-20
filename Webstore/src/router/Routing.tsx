@@ -88,7 +88,7 @@ const Routing: FC = () => {
             )}
           />
           <Route
-            path={"/:brandName-:clothingName"}
+            path={"/clothing/:clothingId"}
             render={() => (
               <ClothesProvider>
                 <CartProvider>

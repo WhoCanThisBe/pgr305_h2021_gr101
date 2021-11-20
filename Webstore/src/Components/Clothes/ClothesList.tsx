@@ -18,7 +18,7 @@ const ClothesList: FC<Props> = ({ filter }) => {
   const history = useHistory();
 
   const handleNavigationToDetails = (product: IProduct) => {
-    history.push(`/${product.brandName}-${product.clothingName}`, {
+    history.push(`/clothing/${product.id}`, {
       id: product.id,
     });
   };

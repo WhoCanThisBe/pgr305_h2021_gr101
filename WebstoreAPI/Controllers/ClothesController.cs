@@ -18,7 +18,6 @@ namespace WebstoreAPI.Controllers
         private bool isValid(Clothes newClothes)
         {
             return Enum.IsDefined(typeof(Category), newClothes.Category) &&
-                   Enum.IsDefined(typeof(Size), newClothes.Size) &&
                    Enum.IsDefined(typeof(Gender), newClothes.Gender);
         }
 
@@ -54,6 +53,14 @@ namespace WebstoreAPI.Controllers
             
             _clothesService.PostClothes(newClothes);
             return CreatedAtAction(nameof(PostClothes), new {id = newClothes.Id}, newClothes);
+        }
+
+        [HttpPost("{id}/review")]
+        public IActionResult PostReview(string id, Review review)
+        {
+            _clothesService.PostReview(id, review);
+
+            return NoContent();
         }
 
         [HttpPut("{id:length(24)}")]
