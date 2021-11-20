@@ -77,6 +77,7 @@ const ClothingDetails = () => {
 
         ClothesService.postReview(clothingId, newReview);
 
+        setReview("");
         setReviews([...reviews, newReview]);
     }
 
