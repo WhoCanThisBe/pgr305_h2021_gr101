@@ -1,7 +1,7 @@
-import { useParams } from "react-router";
+import {useParams} from "react-router";
 import React, {ChangeEvent, FC, SetStateAction, useContext, useEffect, useState} from "react";
 import {ClothesContext} from "../../Contexts/ClothesContext";
-import { IProduct } from "../../Interfaces/IProduct";
+import {IProduct} from "../../Interfaces/IProduct";
 import {ClothesContextType} from "../../Types/ClothesContextType";
 import {Button, Form} from "react-bootstrap";
 import {CategoryDropdown} from "../Shared/CategoryDropdown";
@@ -14,9 +14,9 @@ const UpdateClothingForm: FC = () => {
 
     const history = createHistory();
 
-    const { id }: any = useParams();
+    const {id}: any = useParams();
 
-    const { fetchProductById } = useContext( ClothesContext ) as ClothesContextType;
+    const {fetchProductById} = useContext(ClothesContext) as ClothesContextType;
     const [clothing, setClothing] = useState<IProduct>({
         brandName: "",
         category: "Sko",
@@ -36,51 +36,51 @@ const UpdateClothingForm: FC = () => {
 
     // Set clothing by id on render
     useEffect(() => {
-            const _clothing = fetchProductById(id);
-            if (_clothing) {
-                setClothing(() => _clothing);
-                setSizes(() => _clothing.size);
-            }
-    },[id, fetchProductById]);
+        const _clothing = fetchProductById(id);
+        if (_clothing) {
+            setClothing(() => _clothing);
+            setSizes(() => _clothing.size);
+        }
+    }, [id, fetchProductById]);
 
     // One usestate for each dropdown-menu. useEffect puts the new dropdown choice into the Clothing useState
     const [newCategory, setCategory] = useState(clothing?.category);
     useEffect(() => {
-            if(clothing)
-                setClothing({...clothing, category: newCategory});
-        }, [newCategory]);
+        if (clothing)
+            setClothing({...clothing, category: newCategory});
+    }, [newCategory]);
 
     const [newSize, setSize] = useState(clothing?.size);
     useEffect(() => {
-        if(clothing)
+        if (clothing)
             setClothing({...clothing, size: newSize});
-        }, [newSize]);
+    }, [newSize]);
 
     const [newGender, setGender] = useState(clothing?.gender);
     useEffect(() => {
-        if(clothing)
+        if (clothing)
             setClothing({...clothing, gender: newGender});
-        }, [newGender]);
+    }, [newGender]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let { name } = event.target;
+        let {name} = event.target;
 
         // Updates the clothing every time an input changes
-        switch ( name ){
+        switch (name) {
             case "brand":
-                setClothing( {...clothing, brandName: event.target.value });
+                setClothing({...clothing, brandName: event.target.value});
                 break;
             case "name":
-                setClothing( {...clothing, clothingName: event.target.value });
+                setClothing({...clothing, clothingName: event.target.value});
                 break;
             case "stock":
-                setClothing( {...clothing, stock: parseInt(event.target.value) });
+                setClothing({...clothing, stock: parseInt(event.target.value)});
                 break;
             case "priceNok":
-                setClothing({...clothing, priceNok: parseInt(event.target.value) });
+                setClothing({...clothing, priceNok: parseInt(event.target.value)});
                 break;
             case "color":
-                setClothing( {...clothing, color: event.target.value });
+                setClothing({...clothing, color: event.target.value});
                 break;
         }
     };
@@ -139,15 +139,15 @@ const UpdateClothingForm: FC = () => {
 
             <h2>Sizes</h2>
             {sizes.map((size, index) => {
-              return <Form.Group>
-                  <Form.Label>Size Name: {size.name}</Form.Label>
-                  <Form.Control onChange={event => handleSizeChange(index, event)} name="size" type="text"/>
-                  <Form.Label>Size Stock: {size.stock}</Form.Label>
-                  <Form.Control onChange={event => handleSizeChange(index, event)} name="stock" type="number"/>
-                  <Button className={"mt-2"} variant={"danger"} onClick={() => removeSize(index)}>
-                      Remove size
-                  </Button>
-              </Form.Group>
+                return <Form.Group>
+                    <Form.Label>Size Name: {size.name}</Form.Label>
+                    <Form.Control onChange={event => handleSizeChange(index, event)} name="size" type="text"/>
+                    <Form.Label>Size Stock: {size.stock}</Form.Label>
+                    <Form.Control onChange={event => handleSizeChange(index, event)} name="stock" type="number"/>
+                    <Button className={"mt-2"} variant={"danger"} onClick={() => removeSize(index)}>
+                        Remove size
+                    </Button>
+                </Form.Group>
             })}
 
             <Form.Group>
@@ -156,8 +156,12 @@ const UpdateClothingForm: FC = () => {
                 </Button>
             </Form.Group>
             <Form.Group>
-                <CategoryDropdown onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Underdel" | "Accesories">)} category={newCategory}/>
-                <GenderDropdown onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)} gender={newGender}/>
+                <CategoryDropdown
+                    onCategoryChange={(eventKey, _) => setCategory(eventKey as SetStateAction<"Sko" | "Overdel" | "Underdel" | "Accesories">)}
+                    category={newCategory}/>
+                <GenderDropdown
+                    onGenderChange={(eventKey, _) => setGender(eventKey as SetStateAction<"Female" | "Unisex" | "Male">)}
+                    gender={newGender}/>
             </Form.Group>
             <Form.Group>
                 <Button className="mt-2" onClick={putNewClothing} variant="primary">

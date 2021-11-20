@@ -1,4 +1,4 @@
-﻿import React, { FC } from "react";
+﻿import React, {FC} from "react";
 import {Card} from "react-bootstrap";
 
 type Props = {

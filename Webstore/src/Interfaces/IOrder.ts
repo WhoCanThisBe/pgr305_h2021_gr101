@@ -1,7 +1,7 @@
-import { IProduct } from "./IProduct";
+import {IProduct} from "./IProduct";
 
 export interface IOrder {
-  id?: string;
-  products: IProduct[];
-  timestamp: string;
+    id?: string;
+    products: IProduct[];
+    timestamp: string;
 }

@@ -24,8 +24,8 @@ const AClothingList: FC = () => {
         const confirm = window.confirm(
             "Do you really want to delete this product?"
         );
-        if(confirm) {
-            if(id) {
+        if (confirm) {
+            if (id) {
                 ClothesService.deleteClothing(id);
                 setClothes(clothes.filter(clothing => clothing.id !== id));
             }
@@ -34,7 +34,7 @@ const AClothingList: FC = () => {
 
     const createClothingList = () => {
         if (clothes.length === 0) return <h4>Loading products, please wait...</h4>;
-        return clothes.map( (clothing: IProduct, key: number ) => {
+        return clothes.map((clothing: IProduct, key: number) => {
             return (
                 <ListGroup.Item key={key}>
                     <AClothingItem
@@ -46,9 +46,9 @@ const AClothingList: FC = () => {
         })
     };
 
-    return(
+    return (
         <Row>
-            { createClothingList() }
+            {createClothingList()}
         </Row>
     )
 };

@@ -22,7 +22,7 @@ type ClothingParams = {
 const ClothingDetails = () => {
     // Fetch "productId" sent here through `useHistory()`
     //const location = useLocation<ProductId>();
-    const { clothingId } = useParams<ClothingParams>();
+    const {clothingId} = useParams<ClothingParams>();
 
     const imageUrl = "https://localhost:5001/images";
 
@@ -42,7 +42,7 @@ const ClothingDetails = () => {
     // it also updates the value when we get here on navigation from different clothes
     useEffect(() => {
         const foundClothing = fetchProductById(clothingId);
-        
+
         // Simple but a little dirty fix to fix refresh
         if (!foundClothing) {
             getClothes().then((_clothes) => {
@@ -52,7 +52,7 @@ const ClothingDetails = () => {
                 setSizes(foundClothing.size);
                 setReviews(foundClothing.reviews);
             });
-            
+
             return;
         }
 
@@ -69,14 +69,14 @@ const ClothingDetails = () => {
 
     const [review, setReview] = useState("");
     const [reviews, setReviews] = useState<IReview[]>([]);
-    
+
     const createReview = (element: React.FormEvent) => {
         element.preventDefault();
-        
+
         const newReview: IReview = {text: review};
-        
+
         ClothesService.postReview(clothingId, newReview);
-        
+
         setReviews([...reviews, newReview]);
     }
 
@@ -147,7 +147,8 @@ const ClothingDetails = () => {
                                 <Row>
                                     <Form.Group>
                                         <Form.Label>Write a new review</Form.Label>
-                                        <Form.Control value={review} onChange={e => setReview(e.target.value)} name={"review"} type={"text"} placeholder={"Review"}/>
+                                        <Form.Control value={review} onChange={e => setReview(e.target.value)}
+                                                      name={"review"} type={"text"} placeholder={"Review"}/>
                                     </Form.Group>
                                 </Row>
                                 <Row>
@@ -161,7 +162,7 @@ const ClothingDetails = () => {
                                 </Row>
                             </Stack>
                         </Form>
-                        
+
                         <Stack direction={"vertical"} gap={3}>
                             {reviews.map((review, index) => {
                                 return <ReviewItem
