@@ -1,5 +1,14 @@
 # PGR305 H2021 Exam - Webutvikling 3
 
+## Hvordan bruke prosjektet
+
+- Last ned zip av prosjektet
+- Unzip filen til en mappe
+- Kjør npm install i terminalen i directory "Webstore"
+- Kjør dotnet watch run i terminalen i directory "WebstoreAPI" for å starte API'et
+- (Valgfritt: Endre mongoDb settings i appsettings.json)
+- Kjør npm start i terminalen i directory "Webstore" For å åpne nettsiden
+
 ## Om prosjektet
 
 Vi har valgt klesbutikk som tema med utvalg av klær m.m. 
