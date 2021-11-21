@@ -74,9 +74,9 @@ Enkelte sider kunne godt hatt en tilbake-knapp så man kommer tilbake "rett der 
 
 Hatt et "søke-ikon som blir til et søkefelt" og ha det plassert på et mer naturlig sted i navigasjonsbaren.
 
-Vise litt mer detaljer informasjon om produket på tilhørende detaljside, hvor sluttbrukeren nå må gjette hva som er: klesmerke, navn på klesplagget, kategorien den tilhører. 
+Vise litt mer detaljert informasjon om produket på tilhørende detaljside, hvor sluttbrukeren nå må gjette hva som er: klesmerke, navn på klesplagget og kategorien den tilhører. 
 
-Kunne ha funksjonalitet for å "legge inn nye produkter" og "endring av produkter" på forskjellige "sider"/"faner", slik at man slipper å bla ned til bunnen og toppen av siden hver gang man skal gjøre en av delene.
+Kunne hatt funksjonalitet for å "legge inn nye produkter" og "endring av produkter" på forskjellige "sider"/"faner", slik at man slipper å bla ned til bunnen og toppen av siden hver gang man skal gjøre en av delene.
 
 
 ## Fremtidige forbedringer
@@ -87,7 +87,7 @@ Kunne ha funksjonalitet for å "legge inn nye produkter" og "endring av produkte
 
 Be om bekreftelse før fjerning av et produkt i handlekurven.
 
-Ha "navigasjonslenker"/"tabs" for hver CRUD-operasjon en "admin" kan gjøre.
+Ha "navigasjonslenker"/"faner" for hver CRUD-operasjon en "admin" kan gjøre.
 
 Rydde opp i duplisert kode. f.eks. ved å flytte dupliserte hardkodede verdier til "sentraliserte punkter".
 
