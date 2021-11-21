@@ -123,6 +123,15 @@ export const ClothesService = (function () {
         }
     };
 
+    const deleteImage = (name: string) => {
+        if (name) {
+            axios.delete(`${urlToClothesController}/${name}`)
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    };
+
     const putClothingWithImage = (clothesIn: IProduct, image: File) => {
 
         let formData = new FormData();
@@ -150,6 +159,7 @@ export const ClothesService = (function () {
         putClothing,
         putClothingWithImage,
         deleteClothing,
+        deleteImage,
         postReview
     };
 })();

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, useContext, useEffect, useState} from "react";
-import  {useParams} from "react-router";
+import {useParams} from "react-router";
 import {ClothesContext} from "../../Contexts/ClothesContext";
 import {ClothesContextType} from "../../Types/ClothesContextType";
 import {IProduct} from "../../Interfaces/IProduct";
@@ -41,8 +41,7 @@ const ManageImages: FC = () => {
     }, [id, fetchProductById]);
 
     useEffect(() => {
-        if(newImage) {
-            if (clothing.images.length >= imagesProduct.length)
+        if (newImage) {
                 setImageProduct([...imagesProduct, {
                     name: newImage.name
                 }]);
@@ -51,34 +50,52 @@ const ManageImages: FC = () => {
 
     const handleNewImage = (event: ChangeEvent<HTMLInputElement>) => {
         let {files} = event.target;
-        if(files) {
+        if (files) {
             setNewImage(files[0]);
         }
     };
 
     const addImageToProduct = () => {
         setClothing({...clothing, images: imagesProduct});
-        console.log(imagesProduct)
     };
 
     // Send updated clothing to the service
     const putNewClothing = () => {
-        if(newImage)
+        if (newImage)
             ClothesService.putClothingWithImage(clothing, newImage);
     };
 
+    const deleteClothing = (clothing: IProduct, name: string) => {
+        setImageProduct(imagesProduct.filter(item => item.name !== name));
+        setTimeout( () => manageDeletion(clothing, name), 100);
+    };
+
+    const manageDeletion = (clothes: IProduct, name: string) => {
+        setClothing({...clothing, images: imagesProduct});
+        const confirm = window.confirm(
+            "Do you really want to delete this product?"
+        );
+        if (confirm) {
+            if (name && clothes) {
+                ClothesService.putClothing(clothes);
+                ClothesService.deleteImage(name);
+            }
+        }
+    };
+
     const createImageList = () => {
-      if(!clothing) return <h4>Loading products, please wait...</h4>
-        
+        if (!clothing) return <h4>Loading products, please wait...</h4>
+
         return imagesProduct.map((imagesProduct, key: number) => {
             return (
                 <Col key={key}>
                     <ImageItem image={imagesProduct}/>
                 </Col>
             )
-        })};
+        })
+    };
 
-    return(
+    return (
         <article>
             <Form onSubmit={putNewClothing}>
                 <Form.Group>
