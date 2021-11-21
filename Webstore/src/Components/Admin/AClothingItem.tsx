@@ -28,7 +28,7 @@ const AClothingItem: FC<Props> = ({garment, manageDeletion}) => {
                 <td>{garment.gender}</td>
                 <td>{garment.priceNok}</td>
                 <td>
-                    <Nav variant={"pills"} activeKey="1">
+                    <Nav variant={"pills"} activeKey="1" className="flex-column">
                         <Nav.Item>
                             <Nav.Link eventKey="1" href={`/update-clothing/${garment.id}`}>
                                 Update
