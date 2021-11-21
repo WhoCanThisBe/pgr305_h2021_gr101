@@ -3,7 +3,7 @@ import {ClothesContext} from "../../Contexts/ClothesContext";
 import {ClothesContextType} from "../../Types/ClothesContextType";
 import {IProduct} from "../../Interfaces/IProduct";
 import AClothingItem from "./AClothingItem";
-import {Col, Row} from "react-bootstrap";
+import {Col, ListGroup, Row} from "react-bootstrap";
 import {ClothesService} from "../../Services/ClothesService";
 
 const AClothingList: FC = () => {
@@ -24,8 +24,8 @@ const AClothingList: FC = () => {
         const confirm = window.confirm(
             "Do you really want to delete this product?"
         );
-        if(confirm) {
-            if(id) {
+        if (confirm) {
+            if (id) {
                 ClothesService.deleteClothing(id);
                 setClothes(clothes.filter(clothing => clothing.id !== id));
             }
@@ -34,21 +34,21 @@ const AClothingList: FC = () => {
 
     const createClothingList = () => {
         if (clothes.length === 0) return <h4>Loading products, please wait...</h4>;
-        return clothes.map( (clothing: IProduct, key: number ) => {
+        return clothes.map((clothing: IProduct, key: number) => {
             return (
-                <Col key={key}>
+                <ListGroup.Item key={key}>
                     <AClothingItem
                         garment={clothing}
                         manageDeletion={manageDeletion}
                     />
-                </Col>
+                </ListGroup.Item>
             )
         })
     };
 
-    return(
+    return (
         <Row>
-            { createClothingList() }
+            {createClothingList()}
         </Row>
     )
 };

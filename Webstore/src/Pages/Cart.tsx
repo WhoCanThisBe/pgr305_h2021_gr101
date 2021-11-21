@@ -7,18 +7,18 @@ import {RouteComponentProps} from "react-router";
 const Cart: FC<RouteComponentProps> = () => {
 
     const cartContext = React.useContext(CartContext) as CartContextType;
-        return (
-            <section>
-                <h1>Cart</h1>
-                <CartProvider>
-                    <CartList
-                        cartItems={cartContext.item}
-                        addToCart={cartContext.addToCart}
-                        removeFromCart={cartContext.removeFromCart}
-                    />
-                </CartProvider>
-            </section>
-        );
+    return (
+        <section>
+            <h1>Cart</h1>
+            <CartProvider>
+                <CartList
+                    cartItems={cartContext.item}
+                    addToCart={cartContext.addToCart}
+                    removeFromCart={cartContext.removeFromCart}
+                />
+            </CartProvider>
+        </section>
+    );
 };
 
 export default Cart;

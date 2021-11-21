@@ -13,11 +13,11 @@ namespace WebstoreAPI.Models
         public string BrandName { get; set; }
         public string ClothingName { get; set; }
         public string Category { get; set;}
-        public string Size { get; set; }
+        public List<Size> Size { get; set; }
         public string Color { get; set; }
         public string Gender { get; set; }
-        public int Stock { get; set; }
         public int PriceNok { get; set; }
         public List<Image> Images { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

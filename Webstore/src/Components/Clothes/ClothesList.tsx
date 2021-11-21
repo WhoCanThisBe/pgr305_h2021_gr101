@@ -18,7 +18,7 @@ const ClothesList: FC<Props> = ({ filter }) => {
   const history = useHistory();
 
   const handleNavigationToDetails = (product: IProduct) => {
-    history.push(`/${product.brandName}-${product.clothingName}`, {
+    history.push(`/clothing/${product.id}`, {
       id: product.id,
     });
   };
@@ -51,7 +51,7 @@ const ClothesList: FC<Props> = ({ filter }) => {
   };
 
   return (
-    <Row sm={2} md={2} lg={4} className={"gap-3"}>
+    <Row xs={12} md={6} lg={5} className={"gap-3"}>
       {createClothesList()}
     </Row>
   );

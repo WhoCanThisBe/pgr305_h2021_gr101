@@ -5,8 +5,8 @@ import AClothingList from "../Components/Admin/AClothingList";
 
 type Props = {};
 
-const Admin: FC<Props & RouteComponentProps>  = () => {
-    return(
+const Admin: FC<Props & RouteComponentProps> = () => {
+    return (
         <article>
             <h1>Add New Clothes</h1>
             <CreateClothingForm/>
