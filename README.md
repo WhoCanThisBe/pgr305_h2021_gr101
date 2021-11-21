@@ -83,13 +83,15 @@ Kunne ha funksjonalitet for å "legge inn nye produkter" og "endring av produkte
 
 "Loadingindicator/progressbar" når klær lastes inn, så man får en litt mer behagelig overgang.
 
-"Dropdown"-lister med ekstra filtere for søk (f.eks.: størrelse). 
+"Dropdown"-lister med ekstra filtere for søk (f.eks.: størrelse). Ved dette kan man også vurdere å lage en egen "SearchContext" m.m.
 
 Be om bekreftelse før fjerning av et produkt i handlekurven.
 
 Ha "navigasjonslenker"/"tabs" for hver CRUD-operasjon en "admin" kan gjøre.
 
-...
+Rydde opp i duplisert kode. f.eks. ved å flytte dupliserte hardkodede verdier til "sentraliserte punkter".
+
+Legge opp søtte for "dark mode".
 
 
 ### Tema valgt : Ett eller annet med klær, vesker, klokker e.l.
