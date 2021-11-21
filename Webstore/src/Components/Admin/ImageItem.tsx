@@ -8,9 +8,7 @@ type Props = {
 
 const ImageItem: FC<Props> = ({image}) => {
   return(
-      <Card
-          className={"clickable"}
-      >
+      <Card>
           <Card.Img
               src={`https://localhost:5001/images/${image.name}`}
           />
