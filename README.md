@@ -1,5 +1,53 @@
 # PGR305 H2021 Exam - Webutvikling 3
 
+## Om prosjektet
+
+Vi har valgt klesbutikk som tema med utvalg av klær m.m. 
+
+Informasjon om klær ligger på en ekstern MongoDB dokument-database og hentes via WebAPI fra backend.
+vi har også lagt opp "placeholder"-informasjon som brukes om ekstern database er utilgjengelig.
+
+Informasjonen som hentes kan endres på via en "Admin-portal" og vises for "kundene".
+
+
+- Backend WebAPI.
+  - Controller for Klær og opplasting av bilder.
+  - Interfaces for attributter relatert til Klær og Anmeldelse.
+  - Modeller for attributter relatert til Klær og Anmeldelse.
+
+
+- Admin-portal.
+  - Legge inn nye klær (Create).
+  - Hente informasjon om klær (Read).
+  - Oppdatere kles-informasjon (Update).
+  - Slette kles-informasjon (Delete).
+
+
+- Frontend butikkløsning.
+  - Hjem-side og egne "hjem"-sider for valgt kjønn.
+    - Filtering av viste klær basert på valgt kjønn.
+  - Visning av liste med klær basert på valgt kategori (f.eks: "Shoes").
+  - Visning av detalj-side for klesplagget man trykker på.
+    - Kunne trykke på "thumnail"-bildene for å se flere bilder for produktet.
+    - Velge ønsket størrelse og legge til produkt i en handlekurv.
+    - Kunne legge inn en annmeldelse for produktet.
+  - Visning produkter i handlekurven med mulighet for å legge til/fjerne antall.
+  - Søkefelt som viser liste med resultater basert på nøkkelord (kjønn, kategori, merkenavn og navn på klesplagget) 
+
+## Begrunnelse av valg
+
+...
+
+## Hva kunne vært gjort annerledes
+ 
+Vi kunne ha vist tilpassede feilmeldinger til sluttbruker, istedenfor å bare skrive ut feilmelding til konsoll.  
+...
+
+## Fremtidige forbedringer
+
+...
+
+
 ### Tema valgt : Ett eller annet med klær, vesker, klokker e.l.
 
 ### Tools
