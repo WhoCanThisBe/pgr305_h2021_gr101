@@ -28,8 +28,8 @@ const ManageImages: FC = () => {
         reviews: []
     });
 
-    const [imagesProduct, setImageProduct] = useState<IImage[]>([]);
     const [newImage, setNewImage] = useState<File>();
+    const [imagesProduct, setImageProduct] = useState<IImage[]>([]);
 
     // Set clothing by id on render
     useEffect(() => {
@@ -42,10 +42,10 @@ const ManageImages: FC = () => {
 
     useEffect(() => {
         if(newImage) {
-            if(clothing.images.length >= imagesProduct.length)
-            setImageProduct([...imagesProduct, {
-                name: newImage.name
-            }]);
+            if (clothing.images.length >= imagesProduct.length)
+                setImageProduct([...imagesProduct, {
+                    name: newImage.name
+                }]);
         }
     }, [newImage]);
 
@@ -56,18 +56,15 @@ const ManageImages: FC = () => {
         }
     };
 
-    const clearImage = () => {
-        setImageProduct(() => clothing.images);
-    };
-
     const addImageToProduct = () => {
         setClothing({...clothing, images: imagesProduct});
+        console.log(imagesProduct)
     };
 
     // Send updated clothing to the service
     const putNewClothing = () => {
         if(newImage)
-        ClothesService.putClothingWithImage(clothing, newImage);
+            ClothesService.putClothingWithImage(clothing, newImage);
     };
 
     const createImageList = () => {
@@ -85,16 +82,11 @@ const ManageImages: FC = () => {
         <article>
             <Form onSubmit={putNewClothing}>
                 <Form.Group>
-                    <Form.Control onChange={handleNewImage} type="file" required/>
+                    <Form.Control disabled={!!newImage} onChange={handleNewImage} type="file" required/>
                 </Form.Group>
                 <Form.Group>
                     <Button onClick={addImageToProduct} variant="light">
                         Save Image
-                    </Button>
-                </Form.Group>
-                <Form.Group>
-                    <Button onClick={clearImage} variant={"danger"}>
-                        Clear Image
                     </Button>
                 </Form.Group>
                 <Form.Group>
