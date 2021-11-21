@@ -7,11 +7,14 @@ Vi har valgt klesbutikk som tema med utvalg av klær m.m.
 Informasjon om klær ligger på en ekstern MongoDB dokument-database og hentes via WebAPI fra backend.
 vi har også lagt opp "placeholder"-informasjon som brukes om ekstern database er utilgjengelig.
 
-Informasjonen som hentes kan endres på via en "Admin-portal" og vises for "kundene".
+Informasjonen som hentes kan endres på via en "Admin-portal" og vises for "kundene" via en butikkløsning på frontend.
+
+Kommunikasjon mellom WebAPI på backend og butikkløsning på frontend går over forskjellige porter, som håndteres via CORS-oppsett på backend.
 
 
 - Backend WebAPI.
   - Controller for Klær og opplasting av bilder.
+    - Hente "collections" av klær, legge inn nye klær, endre attributter på klær og slette klær fra MongoDB via Serviceklasse.
   - Interfaces for attributter relatert til Klær og Anmeldelse.
   - Modeller for attributter relatert til Klær og Anmeldelse.
 
