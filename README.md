@@ -37,16 +37,49 @@ Kommunikasjon mellom WebAPI på backend og butikkløsning på frontend går over
   - Visning produkter i handlekurven med mulighet for å legge til/fjerne antall.
   - Søkefelt som viser liste med resultater basert på nøkkelord (kjønn, kategori, merkenavn og navn på klesplagget) 
 
+
 ## Begrunnelse av valg
 
-...
+Vi har valgt å lage en egen Admin-portal hvor man gjør CRUD-operasjoner mot WebAPI, for å skille det ut fra hva "kunder" skal kunne gjøre.
+
+For å gi "kunden" et klart inntrykk av at man kan interagere med klær som vises, så har vi valgt å fremheve klær man flytter musepekeren over. 
+
+Ved valg mellom forskjellige gitte verdier har vi valgt å benytte "dropdown"-lister, siden det kun gir mulighet til å velge noe som er gyldig og da sikrer mot feil.
+
+Vi har valgt å benytte "Context" som gjør komponentene i butikk-delen av applikasjonen mindre avhengig av hverandre, og muliggjør kommunikasjon på tvers av bredde og dybde i et "komponent-hierarki".
+
+For å kunne bytte mellom "admin-portalen" og "kunde-sidene" raskt valgte vi å legge inn knapper for dette rett på navigasjonsbaren.
+
+Ved innlastning av forskjellig informasjon viser vi beskjed om at innhold blir lastet inn, slik at sluttbrukeren vet at noe skjer og at løsningen ikke har stoppet å fungere.
+
+
 
 ## Hva kunne vært gjort annerledes
  
 Vi kunne ha vist tilpassede feilmeldinger til sluttbruker, istedenfor å bare skrive ut feilmelding til konsoll.  
-...
+
+Vi kunne hatt mer "space" mellom enkelte deler (f.eks. mellom navigasjonsbar og overskrift på vist side).
+
+Vi kunne ha lagt opp funksjonalitet for å bytte mellom vist bilde på detaljsiden til valgt produkt, når man flytter musepekeren over en "thumbnail".
+
+Enkelte sider kunne godt hatt en tilbake-knapp så man kommer tilbake "rett der man var" som gir en bedre brukeropplevelse.
+
+Hatt et "søke-ikon som blir til et søkefelt" og ha det plassert på et mer naturlig sted i navigasjonsbaren.
+
+Vise litt mer detaljer informasjon om produket på tilhørende detaljside, hvor sluttbrukeren nå må gjette hva som er: klesmerke, navn på klesplagget, kategorien den tilhører. 
+
+Kunne ha funksjonalitet for å "legge inn nye produkter" og "endring av produkter" på forskjellige "sider"/"faner", slik at man slipper å bla ned til bunnen og toppen av siden hver gang man skal gjøre en av delene.
+
 
 ## Fremtidige forbedringer
+
+"Loadingindicator/progressbar" når klær lastes inn, så man får en litt mer behagelig overgang.
+
+"Dropdown"-lister med ekstra filtere for søk (f.eks.: størrelse). 
+
+Be om bekreftelse før fjerning av et produkt i handlekurven.
+
+Ha "navigasjonslenker"/"tabs" for hver CRUD-operasjon en "admin" kan gjøre.
 
 ...
 
