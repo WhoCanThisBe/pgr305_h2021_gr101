@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ClothesContext } from "../Contexts/ClothesContext";
 import { ClothesContextType } from "../Types/ClothesContextType";
 import { CartContext } from "../Contexts/CartContext";
@@ -98,12 +98,13 @@ const ClothingDetails = () => {
                   size={selectedSize as IProduct["size"]}
                 />
                 <AddToCartButton
-                  isDisabled={!selectedSize}
+                  isDisabled={!selectedSize || clothing.stock <= 0}
                   onClick={() => {
                     addToCart({ ...clothing, size: selectedSize! });
                     setSelectedSize(undefined);
                   }}
                 />
+                {clothing.stock <= 0 ? <p>This product is not in stock</p> : null}
               </ButtonGroup>
             </Row>
           </Stack>

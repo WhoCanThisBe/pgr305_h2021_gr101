@@ -107,17 +107,19 @@ const NavigationBar: FC = () => {
     useState<Viewmode["name"]>("customer");
 
   // Counter that shows how many items are in the cart
+  const [countItems, setCountItems] = useState(0);
 
-  const showCartItemCount = () => {
+  const showCartItemCount = (count: number) => {
+      if (count <= 0) return (<></>);
+      return (<span>{count}</span>)
+    };
+
+  useEffect(() => {
     const cartItems = localStorage.getItem('items');
     if(cartItems) {
       const cartItemsParsed = JSON.parse(cartItems);
-      if (cartItemsParsed <= 0) return (<></>);
-      return (
-            <span>{cartItemsParsed.length}</span>
-      )
-    }
-  };
+      setCountItems(cartItemsParsed.length)
+  }},[countItems]);
 
   return (
     <Navbar bg="myGrey" variant="dark">
@@ -186,7 +188,7 @@ const NavigationBar: FC = () => {
                         alt={"Shopping-cart Icon"}
                         src={cartIco}
                         width={"40"} />
-                    {showCartItemCount()}
+                    {showCartItemCount(countItems)}
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
