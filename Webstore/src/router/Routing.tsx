@@ -14,6 +14,7 @@ import Admin from "../Pages/Admin";
 import UpdateClothingForm from "../Components/Admin/UpdateClothingForm";
 import ClothingDetails from "../Pages/ClothingDetails";
 import Search from "../Pages/Search";
+import ManageImages from "../Components/Admin/ManageImages";
 
 const Routing: FC = () => {
     return (
@@ -78,6 +79,14 @@ const Routing: FC = () => {
                                 </ClothesProvider>
                             );
                         }}
+                    />
+                    <Route
+                        path={"/manage-images/:id"}
+                        render={() => (
+                            <ClothesProvider>
+                                <ManageImages />
+                            </ClothesProvider>
+                        )}
                     />
                     <Route
                         path={"/cart"}

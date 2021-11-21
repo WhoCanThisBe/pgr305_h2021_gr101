@@ -94,7 +94,7 @@ const CreateClothingForm: FC = () => {
         }
 
         setNewClothing({...newClothing, size: sizes});
-    }
+    };
 
     // TODO Add Input validation before running this method
 
@@ -111,12 +111,12 @@ const CreateClothingForm: FC = () => {
             name: "",
             stock: 0
         }]);
-    }
+    };
 
     const removeSize = (index: number) => {
         const _sizes = sizes.filter((_, i) => i !== index);
         setSizes(_sizes);
-    }
+    };
 
     return (
         <article>
