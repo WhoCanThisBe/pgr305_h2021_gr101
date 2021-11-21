@@ -18,26 +18,26 @@ const CartItem: FC<Props> = ({clothing, addToCart, removeFromCart}) => {
                 </Col>
                 <Col>
                     <Card.Body>
-                        <Card.Text>{clothing.brandName}</Card.Text>
+                        <Card.Text>Brand Name: {clothing.brandName}</Card.Text>
                         <Card.Text>{clothing.category} {clothing.color}</Card.Text>
-                        <Card.Text>{clothing.size[0].name}</Card.Text>
+                        <Card.Text>Size: {clothing.size[0].name}</Card.Text>
                         <Button
-                            variant={"contained"}
-                            onClick={() => removeFromCart(clothing.id, clothing.size[0].name)}
-                        >
-                            Remove
-                        </Button>
-                        <Button
-                            variant={"contained"}
+                            variant={"success"}
                             onClick={() => addToCart(clothing)}
                         >
                             Add
+                        </Button>
+                        <Button
+                            variant={"danger"}
+                            onClick={() => removeFromCart(clothing.id, clothing.size[0].name)}
+                        >
+                            Remove
                         </Button>
                     </Card.Body>
                 </Col>
                 <Col>
                     <Card.Body>
-                        <Card.Text>{clothing.amount}</Card.Text>
+                        <Card.Text>Quantity: {clothing.amount}</Card.Text>
                         <Card.Text>Price: {clothing.priceNok * clothing.amount}</Card.Text>
                     </Card.Body>
                 </Col>
