@@ -40,18 +40,26 @@ Kommunikasjon mellom WebAPI på backend og butikkløsning på frontend går over
 
 ## Begrunnelse av valg
 
+I butikkdelen av applikasjonen bestemte vi oss for å ha en hovedside som viser alle produkter (Klær, Sko, osv...).
+Og delsider som viser produktene sortert etter kategorier. Vi gjorde det på denne måten fordi, vi hadde lyst til at dataene i databasen
+skulle ha betydningsfull mening i applikasjonsdelen av oppgaven.
+
 Vi har valgt å lage en egen Admin-portal hvor man gjør CRUD-operasjoner mot WebAPI, for å skille det ut fra hva "kunder" skal kunne gjøre.
-
-For å gi "kunden" et klart inntrykk av at man kan interagere med klær som vises, så har vi valgt å fremheve klær man flytter musepekeren over. 
-
-Ved valg mellom forskjellige gitte verdier har vi valgt å benytte "dropdown"-lister, siden det kun gir mulighet til å velge noe som er gyldig og da sikrer mot feil.
+For å kunne bytte mellom "admin-portalen" og "kunde-sidene" raskt valgte vi å legge inn knapper for dette rett på navigasjonsbaren.
 
 Vi har valgt å benytte "Context" som gjør komponentene i butikk-delen av applikasjonen mindre avhengig av hverandre, og muliggjør kommunikasjon på tvers av bredde og dybde i et "komponent-hierarki".
 
-For å kunne bytte mellom "admin-portalen" og "kunde-sidene" raskt valgte vi å legge inn knapper for dette rett på navigasjonsbaren.
+Ved valg mellom forskjellige gitte verdier har vi valgt å benytte "dropdown"-lister, siden det kun gir mulighet til å velge noe som er gyldig og da sikrer mot feil.
+
+Siden et produkt kan ha inneholde flere bilder valgte vi å separere redigering-funsksjonaliteten fra opplasting og sletting av bilder,
+på denne måten blir redigering av produkter mer oversiktlig, både for administrator og i koden.
 
 Ved innlastning av forskjellig informasjon viser vi beskjed om at innhold blir lastet inn, slik at sluttbrukeren vet at noe skjer og at løsningen ikke har stoppet å fungere.
 
+For å gi "kunden" et klart inntrykk av at man kan interagere med klær som vises, så har vi valgt å fremheve klær man flytter musepekeren over. 
+
+Vi valgte å ikke inkludere en checkout i handlekurv delen av applikasjonen. Dette er fordi det vanligvis er noe som krever sitt eget API.
+I tillegg ville vi bare kunne brukt det til å oppdatere verdier i databasen. Noe vi allerede har fått til på admin pagen.
 
 
 ## Hva kunne vært gjort annerledes
