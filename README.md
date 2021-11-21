@@ -36,7 +36,15 @@ Informasjonen som hentes kan endres på via en "Admin-portal" og vises for "kund
 
 ## Begrunnelse av valg
 
-...
+I butikkdelen av applikasjonen bestemte vi oss for å ha en hovedside som viser alle produkter (Klær, Sko, osv...).
+Og delsider som viser produktene sortert etter kategorier. Vi gjorde det på denne måten fordi, vi hadde lyst til at dataene i databasen
+skulle ha betydningsfull mening i applikasjonsdelen av oppgaven.
+
+Vi valgte å ikke inkludere en checkout i handlekurv delen av applikasjonen. Dette er fordi dette vanligvis er noe som krever sitt eget API.
+I tillegg ville vi bare kunne brukt det til å oppdatere verdier i databasen. Noe vi allerede har fått til på admin pagen.
+
+Siden et produkt kan ha inneholde flere bilder valgte vi å separere redigering-funsksjonaliteten fra opplasting og sletting av bilder,
+på denne måten blir redigering av produkter mer oversiktlig, både for administrator og i koden.
 
 ## Hva kunne vært gjort annerledes
  
