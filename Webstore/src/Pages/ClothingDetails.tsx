@@ -135,11 +135,12 @@ const ClothingDetails = () => {
                                     clothingSizes={sizes}
                                 />
                                 <AddToCartButton
-                                    isDisabled={!selectedSize}
+                                    isDisabled={!selectedSize || clothing.stock <= 0}
                                     onClick={() => {
                                         addToCart({...clothing, size: [selectedSize!]});
                                     }}
                                 />
+                                {clothing.stock <= 0 ? <p>This product is not in stock</p> : null}
                             </ButtonGroup>
                         </Row>
 

@@ -14,9 +14,14 @@ const AClothingItem: FC<Props> = ({garment, manageDeletion}) => {
             <h2>Stock: {garment.stock}</h2>
             <Nav variant={"pills"} activeKey="1">
                 <Nav.Item>
-                    <Nav.Link eventKey="1" href={`/update-clothing/${garment.id}`}>
-                        Update
-                    </Nav.Link>
+                    <Button variant={"primary"} href={`/update-clothing/${garment.id}`}>
+                        Edit
+                    </Button>
+                </Nav.Item>
+                <Nav.Item>
+                    <Button variant={"success"} href={`/manage-images/${garment.id}`}>
+                        Images
+                    </Button>
                 </Nav.Item>
                 <Nav.Item>
                     <Button onClick={() => manageDeletion(garment.id)} variant={"danger"}>

@@ -1,5 +1,4 @@
 import React, {ChangeEvent, FC, SetStateAction, useEffect, useState} from "react";
-import {SizeDropdown} from "../Shared/SizeDropdown"
 import {CategoryDropdown} from "../Shared/CategoryDropdown";
 import {GenderDropdown} from "../Shared/GenderDropdown";
 import {IProduct} from "../../Interfaces/IProduct";
@@ -94,12 +93,8 @@ const CreateClothingForm: FC = () => {
         }
 
         setNewClothing({...newClothing, size: sizes});
-    }
+    };
 
-    // TODO Add Input validation before running this method
-
-    // TODO Find way to reload list in AClothingList when calling this method to replace history.go()
-    // TODO have a checker that the file you put in passes only if its a jpeg
     const postNewClothing = (e: React.FormEvent) => {
         e.preventDefault();
         ClothesService.postClothing(newClothing, newImage as File);
@@ -111,12 +106,12 @@ const CreateClothingForm: FC = () => {
             name: "",
             stock: 0
         }]);
-    }
+    };
 
     const removeSize = (index: number) => {
         const _sizes = sizes.filter((_, i) => i !== index);
         setSizes(_sizes);
-    }
+    };
 
     return (
         <article>

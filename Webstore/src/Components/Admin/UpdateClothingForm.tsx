@@ -3,7 +3,7 @@ import React, {ChangeEvent, FC, SetStateAction, useContext, useEffect, useState}
 import {ClothesContext} from "../../Contexts/ClothesContext";
 import {IProduct} from "../../Interfaces/IProduct";
 import {ClothesContextType} from "../../Types/ClothesContextType";
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, Image, Nav, Stack} from "react-bootstrap";
 import {CategoryDropdown} from "../Shared/CategoryDropdown";
 import {GenderDropdown} from "../Shared/GenderDropdown";
 import {ClothesService} from "../../Services/ClothesService";
@@ -99,7 +99,7 @@ const UpdateClothingForm: FC = () => {
         }
 
         setClothing({...clothing, size: sizes});
-    }
+    };
 
     const putNewClothing = () => {
         ClothesService.putClothing(clothing);
@@ -111,15 +111,24 @@ const UpdateClothingForm: FC = () => {
             name: "",
             stock: 0
         }]);
-    }
+    };
 
     const removeSize = (index: number) => {
         const _sizes = sizes.filter((_, i) => i !== index);
         setSizes(_sizes);
-    }
+    };
 
     return (
         <Form>
+            <Nav>
+                <Nav.Link href={"/admin"}>
+                    <Image
+                        src={require("../../Images/left-arrow.png").default}
+                        height={32}
+                        width={32}
+                    />
+              </Nav.Link>
+            </Nav>
             <Form.Group>
                 <Form.Label>Brand: {clothing?.brandName}</Form.Label>
                 <Form.Control onChange={handleChange} name="brand" type="text"/>

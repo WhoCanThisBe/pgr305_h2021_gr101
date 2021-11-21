@@ -32,7 +32,9 @@ const CartProvider: FC = ({children}) => {
             if (itemInCart) {
                 return prev.map(item =>
                     (item.id === clickedItem.id &&
-                        item.size[0] === clickedItem.size[0])
+                        item.size[0] === clickedItem.size[0] &&
+                            clickedItem.amount < item.size[0].stock
+                    )
                         ? {...item, amount: item.amount + 1} // If item found update amount
                         : item                                // Else return items as is
                 );

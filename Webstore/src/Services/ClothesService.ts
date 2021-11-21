@@ -77,7 +77,6 @@ export const ClothesService = (function () {
     // Post a new clothing to the API with an image
     const postClothing = (newClothes: IProduct, image: File) => {
 
-
         let formData = new FormData();
         formData.append("file", image);
 
@@ -88,12 +87,11 @@ export const ClothesService = (function () {
                     method: "POST",
                     data: formData,
                     headers: {"Content-Type": "multipart/form-data"}
-                })
+                });
                 axios.post(urlToClothesController, newClothes);
 
             } catch (error) {
                 console.error(error);
-                return _fallbackClothes;
             }
         }
     };
@@ -106,7 +104,7 @@ export const ClothesService = (function () {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const putClothing = (newClothes: IProduct) => {
         try {
@@ -125,10 +123,32 @@ export const ClothesService = (function () {
         }
     };
 
+    const putClothingWithImage = (clothesIn: IProduct, image: File) => {
+
+        let formData = new FormData();
+        formData.append("file", image);
+
+        if (formData) {
+            try {
+                axios({
+                    url: urlToImageUploadController,
+                    method: "POST",
+                    data: formData,
+                    headers: {"Content-Type": "multipart/form-data"}
+                });
+                axios.put(`${urlToClothesController}/${clothesIn.id}`, clothesIn);
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
     return {
         getAll,
         postClothing,
         putClothing,
+        putClothingWithImage,
         deleteClothing,
         postReview
     };
