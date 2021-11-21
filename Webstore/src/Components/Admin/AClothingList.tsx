@@ -3,8 +3,9 @@ import {ClothesContext} from "../../Contexts/ClothesContext";
 import {ClothesContextType} from "../../Types/ClothesContextType";
 import {IProduct} from "../../Interfaces/IProduct";
 import AClothingItem from "./AClothingItem";
-import {Col, ListGroup, Row} from "react-bootstrap";
+import {Col, ListGroup, Row, Table} from "react-bootstrap";
 import {ClothesService} from "../../Services/ClothesService";
+import {toASCII} from "punycode";
 
 const AClothingList: FC = () => {
 
@@ -36,17 +37,21 @@ const AClothingList: FC = () => {
         if (clothes.length === 0) return <h4>Loading products, please wait...</h4>;
         return clothes.map((clothing: IProduct, key: number) => {
             return (
+
                 <ListGroup.Item key={key}>
                     <AClothingItem
                         garment={clothing}
                         manageDeletion={manageDeletion}
                     />
                 </ListGroup.Item>
+
+
             )
         })
     };
 
     return (
+
         <Row>
             {createClothingList()}
         </Row>
